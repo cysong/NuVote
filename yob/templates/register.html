@@ -1,0 +1,116 @@
+{% extends 'layout.html' %}
+
+{% block title %}Register{% endblock %}
+
+{% block content %}
+<div class="container mt-5 mb-5">
+    <h2 class="text-center mb-4">Sign Up</h2>
+
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            <form action="{{ url_for('register') }}" class="needs-validation" method="POST" novalidate>
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" name="username" id="username" placeholder="Username"
+                           value="{{ form_data['username'] }}" pattern="[A-Za-z0-9]{1,50}" required>
+                    <label for="username">Username</label>
+                    <div class="invalid-feedback">
+                        Username must contain only characters and numbers! Max length is 50.
+                    </div>
+                </div>
+
+                <div class="form-floating mb-3">
+                    <input type="email" class="form-control" name="email" id="email" placeholder="Email"
+                           value="{{ form_data['email'] }}" required>
+                    <label for="email">Email address</label>
+                    <div class="invalid-feedback">
+                        Please enter a valid email (example@domain.com).
+                    </div>
+                </div>
+
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" name="first_name" id="first_name" placeholder="First name"
+                           value="{{ form_data['first_name'] }}" pattern="[A-Za-z0-9 ]{1,50}" required>
+                    <label for="first_name">First name</label>
+                    <div class="invalid-feedback">
+                        First name must contain only characters and numbers! Max length is 50.
+                    </div>
+                </div>
+
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" name="last_name" id="last_name" placeholder="Last name"
+                           value="{{ form_data['last_name'] }}" pattern="[A-Za-z0-9 ]{1,50}" required>
+                    <label for="last_name">Last name</label>
+                    <div class="invalid-feedback">
+                        Last name must contain only characters and numbers! Max length is 50.
+                    </div>
+                </div>
+
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" name="location" id="location" placeholder="Location"
+                           value="{{ form_data['location'] }}" required>
+                    <label for="location">Location</label>
+                    <div class="invalid-feedback">
+                        Location is required.
+                    </div>
+                </div>
+
+                <div class="form-floating mb-3">
+                    <input type="password" class="form-control" name="password" id="password" placeholder="Password"
+                           pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"
+                           required>
+                    <label for="password">Password</label>
+                    <div class="invalid-feedback" id="passwordFeedback">
+                        Password must be at least 8 characters long and include a mix of letters, numbers, and special
+                        characters (@$!%*?&).
+                    </div>
+                    <small id="passwordHelp" class="form-text text-muted">
+                        Password must be at least 8 characters long and include a mix of letters, numbers, and special
+                        characters (@$!%*?&).
+                    </small>
+                </div>
+
+                <div class="form-floating mb-3">
+                    <input type="password" class="form-control" name="password2" id="password2"
+                           placeholder="Confirm Password" required>
+                    <label for="password2">Confirm Password</label>
+                    <div class="invalid-feedback" id="passwordMismatchFeedback">
+                        Passwords do not match.
+                    </div>
+                </div>
+
+                <div class="d-grid gap-2 mt-4">
+                    <button class="btn btn-success" type="submit">Sign Up</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const form = document.querySelector('form');
+        const password = document.getElementById('password');
+        const password2 = document.getElementById('password2');
+        const passwordMismatchFeedback = document.getElementById('passwordMismatchFeedback');
+
+        function updatePassword2Pattern() {
+            const passwordLength = password.value.length;
+            password2.pattern = `^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{${passwordLength},}$`;
+        }
+
+        password.addEventListener('input', updatePassword2Pattern);
+
+        form.addEventListener('submit', function(event) {
+            if (password.value !== password2.value) {
+                event.preventDefault();
+                password2.classList.add('is-invalid');
+                passwordMismatchFeedback.style.display = 'block';
+                password.value = '';
+            } else {
+                password2.classList.remove('is-invalid');
+                passwordMismatchFeedback.style.display = 'none';
+            }
+        });
+    });
+</script>
+{% endblock %}
