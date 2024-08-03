@@ -14,6 +14,7 @@ def login():
         return redirect(url_for('index'))
 
     if request.method == 'POST':
+        username = ''
         if are_fields_present(request, LOGIN_REQUIRED_FIELDS):
             username = request.form['username']
             user_password = request.form['password']
@@ -25,12 +26,9 @@ def login():
                 if is_user_password_valid_by_username(username, user_password):
                     login_user(user)
                     return redirect(url_for('index'))
-                else:
-                    flash('Incorrect password!', 'danger')
-            else:
-                flash('Incorrect username', 'danger')
 
-        return redirect(url_for('login'))
+        flash('Incorrect credential!', 'danger')
+        return render_template('login.html', username=username)
 
     # Show the login form with message (if any)
     return render_template('login.html')
@@ -38,7 +36,7 @@ def login():
 
 def login_user(user):
     session['loggedin'] = True
-    session['id'] = user['user_id']
+    session['user_id'] = user['user_id']
     session['username'] = user['username']
     session['role'] = user['role']
     session['status'] = user['status']
@@ -49,7 +47,7 @@ def login_user(user):
 def logout():
     # Remove session data to log the user out
     session.pop('loggedin', None)
-    session.pop('id', None)
+    session.pop('user_id', None)
     session.pop('username', None)
     session.pop('role', None)
     session.pop('status', None)
