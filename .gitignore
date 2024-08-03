@@ -371,3 +371,4 @@ connect.py
 *.pdf
 docker-compose.yml
 yob/static/*_images/*.jpg
+!yob/static/*_images/default.jpg
