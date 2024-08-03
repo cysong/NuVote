@@ -1,7 +1,8 @@
 import mysql.connector
 
 from yob import connect, hashing, PASSWORD_SALT
-from yob.config import DEFAULT_PROFILE_IMAGES_FOLDER, DEFAULT_PROFILE_IMAGE, DEFAULT_USER_ROLE, DEFAULT_USER_STATUS
+from yob.config import DEFAULT_PROFILE_IMAGES_FOLDER, DEFAULT_USER_ROLE, DEFAULT_USER_STATUS, \
+    DEFAULT_PROFILE_IMAGE_PATH
 from yob.utility import get_current_datetime
 
 
@@ -103,7 +104,7 @@ def handle_default_profile(user):
         return None
     # Set default Profile Image
     if user['profile_image'] == '':
-        user['profile_image'] = f"/{DEFAULT_PROFILE_IMAGES_FOLDER}/default_profile.png"
+        user['profile_image'] = DEFAULT_PROFILE_IMAGE_PATH
     else:
         user['profile_image'] = f"/{DEFAULT_PROFILE_IMAGES_FOLDER}/{user['profile_image']}"
     return user
@@ -131,7 +132,7 @@ def create_user(user: User):
             user.location,
             user.email,
             user.description,
-            DEFAULT_PROFILE_IMAGE,
+            DEFAULT_PROFILE_IMAGE_PATH,
             hashing.hash_value(user.password, PASSWORD_SALT),
             DEFAULT_USER_ROLE,
             DEFAULT_USER_STATUS,

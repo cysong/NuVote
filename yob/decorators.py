@@ -3,24 +3,24 @@ from functools import wraps
 from flask import session, redirect, url_for, flash, render_template, request
 
 from yob import app
-from yob.config import DEFAULT_USER_ROLE
 
 
 # Helper functions to manage session data
 def is_logged_in():
-    return 'loggedin' in session and 'id' in session and 'username' in session and 'role' in session
+    return ('loggedin' in session and session['loggedin'] and
+            'user_id' in session and 'username' in session and 'role' in session)
 
 
 def get_role_from_session():
-    return session['role'] if 'role' in session else DEFAULT_USER_ROLE
+    return session['role'] if 'role' in session else ''
 
 
 def get_status_from_session():
-    return session['status'] if 'status' in session else 'inactive'
+    return session['status'] if 'status' in session else ''
 
 
 def get_user_id_from_session():
-    return session['id'] if 'id' in session else 0
+    return session['user_id'] if 'user_id' in session else ''
 
 
 def get_username_id_from_session():
@@ -37,7 +37,7 @@ def inject_user():
 def login_required(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
-        if 'loggedin' not in session:
+        if not is_logged_in():
             flash("Access denied", "danger")
             return redirect(url_for('login'))
         return f(*args, **kwargs)
@@ -60,7 +60,7 @@ def owner_required(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
         user_id = kwargs.get('user_id')
-        if user_id != session['id']:
+        if user_id != session['user_id']:
             flash("Access denied", "danger")
             return render_template('error.html')
         return f(*args, **kwargs)

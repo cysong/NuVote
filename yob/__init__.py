@@ -13,11 +13,11 @@ app.secret_key = DEFAULT_SECRET_KEY
 PASSWORD_SALT = DEFAULT_PASSWORD_SALT
 
 from yob import index
-from yob import admin
+from yob import users_mgmt
 from yob import login_out
 from yob import decorators
 from yob import error
-from yob import password
-# from yob import profile
-# from yob import profile_image
+from yob import update_password
+from yob import profile
+from yob import profile_image
 from yob import register
