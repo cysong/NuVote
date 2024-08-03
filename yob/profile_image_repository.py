@@ -1,5 +1,5 @@
 from yob.config import DEFAULT_PROFILE_IMAGE_PATH, DEFAULT_PROFILE_IMAGES_FOLDER
-from yob.user_repository import get_cursor
+from yob.users_repository import get_cursor
 
 
 def handle_profile_image_update(user_id, profile_path=DEFAULT_PROFILE_IMAGE_PATH):

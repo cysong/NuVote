@@ -8,7 +8,7 @@ from yob import app
 from yob.config import DEFAULT_PROFILE_IMAGES_FOLDER, DEFAULT_PROFILE_IMAGE_PATH
 from yob.decorators import login_required, owner_required
 from yob.profile_image_repository import handle_profile_image_update
-from yob.user_repository import get_user_by_id
+from yob.users_repository import get_user_by_id
 from yob.utility import random_string
 
 

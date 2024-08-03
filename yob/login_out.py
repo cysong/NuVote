@@ -1,7 +1,7 @@
 from flask import request, session, redirect, url_for, flash, render_template
 
 from yob import app
-from yob.user_repository import is_user_password_valid_by_username, get_user_by_username
+from yob.users_repository import is_user_password_valid_by_username, get_user_by_username
 from yob.utility import are_fields_present
 
 LOGIN_REQUIRED_FIELDS = ['username', 'password']
