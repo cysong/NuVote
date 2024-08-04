@@ -40,6 +40,7 @@ def login_user(user):
     session['username'] = user['username']
     session['role'] = user['role']
     session['status'] = user['status']
+    session['profile_image'] = user['profile_image']
 
 
 # Route for logout page
@@ -51,4 +52,5 @@ def logout():
     session.pop('username', None)
     session.pop('role', None)
     session.pop('status', None)
+    session.pop('profile_image', None)
     return redirect(url_for('index'))
