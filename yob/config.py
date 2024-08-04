@@ -1,7 +1,7 @@
 # Default role assigned to new users upon registration.
-DEFAULT_SECRET_KEY = 'Example Secret Key (Change this!)'
+DEFAULT_SECRET_KEY = '16ef49d7e56c50b0de84898da482e8a2'
 # IMPORTANT: Change 'ExampleSaltValue' to whatever salt value you'll use in
-DEFAULT_PASSWORD_SALT = 'ExampleSaltValue'
+DEFAULT_PASSWORD_SALT = '16ef49d7e56c50b0de84898da482e8a2'
 DEFAULT_USER_DESCRIPTION = ''
 DEFAULT_USER_ROLE = 'voter'
 DEFAULT_USER_STATUS = 'active'
