@@ -37,5 +37,5 @@ def password(user_id):
             flash("Password updated successfully", "success")
             return redirect(url_for('profile', user_id=user_id))
     # Render the password change page
-    return render_template('password.html', user=get_user_by_id(user_id),
+    return render_template('user/password.html', user=get_user_by_id(user_id),
                            username=session['username'], mode='view')

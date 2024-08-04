@@ -36,7 +36,7 @@ def profile_image(user_id):
             file_type = file.content_type
             if file_type not in ['image/jpeg', 'image/png']:
                 flash('Invalid image file type. Only jpeg, png are allowed.')
-                return render_template("profile_image.html", user=get_user_by_id(user_id))
+                return render_template("user/profile_image.html", user=get_user_by_id(user_id))
             # Delete existing image
             delete_profile_image(user_id)
             # Save the new image
@@ -44,7 +44,7 @@ def profile_image(user_id):
             handle_profile_image_update(user_id, profile_path)
             flash("Profile Image updated successfully", "success")
             return redirect(url_for('profile', user_id=user_id))
-    return render_template("profile_image.html", user=get_user_by_id(user_id))
+    return render_template("user/profile_image.html", user=get_user_by_id(user_id))
 
 
 def save_profile_image(file):

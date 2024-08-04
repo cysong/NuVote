@@ -11,4 +11,4 @@ from yob.users_repository import get_users
 @admin_required
 def users_mgmt():
     # Render the admin home page with user information
-    return render_template('users_mgmt.html', users=get_users())
+    return render_template('user/users_mgmt.html', users=get_users())

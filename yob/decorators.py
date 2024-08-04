@@ -50,7 +50,7 @@ def admin_required(f):
     def decorated_function(*args, **kwargs):
         if 'role' not in session or session['role'] != 'admin':
             flash("Access denied", "danger")
-            return render_template('error.html')
+            return render_template('error/error.html')
         return f(*args, **kwargs)
 
     return decorated_function
@@ -62,7 +62,7 @@ def owner_required(f):
         user_id = kwargs.get('user_id')
         if user_id != session['user_id']:
             flash("Access denied", "danger")
-            return render_template('error.html')
+            return render_template('error/error.html')
         return f(*args, **kwargs)
 
     return decorated_function
@@ -85,7 +85,7 @@ def inactive_user_action_check(f):
         if request.method == 'POST' and 'status' in session and session['status'] == 'inactive':
             flash("You are currently inactive and cannot post, reply and delete. Please contact the "
                   "administrator for assistance!", "warning")
-            return render_template('error.html')  # Render an error page or redirect as needed
+            return render_template('error/error.html')  # Render an error page or redirect as needed
         return f(*args, **kwargs)
 
     return decorated_function

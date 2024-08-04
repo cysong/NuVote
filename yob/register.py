@@ -80,4 +80,4 @@ def render_register(form_data):
     if form_data is not None:
         submitted_form = {field: form_data[field] if field in form_data and form_data[field] else '' for field in
                           REGISTER_REQUIRED_FIELDS}
-    return render_template('register.html', form_data=submitted_form)
+    return render_template('user/register.html', form_data=submitted_form)

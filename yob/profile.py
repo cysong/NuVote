@@ -59,4 +59,4 @@ def handle_profile_update(user_id):
 
 def render_profile_page(user_id, mode):
     # Fetch user details and render the profile page
-    return render_template('profile.html', user=get_user_by_id(user_id), mode=mode)
+    return render_template('user/profile.html', user=get_user_by_id(user_id), mode=mode)

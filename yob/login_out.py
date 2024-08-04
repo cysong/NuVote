@@ -28,10 +28,10 @@ def login():
                     return redirect(url_for('index'))
 
         flash('Incorrect credential!', 'danger')
-        return render_template('login.html', username=username)
+        return render_template('user/login.html', username=username)
 
     # Show the login form with message (if any)
-    return render_template('login.html')
+    return render_template('user/login.html')
 
 
 def login_user(user):
