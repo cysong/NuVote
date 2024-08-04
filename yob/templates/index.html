@@ -1,0 +1,13 @@
+{% extends 'layout.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<p>This is Homepage index page</p>
+<p>is_logged_in: {{ is_logged_in }}</p>
+<p>username: {{ username }}</p>
+<p>user_id: {{ user_id }}</p>
+<p>role: {{ role }}</p>
+<p>user_status: {{ user_status }}</p>
+<p>request: {{ request }}</p>
+{% endblock %}
