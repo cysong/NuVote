@@ -58,7 +58,7 @@ CREATE TABLE IF NOT EXISTS competitors
     create_by      INT                                NOT NULL,
     created_at     datetime                           NOT NULL,
 
-    PRIMARY KEY (`competitor_id`),c
+    PRIMARY KEY (`competitor_id`),
     FOREIGN KEY (`create_by`) REFERENCES `users` (`user_id`),
     FOREIGN KEY (`competition_id`) REFERENCES `competitions` (`competition_id`) ON DELETE CASCADE
 );
