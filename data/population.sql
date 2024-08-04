@@ -3,15 +3,15 @@
 -- -----------------------------------------------------
 INSERT INTO users (username, first_name, last_name, location, email, description, profile_image, password_hash, role, status, created_at)
 VALUES 
-('alice', 'Alice', 'Johnson', 'Chicago', 'alice.johnson@example.com', 'A passionate voter', 'alice_johnson.png', 'c33367701511b4f6020ec61ded352059343a528e', 'voter', 'active', NOW()),
-('bob', 'Bob', 'Williams', 'Miami', 'bob.williams@example.com', 'An active participant', 'bob_williams.png', '5f4dcc3b5aa765d61d8327deb882cf99', 'voter', 'active', NOW()),
-('charlie', 'Charlie', 'Brown', 'San Francisco', 'charlie.brown@example.com', 'Loves to vote', 'charlie_brown.png', 'cfcd208495d565ef66e7dff9f98764da', 'voter', 'active', NOW()),
-('daniel', 'Daniel', 'Lee', 'Houston', 'daniel.lee@example.com', 'A responsible scrutineer', 'daniel_lee.png', '3e25960a79dbc69b674cd4ec67a72c62', 'scrutineer', 'active', NOW()),
-('eva', 'Eva', 'Harris', 'Phoenix', 'eva.harris@example.com', 'Meticulous scrutineer', 'eva_harris.png', '7c6a180b36896a0a8c02787eeafb0e4c', 'scrutineer', 'active', NOW()),
-('frank', 'Frank', 'Martin', 'San Diego', 'frank.martin@example.com', 'Ensures fair play', 'frank_martin.png', '098f6bcd4621d373cade4e832627b4f6', 'scrutineer', 'active', NOW()),
-('admin', 'Grace', 'Clark', 'Boston', 'grace.clark@example.com', 'Admin team member', 'grace_clark.png', '9b74c9897bac770ffc029102a200c5de', 'admin', 'active', NOW()),
-('henry', 'Henry', 'Lewis', 'Las Vegas', 'henry.lewis@example.com', 'System administrator', 'henry_lewis.png', '1f3870be274f6c49b3e31a0c6728957f', 'admin', 'active', NOW()),
-('ivy', 'Ivy', 'Walker', 'Denver', 'ivy.walker@example.com', 'Manages user accounts', 'ivy_walker.png', 'b6d767d2f8ed5d21a44b0e5886680cb9', 'admin', 'active', NOW());
+('alice', 'Alice', 'Johnson', 'Chicago', 'alice.johnson@example.com', 'A passionate voter', 'alice_johnson.png', '1b9d5850d6de1dae5bde79bdcc0ecc91b8bebbda244e545007d2ac19bcfa2eb1', 'voter', 'active', NOW()),
+('bob', 'Bob', 'Williams', 'Miami', 'bob.williams@example.com', 'An active participant', 'bob_williams.png', '1b9d5850d6de1dae5bde79bdcc0ecc91b8bebbda244e545007d2ac19bcfa2eb1', 'voter', 'active', NOW()),
+('charlie', 'Charlie', 'Brown', 'San Francisco', 'charlie.brown@example.com', 'Loves to vote', 'charlie_brown.png', '1b9d5850d6de1dae5bde79bdcc0ecc91b8bebbda244e545007d2ac19bcfa2eb1', 'voter', 'active', NOW()),
+('daniel', 'Daniel', 'Lee', 'Houston', 'daniel.lee@example.com', 'A responsible scrutineer', 'daniel_lee.png', '1b9d5850d6de1dae5bde79bdcc0ecc91b8bebbda244e545007d2ac19bcfa2eb1', 'scrutineer', 'active', NOW()),
+('eva', 'Eva', 'Harris', 'Phoenix', 'eva.harris@example.com', 'Meticulous scrutineer', 'eva_harris.png', '1b9d5850d6de1dae5bde79bdcc0ecc91b8bebbda244e545007d2ac19bcfa2eb1', 'scrutineer', 'active', NOW()),
+('frank', 'Frank', 'Martin', 'San Diego', 'frank.martin@example.com', 'Ensures fair play', 'frank_martin.png', '1b9d5850d6de1dae5bde79bdcc0ecc91b8bebbda244e545007d2ac19bcfa2eb1', 'scrutineer', 'active', NOW()),
+('admin', 'Grace', 'Clark', 'Boston', 'grace.clark@example.com', 'Admin team member', 'grace_clark.png', '1b9d5850d6de1dae5bde79bdcc0ecc91b8bebbda244e545007d2ac19bcfa2eb1', 'admin', 'active', NOW()),
+('henry', 'Henry', 'Lewis', 'Las Vegas', 'henry.lewis@example.com', 'System administrator', 'henry_lewis.png', '1b9d5850d6de1dae5bde79bdcc0ecc91b8bebbda244e545007d2ac19bcfa2eb1', 'admin', 'active', NOW()),
+('ivy', 'Ivy', 'Walker', 'Denver', 'ivy.walker@example.com', 'Manages user accounts', 'ivy_walker.png', '1b9d5850d6de1dae5bde79bdcc0ecc91b8bebbda244e545007d2ac19bcfa2eb1', 'admin', 'active', NOW());
 
 -- -----------------------------------------------------
 -- Insert competitions
