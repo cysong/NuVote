@@ -13,12 +13,14 @@ app.secret_key = DEFAULT_SECRET_KEY
 
 PASSWORD_SALT = DEFAULT_PASSWORD_SALT
 
+APP_ROOT_DIR = os.path.dirname(__file__)
+
 from yob import decorators
 import yob.views
 
 # Create image upload directories and save to app
 def init_upload_folder(key, value):
-    folder = os.path.join(os.path.dirname(__file__), value)
+    folder = os.path.join(APP_ROOT_DIR, value)
     if not os.path.exists(folder):
         os.makedirs(folder)
     app.config[key] = folder
