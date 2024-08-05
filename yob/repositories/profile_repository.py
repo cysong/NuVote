@@ -1,4 +1,4 @@
-from yob.config import DEFAULT_PROFILE_IMAGE_PATH
+from yob.config import DEFAULT_PROFILE_IMAGE
 from yob.database import get_cursor
 
 

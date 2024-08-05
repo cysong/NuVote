@@ -4,8 +4,8 @@ from PIL import Image
 from flask import redirect, request, flash, render_template, url_for
 from werkzeug.utils import secure_filename
 
-from yob import app
-from yob.config import DEFAULT_PROFILE_IMAGES_FOLDER, DEFAULT_PROFILE_IMAGE_PATH
+from yob import app, APP_ROOT_DIR
+from yob.config import DEFAULT_PROFILE_IMAGE
 from yob.decorators import login_required, owner_required
 from yob.repositories.profile_image_repository import handle_profile_image_update
 from yob.repositories.users_repository import get_user_by_id
@@ -58,7 +58,7 @@ def save_profile_image(file):
     image = image.resize((512, 512))
     # Save the image to the specified directory as JPEG with a secure random filename
     secured_random_filename = secure_filename(f'{random_string(64)}.jpg')
-    image_path = os.path.join(dir_path, DEFAULT_PROFILE_IMAGES_FOLDER, secured_random_filename)
+    image_path = os.path.join(app.config['DEFAULT_PROFILE_IMAGES_FOLDER'], secured_random_filename)
     image.save(image_path, format='JPEG')
     return secured_random_filename
 
@@ -66,11 +66,10 @@ def save_profile_image(file):
 def delete_profile_image(user_id):
     user = get_user_by_id(user_id)
     # Skip deleting default profile image
-    if user['profile_image'] == DEFAULT_PROFILE_IMAGE_PATH:
+    if user['profile_image'] == DEFAULT_PROFILE_IMAGE:
         return
     try:
-        dir_path = os.path.dirname(os.path.realpath(__file__))
-        file_path = os.path.join(dir_path, user['profile_image'])
+        file_path = os.path.join(APP_ROOT_DIR, user['profile_image'])
         if os.path.exists(file_path):
             os.remove(file_path)
     except Exception as e:

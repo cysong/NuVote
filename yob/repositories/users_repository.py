@@ -1,6 +1,5 @@
 from yob import hashing, PASSWORD_SALT
-from yob.config import DEFAULT_PROFILE_IMAGES_FOLDER, DEFAULT_USER_ROLE, DEFAULT_USER_STATUS, \
-    DEFAULT_PROFILE_IMAGE_PATH
+from yob.config import DEFAULT_USER_ROLE, DEFAULT_USER_STATUS, DEFAULT_PROFILE_IMAGE
 from yob.utility import get_current_datetime
 from yob.database import get_cursor
 
@@ -79,9 +78,9 @@ def handle_default_profile(user):
         return None
     # Set default Profile Image
     if user['profile_image'] == '':
-        user['profile_image'] = DEFAULT_PROFILE_IMAGE_PATH
-    else:
-        user['profile_image'] = f"/{DEFAULT_PROFILE_IMAGES_FOLDER}/{user['profile_image']}"
+        user['profile_image'] = DEFAULT_PROFILE_IMAGE
+    # else:
+    #     user['profile_image'] = f"/{DEFAULT_PROFILE_IMAGES_FOLDER}/{user['profile_image']}"
     return user
 
 
@@ -107,7 +106,7 @@ def create_user(user: User):
             user.location,
             user.email,
             user.description,
-            DEFAULT_PROFILE_IMAGE_PATH,
+            DEFAULT_PROFILE_IMAGE,
             hashing.hash_value(user.password, PASSWORD_SALT),
             DEFAULT_USER_ROLE,
             DEFAULT_USER_STATUS,
