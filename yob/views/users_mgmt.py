@@ -3,7 +3,7 @@ from flask import render_template
 
 from yob import app
 from yob.decorators import login_required, admin_required
-from yob.users_repository import get_users
+from yob.repositories.users_repository import get_users
 
 
 @app.route('/users')

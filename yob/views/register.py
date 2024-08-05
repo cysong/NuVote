@@ -4,8 +4,8 @@ from flask import request, session, redirect, url_for, flash, render_template
 
 from yob import app
 from yob.config import DEFAULT_PASSWORD_REGEX, DEFAULT_USER_DESCRIPTION
-from yob.login_out import login_user
-from yob.users_repository import User, get_user_by_username, get_user_by_email, create_user
+from yob.views.login_out import login_user
+from yob.repositories.users_repository import User, get_user_by_username, get_user_by_email, create_user
 from yob.utility import are_fields_present
 
 REGISTER_REQUIRED_FIELDS = ['username', 'email', 'password', 'password2', 'first_name', 'last_name', 'location']

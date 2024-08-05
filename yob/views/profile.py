@@ -2,8 +2,8 @@ from flask import request, flash, render_template, session
 
 from yob import app
 from yob.decorators import login_required
-from yob.profile_repository import update_profile_by_user_id, UserProfile
-from yob.users_repository import update_user_status, update_user_role, get_user_by_username, get_user_by_id, \
+from yob.repositories.profile_repository import update_profile_by_user_id, UserProfile
+from yob.repositories.users_repository import update_user_status, update_user_role, get_user_by_username, get_user_by_id, \
     get_user_by_email
 
 

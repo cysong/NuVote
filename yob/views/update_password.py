@@ -5,7 +5,7 @@ from flask import redirect, request, flash, render_template, session, url_for
 from yob import app
 from yob.config import DEFAULT_PASSWORD_REGEX
 from yob.decorators import login_required, owner_required
-from yob.users_repository import update_user_password_by_id, is_user_password_valid_by_id, get_user_by_id
+from yob.repositories.users_repository import update_user_password_by_id, is_user_password_valid_by_id, get_user_by_id
 
 
 @app.route('/profile/<int:user_id>/password', methods=['GET', 'POST'])
