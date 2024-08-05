@@ -1,6 +1,7 @@
 import mysql.connector
 from mysql.connector import Error
 from yob import connect
+from flask import current_app as app
 
 db_connection = None
 
