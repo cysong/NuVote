@@ -1,5 +1,5 @@
 from yob.config import DEFAULT_PROFILE_IMAGE_PATH
-from yob.repositories.users_repository import get_cursor
+from yob.database import get_cursor
 
 
 class UserProfile:
