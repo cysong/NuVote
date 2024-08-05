@@ -1,10 +1,8 @@
-import mysql.connector
-
-from yob import connect, hashing, PASSWORD_SALT
+from yob import hashing, PASSWORD_SALT
 from yob.config import DEFAULT_PROFILE_IMAGES_FOLDER, DEFAULT_USER_ROLE, DEFAULT_USER_STATUS, \
     DEFAULT_PROFILE_IMAGE_PATH
 from yob.utility import get_current_datetime
-
+from yob.database import get_cursor
 
 class User:
     def __init__(self, username, first_name, last_name, location, email, description, password):
@@ -15,29 +13,6 @@ class User:
         self.email = email
         self.description = description
         self.password = password
-
-
-db_connection = None
-
-
-def get_cursor():
-    """Gets a new dictionary cursor for the database.
-
-    If necessary, a new database connection be created here and used for all
-    subsequent to getCursor()."""
-    global db_connection
-
-    if db_connection is None or not db_connection.is_connected():
-        db_connection = mysql.connector.connect(user=connect.dbuser,
-                                                password=connect.dbpass,
-                                                host=connect.dbhost,
-                                                auth_plugin='mysql_native_password',
-                                                database=connect.dbname,
-                                                autocommit=True)
-
-    cursor = db_connection.cursor(dictionary=True)
-
-    return cursor
 
 
 def get_users():
