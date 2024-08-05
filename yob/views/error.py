@@ -20,7 +20,7 @@ def internal_server_error(e):
     # Render custom 500 error page
     return render_template('error/500.html'), 500
 
-@app.app_errorhandler(Exception)
+@app.errorhandler(Exception)
 def handle_exception(e):
     logging.exception(e)
     message = str(e) or 'An unexpected error occurred.'
