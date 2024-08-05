@@ -3,36 +3,36 @@
 -- -----------------------------------------------------
 INSERT INTO users (username, first_name, last_name, location, email, description, profile_image, password_hash, role, status, created_at)
 VALUES 
-('alice', 'Alice', 'Johnson', 'Chicago', 'alice.johnson@example.com', 'A passionate voter', 'alice_johnson.png', '1b9d5850d6de1dae5bde79bdcc0ecc91b8bebbda244e545007d2ac19bcfa2eb1', 'voter', 'active', NOW()),
-('bob', 'Bob', 'Williams', 'Miami', 'bob.williams@example.com', 'An active participant', 'bob_williams.png', '1b9d5850d6de1dae5bde79bdcc0ecc91b8bebbda244e545007d2ac19bcfa2eb1', 'voter', 'active', NOW()),
-('charlie', 'Charlie', 'Brown', 'San Francisco', 'charlie.brown@example.com', 'Loves to vote', 'charlie_brown.png', '1b9d5850d6de1dae5bde79bdcc0ecc91b8bebbda244e545007d2ac19bcfa2eb1', 'voter', 'active', NOW()),
-('daniel', 'Daniel', 'Lee', 'Houston', 'daniel.lee@example.com', 'A responsible scrutineer', 'daniel_lee.png', '1b9d5850d6de1dae5bde79bdcc0ecc91b8bebbda244e545007d2ac19bcfa2eb1', 'scrutineer', 'active', NOW()),
-('eva', 'Eva', 'Harris', 'Phoenix', 'eva.harris@example.com', 'Meticulous scrutineer', 'eva_harris.png', '1b9d5850d6de1dae5bde79bdcc0ecc91b8bebbda244e545007d2ac19bcfa2eb1', 'scrutineer', 'active', NOW()),
-('frank', 'Frank', 'Martin', 'San Diego', 'frank.martin@example.com', 'Ensures fair play', 'frank_martin.png', '1b9d5850d6de1dae5bde79bdcc0ecc91b8bebbda244e545007d2ac19bcfa2eb1', 'scrutineer', 'active', NOW()),
-('admin', 'Grace', 'Clark', 'Boston', 'grace.clark@example.com', 'Admin team member', 'grace_clark.png', '1b9d5850d6de1dae5bde79bdcc0ecc91b8bebbda244e545007d2ac19bcfa2eb1', 'admin', 'active', NOW()),
-('henry', 'Henry', 'Lewis', 'Las Vegas', 'henry.lewis@example.com', 'System administrator', 'henry_lewis.png', '1b9d5850d6de1dae5bde79bdcc0ecc91b8bebbda244e545007d2ac19bcfa2eb1', 'admin', 'active', NOW()),
-('ivy', 'Ivy', 'Walker', 'Denver', 'ivy.walker@example.com', 'Manages user accounts', 'ivy_walker.png', '1b9d5850d6de1dae5bde79bdcc0ecc91b8bebbda244e545007d2ac19bcfa2eb1', 'admin', 'active', NOW());
+('alice', 'Alice', 'Johnson', 'Chicago', 'alice.johnson@example.com', 'A passionate voter', '/static/images/default_profile.png', '1b9d5850d6de1dae5bde79bdcc0ecc91b8bebbda244e545007d2ac19bcfa2eb1', 'voter', 'active', NOW()),
+('bob', 'Bob', 'Williams', 'Miami', 'bob.williams@example.com', 'An active participant', '/static/images/default_profile.png', '1b9d5850d6de1dae5bde79bdcc0ecc91b8bebbda244e545007d2ac19bcfa2eb1', 'voter', 'active', NOW()),
+('charlie', 'Charlie', 'Brown', 'San Francisco', 'charlie.brown@example.com', 'Loves to vote', '/static/images/default_profile.png', '1b9d5850d6de1dae5bde79bdcc0ecc91b8bebbda244e545007d2ac19bcfa2eb1', 'voter', 'active', NOW()),
+('daniel', 'Daniel', 'Lee', 'Houston', 'daniel.lee@example.com', 'A responsible scrutineer', '/static/images/default_profile.png', '1b9d5850d6de1dae5bde79bdcc0ecc91b8bebbda244e545007d2ac19bcfa2eb1', 'scrutineer', 'active', NOW()),
+('eva', 'Eva', 'Harris', 'Phoenix', 'eva.harris@example.com', 'Meticulous scrutineer', '/static/images/default_profile.png', '1b9d5850d6de1dae5bde79bdcc0ecc91b8bebbda244e545007d2ac19bcfa2eb1', 'scrutineer', 'active', NOW()),
+('frank', 'Frank', 'Martin', 'San Diego', 'frank.martin@example.com', 'Ensures fair play', '/static/images/default_profile.png', '1b9d5850d6de1dae5bde79bdcc0ecc91b8bebbda244e545007d2ac19bcfa2eb1', 'scrutineer', 'active', NOW()),
+('admin', 'Grace', 'Clark', 'Boston', 'grace.clark@example.com', 'Admin team member', '/static/images/default_profile.png', '1b9d5850d6de1dae5bde79bdcc0ecc91b8bebbda244e545007d2ac19bcfa2eb1', 'admin', 'active', NOW()),
+('henry', 'Henry', 'Lewis', 'Las Vegas', 'henry.lewis@example.com', 'System administrator', '/static/images/default_profile.png', '1b9d5850d6de1dae5bde79bdcc0ecc91b8bebbda244e545007d2ac19bcfa2eb1', 'admin', 'active', NOW()),
+('ivy', 'Ivy', 'Walker', 'Denver', 'ivy.walker@example.com', 'Manages user accounts', '/static/images/default_profile.png', '1b9d5850d6de1dae5bde79bdcc0ecc91b8bebbda244e545007d2ac19bcfa2eb1', 'admin', 'active', NOW());
 
 -- -----------------------------------------------------
 -- Insert competitions
 -- -----------------------------------------------------
 INSERT INTO competitions (name, description, image, start_date, end_date, status, create_by, created_at)
 VALUES 
-('Spring Festival', 'Annual spring festival competition', 'spring_festival.png', '2024-03-01', '2024-03-10', 'finished', 1, NOW()),
-('Summer Showdown', 'Summer sports showdown', 'summer_showdown.png', '2024-06-01', '2024-06-20', 'on_going', 2, NOW()),
-('Autumn Art Fair', 'Art fair for the autumn season', 'autumn_art_fair.png', '2024-09-01', '2024-09-15', 'in_plan', 3, NOW());
+('Spring Festival', 'Annual spring festival competition', '/static/images/default_competition.png.png', '2024-03-01', '2024-03-10', 'finished', 1, NOW()),
+('Summer Showdown', 'Summer sports showdown', '/static/images/default_competition.png.png', '2024-06-01', '2024-06-20', 'on_going', 2, NOW()),
+('Autumn Art Fair', 'Art fair for the autumn season', '/static/images/default_competition.png.png', '2024-09-01', '2024-09-15', 'in_plan', 3, NOW());
 
 INSERT INTO competitors (name, description, image, competition_id, status, author, create_by, created_at)
 VALUES 
-('Spring Blossom', 'A talented young singer with a passion for pop music.', 'spring_blossom.png', 1, 'attending', 'admin', 1, NOW()),
-('Sunrise Dancer', 'An exceptional dancer specializing in contemporary styles.', 'sunrise_dancer.png', 1, 'attending', 'john_doe', 2, NOW()),
-('Nature’s Voice', 'A poet known for nature-themed poetry.', 'natures_voice.png', 1, 'attending', 'jane_smith', 3, NOW()),
-('Summer Champion', 'A champion in beach volleyball.', 'summer_champion.png', 2, 'attending', 'admin', 1, NOW()),
-('Sunset Sprinter', 'An athlete with a record in sprinting events.', 'sunset_sprinter.png', 2, 'attending', 'john_doe', 2, NOW()),
-('Wave Rider', 'An expert surfer who rides the waves effortlessly.', 'wave_rider.png', 2, 'attending', 'jane_smith', 3, NOW()),
-('Autumn Painter', 'An artist famous for autumn-themed paintings.', 'autumn_painter.png', 3, 'attending', 'admin', 1, NOW()),
-('Golden Sculptor', 'A sculptor who works with precious metals.', 'golden_sculptor.png', 3, 'attending', 'john_doe', 2, NOW()),
-('Mystic Calligrapher', 'A calligraphy artist with a mystical style.', 'mystic_calligrapher.png', 3, 'attending', 'jane_smith', 3, NOW());
+('Spring Blossom', 'A talented young singer with a passion for pop music.', '/static/images/logo.png.png', 1, 'attending', 'admin', 1, NOW()),
+('Sunrise Dancer', 'An exceptional dancer specializing in contemporary styles.', '/static/images/logo.png', 1, 'attending', 'john_doe', 2, NOW()),
+('Nature’s Voice', 'A poet known for nature-themed poetry.', '/static/images/logo.png', 1, 'attending', 'jane_smith', 3, NOW()),
+('Summer Champion', 'A champion in beach volleyball.', '/static/images/logo.png', 2, 'attending', 'admin', 1, NOW()),
+('Sunset Sprinter', 'An athlete with a record in sprinting events.', '/static/images/logo.png', 2, 'attending', 'john_doe', 2, NOW()),
+('Wave Rider', 'An expert surfer who rides the waves effortlessly.', '/static/images/logo.png', 2, 'attending', 'jane_smith', 3, NOW()),
+('Autumn Painter', 'An artist famous for autumn-themed paintings.', '/static/images/logo.png', 3, 'attending', 'admin', 1, NOW()),
+('Golden Sculptor', 'A sculptor who works with precious metals.', '/static/images/logo.png', 3, 'attending', 'john_doe', 2, NOW()),
+('Mystic Calligrapher', 'A calligraphy artist with a mystical style.', '/static/images/logo.png', 3, 'attending', 'jane_smith', 3, NOW());
 
 -- -----------------------------------------------------
 -- Insert votes
