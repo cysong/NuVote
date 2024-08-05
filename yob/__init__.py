@@ -14,14 +14,7 @@ app.secret_key = DEFAULT_SECRET_KEY
 PASSWORD_SALT = DEFAULT_PASSWORD_SALT
 
 from yob import decorators
-from yob.views import index
-from yob.views import users_mgmt
-from yob.views import login_out
-from yob.views import error
-from yob.views import update_password
-from yob.views import profile
-from yob.views import profile_image
-from yob.views import register
+import yob.views
 
 # Create image upload directories and save to app
 def init_upload_folder(key, value):
