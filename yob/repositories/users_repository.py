@@ -1,7 +1,7 @@
 from yob import hashing, PASSWORD_SALT
 from yob.config import DEFAULT_USER_ROLE, DEFAULT_USER_STATUS, DEFAULT_PROFILE_IMAGE
 from yob.utility import get_current_datetime
-from yob.database import get_cursor
+from yob.database import get_cursor, Cursor
 
 class User:
     def __init__(self, username, first_name, last_name, location, email, description, password):
@@ -144,3 +144,19 @@ def update_user_role(user_id, role):
     cursor = get_cursor()
     cursor.execute('UPDATE users SET role = %s WHERE user_id = %s', (role, user_id))
     return get_user_by_id(user_id)
+
+def check_username_exists(username):
+    """Check if username exists"""
+    with Cursor() as cursor:
+        cursor.execute(
+            "SELECT COUNT(*) FROM users WHERE username = %s", (username,))
+        exists = cursor.fetchone()[0] > 0
+    return exists
+
+def check_email_exists(email):
+    """Check if email exists"""
+    with Cursor() as cursor:
+        cursor.execute(
+            "SELECT COUNT(*) FROM users WHERE email = %s", (email,))
+        exists = cursor.fetchone()[0] > 0
+    return exists

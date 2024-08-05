@@ -11,10 +11,13 @@
             <form action="{{ url_for('register') }}" class="needs-validation" method="POST" novalidate>
                 <div class="form-floating mb-3">
                     <input type="text" class="form-control" name="username" id="username" placeholder="Username"
-                           value="{{ form_data['username'] }}" pattern="[A-Za-z0-9]{1,50}" required>
+                           value="{{ form_data['username'] }}" pattern="[A-Za-z0-9]{3,50}" required>
                     <label for="username">Username</label>
                     <div class="invalid-feedback">
-                        Username must contain only characters and numbers! Max length is 50.
+                        Username must contain only characters and numbers! Length between 3 and 50.
+                    </div>
+                    <div class="invalid-feedback" id="usernameTakenFeedback">
+                        This username has been taken.
                     </div>
                 </div>
 
@@ -24,6 +27,9 @@
                     <label for="email">Email address</label>
                     <div class="invalid-feedback">
                         Please enter a valid email (example@domain.com).
+                    </div>
+                    <div class="invalid-feedback" id="EmailTakenFeedback">
+                        This email has been registered.
                     </div>
                 </div>
 
@@ -86,12 +92,71 @@
     </div>
 </div>
 
+<script src="/static/js/user.js"></script>
 <script>
     document.addEventListener("DOMContentLoaded", function() {
         const form = document.querySelector('form');
         const password = document.getElementById('password');
         const password2 = document.getElementById('password2');
         const passwordMismatchFeedback = document.getElementById('passwordMismatchFeedback');
+        const usernameInput = document.getElementById('username');
+        const usernameTakenFeedback = document.getElementById('usernameTakenFeedback');
+        const emailInput = document.getElementById('email');
+        const EmailTakenFeedback = document.getElementById('EmailTakenFeedback');
+
+        usernameInput.addEventListener('blur', function() {
+                const username = this.value;
+				if(!(username || username.size < 3)) {
+					return
+				}
+                fetch('/user/check_username', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ username: username })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.taken) {
+                        usernameTakenFeedback.classList.add('is-invalid');
+                        usernameTakenFeedback.style.display = 'block';
+                    } else {
+                        usernameTakenFeedback.classList.remove('is-invalid');
+                        usernameTakenFeedback.style.display = 'none';
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+            });
+
+            emailInput.addEventListener('blur', function() {
+                const email = this.value;
+				if(!(email || email.size < 7)) {
+					return
+				}
+                fetch('/user/check_email', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ email: email })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.taken) {
+                        EmailTakenFeedback.classList.add('is-invalid');
+                        EmailTakenFeedback.style.display = 'block';
+                    } else {
+                        EmailTakenFeedback.classList.remove('is-invalid');
+                        EmailTakenFeedback.style.display = 'none';
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+            });
 
         function updatePassword2Pattern() {
             const passwordLength = password.value.length;
@@ -100,17 +165,19 @@
 
         password.addEventListener('input', updatePassword2Pattern);
 
-        form.addEventListener('submit', function(event) {
+        // Client-side password confirmation check
+        function updatePasswordFeedback() {
             if (password.value !== password2.value) {
-                event.preventDefault();
                 password2.classList.add('is-invalid');
                 passwordMismatchFeedback.style.display = 'block';
-                password.value = '';
             } else {
                 password2.classList.remove('is-invalid');
                 passwordMismatchFeedback.style.display = 'none';
             }
-        });
+        }
+
+        password2.addEventListener('input', updatePasswordFeedback);
+        password.addEventListener('input', updatePasswordFeedback);
     });
 </script>
 {% endblock %}

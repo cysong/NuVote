@@ -1,11 +1,11 @@
 import re
 
-from flask import request, session, redirect, url_for, flash, render_template
+from flask import request, session, redirect, url_for, flash, render_template, jsonify
 
 from yob import app
 from yob.config import DEFAULT_PASSWORD_REGEX, DEFAULT_USER_DESCRIPTION
 from yob.views.login_out import login_user
-from yob.repositories.users_repository import User, get_user_by_username, get_user_by_email, create_user
+from yob.repositories.users_repository import User, get_user_by_username, get_user_by_email, create_user, check_username_exists, check_email_exists
 from yob.utility import are_fields_present
 
 REGISTER_REQUIRED_FIELDS = ['username', 'email', 'password', 'password2', 'first_name', 'last_name', 'location']
@@ -74,6 +74,21 @@ def register():
     # Show registration form
     return render_register(None)
 
+@app.route('/user/check_username', methods=['POST'])
+def check_username():
+    """Check if username has been taken"""
+    username = request.json['username']
+    # Check if the username exists in the database
+    is_taken = check_username_exists(username)
+    return jsonify({'taken': is_taken})
+
+@app.route('/user/check_email', methods=['POST'])
+def check_email():
+    """Check if username has been taken"""
+    email = request.json['email']
+    # Check if the username exists in the database
+    is_taken = check_email_exists(email)
+    return jsonify({'taken': is_taken})
 
 def render_register(form_data):
     submitted_form = {}
