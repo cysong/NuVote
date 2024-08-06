@@ -29,7 +29,7 @@
                                     <li><a class="dropdown-item" href="{{url_for('profile', user_id=user_id)}}">Edit Profile</a></li>
                                     <li><a class="dropdown-item" href="#">Change Password</a></li>
                                     {% if role == 'admin' %}
-                                        <li><a class="dropdown-item" href="#">Manage Users</a></li>
+                                        <li><a class="dropdown-item" href="{{url_for('users_mgmt')}}">Manage Users</a></li>
                                     {% endif %}
                                     <li><hr class="dropdown-divider"></li>
                                     <li><a class="dropdown-item" href="{{ url_for('logout') }}">Logout</a></li>
