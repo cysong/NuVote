@@ -93,7 +93,7 @@ CREATE TABLE IF NOT EXISTS announcements
     end_at          datetime                    NOT NULL,
     status          ENUM ('active', 'inactive') NOT NULL,
     created_by      int                         NOT NULL,
-
+    created_at     TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (`announcement_id`),
     FOREIGN KEY (`created_by`) REFERENCES `users` (`user_id`)
 );
