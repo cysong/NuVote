@@ -2,8 +2,7 @@ import re
 
 from flask import request, session, redirect, url_for, flash, render_template, jsonify
 
-from yob import app
-from yob.config import DEFAULT_PASSWORD_REGEX, DEFAULT_USER_DESCRIPTION
+from yob import app, config
 from yob.views.login_out import login_user
 from yob.repositories.users_repository import User, get_user_by_username, get_user_by_email, create_user, check_username_exists, check_email_exists
 from yob.utility import are_fields_present
@@ -26,17 +25,17 @@ def register():
             password = request.form['password']
 
             # Validation checks
-            if not re.match(r'[^@]+@[^@]+\.[^@]+', email):
+            if not re.match(config.EMAIL_REGEX, email):
                 flash('Invalid email address!', 'danger')
                 form_data.pop('email', None)
                 return render_register(form_data)
 
-            if not re.match(r'[A-Za-z0-9]+', username):
+            if not re.match(config.USERNAME_REGX, username):
                 flash('Username must contain only characters and numbers!', 'danger')
                 form_data.pop('username', None)
                 return render_register(form_data)
 
-            if not re.match(DEFAULT_PASSWORD_REGEX, password):
+            if not re.match(config.DEFAULT_PASSWORD_REGEX, password):
                 flash('Password must be at least 8 characters long and include a mix of letters, numbers, '
                       'and special characters (@$!%*?&)!', 'danger')
                 form_data.pop('password', None)
@@ -61,7 +60,7 @@ def register():
 
             # all form data are valid
             user = User(username, request.form['first_name'], request.form['last_name'],
-                        request.form['location'], email, DEFAULT_USER_DESCRIPTION, password)
+                        request.form['location'], email, config.DEFAULT_USER_DESCRIPTION, password)
             db_user = create_user(user)
             flash('You have successfully registered!', 'success')
             login_user(db_user)
