@@ -96,14 +96,56 @@ def get_competitors_with_valid_votes(competition_id):
                 LEFT JOIN (
                     SELECT competitor_id, COUNT(*) AS vote_count 
                     FROM votes 
-                    WHERE status = 'valid'
+                    WHERE competition_id = %s AND status = 'valid'
                     GROUP BY competitor_id
                 ) v ON c.competitor_id = v.competitor_id
             WHERE 
                 c.competition_id = %s
             ORDER BY 
                 c.created_at DESC
+        """, (competition_id, competition_id))
+
+        competitors = cursor.fetchall()
+    return competitors
+
+def get_competitors_with_votes_percentage(competition_id):
+    """
+    Retrieve all competitors in a competition with their total valid votes and vote count percentage
+    """
+    with Cursor(dictionary=True) as cursor:
+        # Calculate total valid votes for the competition
+        cursor.execute("""
+            SELECT COUNT(*) AS total_votes
+            FROM votes 
+            WHERE competition_id = %s AND status = 'valid'
         """, (competition_id,))
+        total_votes = cursor.fetchone()['total_votes']
+        
+        # Retrieve competitors with their valid vote counts and calculate percentage
+        cursor.execute("""
+            SELECT 
+                c.competitor_id,
+                c.name,
+                c.description,
+                c.image,
+                c.status,
+                c.author,
+                c.created_at,
+                IFNULL(v.vote_count, 0) AS vote_count,
+                IFNULL((v.vote_count / %s) * 100, 0) AS vote_percentage
+            FROM 
+                competitors c
+                LEFT JOIN (
+                    SELECT competitor_id, COUNT(*) AS vote_count 
+                    FROM votes 
+                    WHERE competition_id = %s AND status = 'valid'
+                    GROUP BY competitor_id
+                ) v ON c.competitor_id = v.competitor_id
+            WHERE 
+                c.competition_id = %s
+            ORDER BY 
+                c.created_at DESC
+        """, (total_votes, competition_id, competition_id))
 
         competitors = cursor.fetchall()
     return competitors
