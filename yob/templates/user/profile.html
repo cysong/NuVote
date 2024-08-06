@@ -85,6 +85,20 @@
                         </div>
 
                         <div class="mb-3 row">
+                            <label class="col-sm-3 col-form-label text-muted" for="role">Role</label>
+                            <div class="col-sm-9">
+                                <input id="role" type="text" class="form-control" name="role" value="{{ user.role }}" disabled>
+                            </div>
+                        </div>
+
+                        <div class="mb-3 row">
+                            <label class="col-sm-3 col-form-label text-muted" for="status">Status</label>
+                            <div class="col-sm-9">
+                                <input id="status" type="text" class="form-control" name="status" value="{{ user.status }}" disabled>
+                            </div>
+                        </div>
+
+                        <div class="mb-3 row">
                             <label class="col-sm-3 col-form-label text-muted" for="description">Description</label>
                             <div class="col-sm-9">
                                 <textarea id="description" rows="5" class="form-control" name="description"
