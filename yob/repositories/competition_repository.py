@@ -76,7 +76,19 @@ def get_all_competitions():
     """
     with Cursor(dictionary=True) as cursor:
         cursor.execute("""
-            SELECT * FROM competitions
+            SELECT * FROM competitions order by start_date
         """)
         competitions = cursor.fetchall()
     return competitions
+
+def delete_competition(competition_id):
+    """
+    Delete a competition by its ID
+    """
+    with Cursor(dictionary=True) as cursor:
+        cursor.execute("""
+            DELETE FROM competitions
+            WHERE competition_id = %s
+        """, (competition_id,))
+        affected_rows = cursor.rowcount
+    return affected_rows > 0
