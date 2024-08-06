@@ -13,16 +13,15 @@
                placeholder="Search for users...">
     </div>
 
-    <div class="table-responsive mb-5">
+    <div class="table-responsive mb-5 user-table">
         <table class="table table-bordered table-striped table-hover align-middle table-custom">
             <thead class="table-custom-head">
             <tr>
                 <th scope="col">User ID</th>
                 <th scope="col">Username</th>
                 <th scope="col">Email</th>
-                <th scope="col">First Name</th>
-                <th scope="col">Last Name</th>
-                <th scope="col">Description</th>
+                <th scope="col">Full Name</th>
+                <!-- <th scope="col">Description</th> -->
                 <th scope="col">Location</th>
                 <th scope="col">Profile Image</th>
                 <th scope="col">Role</th>
@@ -36,13 +35,12 @@
                 <td>{{ user['user_id'] }}</td>
                 <td>{{ user['username'] }}</td>
                 <td>{{ user['email'] }}</td>
-                <td>{{ user['firstname'] }}</td>
-                <td>{{ user['last_name'] }}</td>
-                <td>{{ user['description'] }}</td>
+                <td>{{ user['firstname'] }} {{ user['last_name'] }}</td>
+                <!-- <td>{{ user['description'] }}</td> -->
                 <td>{{ user['location'] }}</td>
                 <td>
                     {% if user['profile_image'] %}
-                    <img src="{{ user['profile_image'] }}" alt="Profile Image" class="img-thumbnail"
+                    <img src="{{ user['profile_image'] }}" alt="Profile Image" class="profile-small"
                          style="width: 50px; height: 50px;">
                     {% else %}
                     No Image
