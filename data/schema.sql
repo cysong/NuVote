@@ -69,6 +69,7 @@ CREATE TABLE IF NOT EXISTS competitors
 CREATE TABLE IF NOT EXISTS votes
 (
     vote_id       INT                       NOT NULL AUTO_INCREMENT,
+    competition_id int                                NOT NULL,
     competitor_id INT                       NOT NULL,
     voted_by      INT                       NOT NULL,
     status        ENUM ('valid', 'invalid') NOT NULL,
