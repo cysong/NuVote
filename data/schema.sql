@@ -38,7 +38,7 @@ CREATE TABLE IF NOT EXISTS competitions
     end_date       datetime                                             NOT NULL,
     status         ENUM ('finished', 'on_going', 'in_plan', 'approved') NOT NULL,
     create_by      INT                                                  NOT NULL,
-    created_at     timestamp                                            NOT NULL,
+    created_at     TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (`competition_id`),
     FOREIGN KEY (`create_by`) REFERENCES `users` (`user_id`)
 );
@@ -56,7 +56,7 @@ CREATE TABLE IF NOT EXISTS competitors
     status         ENUM ('win', 'passed','attending') NOT NULL,
     author         VARCHAR(50)                        NOT NULL,
     create_by      INT                                NOT NULL,
-    created_at     datetime                           NOT NULL,
+    created_at     TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
     PRIMARY KEY (`competitor_id`),
     FOREIGN KEY (`create_by`) REFERENCES `users` (`user_id`),
@@ -73,7 +73,7 @@ CREATE TABLE IF NOT EXISTS votes
     voted_by      INT                       NOT NULL,
     status        ENUM ('valid', 'invalid') NOT NULL,
     voted_ip      varchar(64)               NOT NULL,
-    voted_at      datetime                  NOT NULL,
+    voted_at      TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
     PRIMARY KEY (`vote_id`),
     FOREIGN KEY (`competitor_id`) REFERENCES `competitors` (`competitor_id`) ON DELETE CASCADE,
