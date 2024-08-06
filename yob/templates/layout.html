@@ -27,7 +27,7 @@
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                                     <li><a class="dropdown-item" href="{{url_for('profile', user_id=user_id)}}">Edit Profile</a></li>
-                                    <li><a class="dropdown-item" href="#">Change Password</a></li>
+                                    <li><a class="dropdown-item" href="{{url_for('password', user_id=user_id)}}">Change Password</a></li>
                                     {% if role == 'admin' %}
                                         <li><a class="dropdown-item" href="{{url_for('users_mgmt')}}">Manage Users</a></li>
                                     {% endif %}
