@@ -1,7 +1,9 @@
-from yob import hashing, PASSWORD_SALT
-from yob.config import DEFAULT_USER_ROLE, DEFAULT_USER_STATUS, DEFAULT_PROFILE_IMAGE
+from yob.config import DEFAULT_USER_ROLE, DEFAULT_USER_STATUS, DEFAULT_PROFILE_IMAGE, DEFAULT_PASSWORD_SALT
 from yob.utility import get_current_datetime
 from yob.database import get_cursor, Cursor
+from flask import current_app as app
+
+PASSWORD_SALT = DEFAULT_PASSWORD_SALT
 
 class User:
     def __init__(self, username, first_name, last_name, location, email, description, password):
@@ -107,7 +109,7 @@ def create_user(user: User):
             user.email,
             user.description,
             DEFAULT_PROFILE_IMAGE,
-            hashing.hash_value(user.password, PASSWORD_SALT),
+            app.hashing.hash_value(user.password, PASSWORD_SALT),
             DEFAULT_USER_ROLE,
             DEFAULT_USER_STATUS,
             get_current_datetime(),))
@@ -116,7 +118,7 @@ def create_user(user: User):
 
 def update_user_password_by_id(user_id, password):
     cursor = get_cursor()
-    hashed_password = hashing.hash_value(password, PASSWORD_SALT)
+    hashed_password = app.hashing.hash_value(password, PASSWORD_SALT)
     cursor.execute('UPDATE users SET password_hash = %s WHERE user_id = %s', (hashed_password, user_id))
 
 
@@ -124,14 +126,14 @@ def is_user_password_valid_by_id(user_id, password):
     cursor = get_cursor()
     cursor.execute('SELECT password_hash FROM users WHERE user_id = %s', (user_id,))
     user = cursor.fetchone()
-    return user['password_hash'] == hashing.hash_value(password, PASSWORD_SALT)
+    return user['password_hash'] == app.hashing.hash_value(password, PASSWORD_SALT)
 
 
 def is_user_password_valid_by_username(username, password):
     cursor = get_cursor()
     cursor.execute('SELECT password_hash FROM users WHERE username = %s', (username,))
     user = cursor.fetchone()
-    return user['password_hash'] == hashing.hash_value(password, PASSWORD_SALT)
+    return user['password_hash'] == app.hashing.hash_value(password, PASSWORD_SALT)
 
 
 def update_user_status(user_id, status):

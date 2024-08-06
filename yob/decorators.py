@@ -34,7 +34,7 @@ def get_profile_image_from_session():
 # Context processor to inject user information into templates
 @app.context_processor
 def inject_user():
-    return dict( APP_NAME=config.APP_NAME, SLOGAN=config.SLOGAN, is_logged_in=is_logged_in(), role=get_role_from_session(), user_status=get_status_from_session(),
+    return dict( is_logged_in=is_logged_in(), role=get_role_from_session(), user_status=get_status_from_session(),
                 user_id=get_user_id_from_session(), username=get_username_id_from_session(), profile_image=get_profile_image_from_session(), request=request)
 
 
