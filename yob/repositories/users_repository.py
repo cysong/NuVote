@@ -162,3 +162,36 @@ def check_email_exists(email):
             "SELECT COUNT(*) FROM users WHERE email = %s", (email,))
         exists = cursor.fetchone()[0] > 0
     return exists
+
+def update_user(user):
+    """
+    Update user information based on user_id
+    """
+    with Cursor() as cursor:
+        cursor.execute("""
+            UPDATE users
+            SET email = %s, first_name = %s, last_name = %s, location = %s, description = %s
+            WHERE user_id = %s
+        """, (
+            user['email'],
+            user['first_name'],
+            user['last_name'],
+            user['location'],
+            user['description'],
+            user['user_id']
+        ))
+        affected_rows = cursor.rowcount
+    return affected_rows > 0
+
+def update_profile_image(user_id, profile_image):
+    """
+    Update the profile image URL for a user based on user_id.
+    """
+    with Cursor() as cursor:
+        cursor.execute("""
+            UPDATE users
+            SET profile_image = %s
+            WHERE user_id = %s
+        """, (profile_image, user_id))
+        affected_rows = cursor.rowcount
+    return affected_rows > 0
