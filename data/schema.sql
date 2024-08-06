@@ -21,7 +21,7 @@ CREATE TABLE IF NOT EXISTS users
     password_hash CHAR(64)                              NOT NULL COMMENT 'SHA256 password hash stored in hexadecimal (64 characters)',
     role          ENUM ('voter', 'scrutineer', 'admin') NOT NULL,
     status        ENUM ('active', 'inactive')           NOT NULL,
-    created_at    datetime                              NOT NULL,
+    created_at    TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (`user_id`)
 );
 
