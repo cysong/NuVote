@@ -26,7 +26,7 @@
                                     <img src="{{ profile_image }}" alt="{{ username }}" class="profile-small">
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                    <li><a class="dropdown-item" href="#">Edit Profile</a></li>
+                                    <li><a class="dropdown-item" href="{{url_for('profile', user_id=user_id)}}">Edit Profile</a></li>
                                     <li><a class="dropdown-item" href="#">Change Password</a></li>
                                     {% if role == 'admin' %}
                                         <li><a class="dropdown-item" href="#">Manage Users</a></li>
@@ -69,6 +69,7 @@
             </div>
         </div>
     </div>
+    <script src="/static/js/common.js"></script>
     <script>
         // Example starter JavaScript for disabling form submissions if there are invalid fields
         (() => {
