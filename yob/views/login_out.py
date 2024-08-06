@@ -24,6 +24,7 @@ def login():
             if user:
                 # Check if the password is correct
                 if is_user_password_valid_by_username(username, user_password):
+                    app.login_manager.login_user(user)
                     login_user(user)
                     return redirect(url_for('index'))
 
@@ -46,6 +47,7 @@ def login_user(user):
 # Route for logout page
 @app.route('/logout')
 def logout():
+    app.login_manager.logout_user()
     # Remove session data to log the user out
     session.pop('loggedin', None)
     session.pop('user_id', None)
