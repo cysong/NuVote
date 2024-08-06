@@ -8,6 +8,7 @@ def get_vote_by_id(vote_id):
         cursor.execute("""
             SELECT 
                 v.vote_id,
+                v.competition_id,
                 v.competitor_id,
                 v.voted_by,
                 u.username AS voted_by_username,
@@ -29,9 +30,10 @@ def create_vote(vote):
     """
     with Cursor(dictionary=True) as cursor:
         cursor.execute("""
-            INSERT INTO votes (competitor_id, voted_by, status, voted_ip)
-            VALUES (%s, %s, %s, %s)
+            INSERT INTO votes (competition_id, competitor_id, voted_by, status, voted_ip)
+            VALUES (%s, %s, %s, %s, %s)
         """, (
+            vote['competition_id'],
             vote['competitor_id'],
             vote['voted_by'],
             vote['status'],
@@ -64,9 +66,8 @@ def get_daily_votes_by_competition(competition_id):
                 COUNT(*) AS vote_count
             FROM 
                 votes v
-                JOIN competitors c ON v.competitor_id = c.competitor_id
             WHERE 
-                c.competition_id = %s AND v.status = 'valid'
+                v.competition_id = %s AND v.status = 'valid'
             GROUP BY 
                 DATE(v.voted_at)
             ORDER BY 
@@ -83,6 +84,7 @@ def get_votes_by_competitor_id(competitor_id):
         cursor.execute("""
             SELECT 
                 v.vote_id,
+                v.competition_id,
                 v.voted_by,
                 v.status,
                 v.voted_ip,
@@ -105,6 +107,7 @@ def get_votes_by_competition_and_ip(competition_id, voted_ip):
         cursor.execute("""
             SELECT 
                 v.vote_id,
+                v.competition_id,
                 v.competitor_id,
                 v.voted_by,
                 u.username AS voted_by_username,
@@ -113,10 +116,9 @@ def get_votes_by_competition_and_ip(competition_id, voted_ip):
                 v.voted_at
             FROM 
                 votes v
-                JOIN competitors c ON v.competitor_id = c.competitor_id
                 JOIN users u ON v.voted_by = u.user_id
             WHERE 
-                c.competition_id = %s AND v.voted_ip = %s
+                v.competition_id = %s AND v.voted_ip = %s
         """, (competition_id, voted_ip))
         votes = cursor.fetchall()
     return votes
@@ -133,9 +135,8 @@ def get_votes_by_ip_for_competition(competition_id):
                 COUNT(*) AS vote_count
             FROM 
                 votes v
-                JOIN competitors c ON v.competitor_id = c.competitor_id
             WHERE 
-                c.competition_id = %s AND v.status = 'valid'
+                v.competition_id = %s AND v.status = 'valid'
             GROUP BY 
                 v.voted_ip
             ORDER BY 
@@ -150,10 +151,9 @@ def invalidate_votes_by_ip_for_competition(competition_id, voted_ip):
     """
     with Cursor(dictionary=True) as cursor:
         cursor.execute("""
-            UPDATE votes v
-            JOIN competitors c ON v.competitor_id = c.competitor_id
-            SET v.status = 'invalid'
-            WHERE c.competition_id = %s AND v.voted_ip = %s
+            UPDATE votes
+            SET status = 'invalid'
+            WHERE competition_id = %s AND voted_ip = %s
         """, (competition_id, voted_ip))
         affected_rows = cursor.rowcount
     return affected_rows > 0
