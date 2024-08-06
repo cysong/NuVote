@@ -11,7 +11,7 @@
             <form action="{{ url_for('register') }}" class="needs-validation" method="POST" novalidate>
                 <div class="form-floating mb-3">
                     <input type="text" class="form-control" name="username" id="username" placeholder="Username"
-                           value="{{ form_data['username'] }}" pattern="[A-Za-z0-9]{3,50}" required>
+                           value="{{ form_data['username'] }}" pattern="[A-Za-z0-9_-]{3,50}" required>
                     <label for="username">Username</label>
                     <div class="invalid-feedback">
                         Username must contain only characters and numbers! Length between 3 and 50.
