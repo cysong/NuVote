@@ -75,3 +75,71 @@ def get_competitors_by_competition_id(competition_id):
         """, (competition_id,))
         competitors = cursor.fetchall()
     return competitors
+
+def get_competitors_with_valid_votes(competition_id):
+    """
+    Retrieve all competitors in a competition with their total valid votes
+    """
+    with Cursor(dictionary=True) as cursor:
+        cursor.execute("""
+            SELECT 
+                c.competitor_id,
+                c.name,
+                c.description,
+                c.image,
+                c.status,
+                c.author,
+                c.created_at,
+                IFNULL(v.vote_count, 0) AS vote_count
+            FROM 
+                competitors c
+                LEFT JOIN (
+                    SELECT competitor_id, COUNT(*) AS vote_count 
+                    FROM votes 
+                    WHERE status = 'valid'
+                    GROUP BY competitor_id
+                ) v ON c.competitor_id = v.competitor_id
+            WHERE 
+                c.competition_id = %s
+            ORDER BY 
+                c.created_at DESC
+        """, (competition_id,))
+
+        competitors = cursor.fetchall()
+    return competitors
+
+def get_competitors_and_votes(competition_id, user_id):
+    """
+    Retrieve all competitors in a competition with their total votes
+    and check if the specified user has voted for each competitor.
+    """
+    with Cursor(dictionary=True) as cursor:
+        cursor.execute("""
+            SELECT 
+                c.competitor_id,
+                c.name,
+                c.description,
+                c.image,
+                c.status,
+                c.author,
+                c.created_at,
+                IFNULL(v.vote_count, 0) AS vote_count,
+                IF(EXISTS(
+                    SELECT 1 FROM votes v2 
+                    WHERE v2.competitor_id = c.competitor_id AND v2.voted_by = %s
+                ), 1, 0) AS has_voted
+            FROM 
+                competitors c
+                LEFT JOIN (
+                    SELECT competitor_id, COUNT(*) AS vote_count 
+                    FROM votes 
+                    GROUP BY competitor_id
+                ) v ON c.competitor_id = v.competitor_id
+            WHERE 
+                c.competition_id = %s
+            ORDER BY 
+                c.created_at DESC
+        """, (user_id, competition_id))
+
+        competitors = cursor.fetchall()
+    return competitors
