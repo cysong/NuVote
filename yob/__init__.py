@@ -15,21 +15,18 @@ app.hashing = Hashing(app)
 # Change this to your secret key (can be anything, it's for extra protection)
 app.secret_key = config.DEFAULT_SECRET_KEY
 
-# App root dir
-app.config['APP_ROOT_DIR'] = os.path.dirname(__file__)
-
 from . import  decorators, views
 
 # Create image upload directories and save to app
 def init_upload_folder(key, value):
-    folder = os.path.join(app.config['APP_ROOT_DIR'], value)
+    folder = os.path.join(app.root_path, value)
     if not os.path.exists(folder):
         os.makedirs(folder)
     app.config[key] = folder
 
-init_upload_folder('DEFAULT_PROFILE_IMAGES_FOLDER', DEFAULT_PROFILE_IMAGES_FOLDER)
-init_upload_folder('DEFAULT_COMPETITOR_IMAGES_FOLDER',DEFAULT_COMPETITOR_IMAGES_FOLDER)
-init_upload_folder('DEFAULT_COMPETITION_IMAGES_FOLDER',DEFAULT_COMPETITION_IMAGES_FOLDER)
+init_upload_folder('PROFILE_IMAGES_ABS_PATH', DEFAULT_PROFILE_IMAGES_FOLDER)
+init_upload_folder('COMPETITOR_IMAGES_ABS_PATH',DEFAULT_COMPETITOR_IMAGES_FOLDER)
+init_upload_folder('COMPETITION_IMAGES_ABS_PATH',DEFAULT_COMPETITION_IMAGES_FOLDER)
 
 # initial of LoginManager
 login_manager = LoginManager(app, login_view='login')
