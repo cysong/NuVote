@@ -1,5 +1,5 @@
 from yob.config import DEFAULT_PROFILE_IMAGE
-from yob.database import get_cursor
+from yob.database import Cursor
 
 
 class UserProfile:
@@ -19,9 +19,9 @@ def update_profile_by_user_id(user_id, profile: UserProfile):
     email = profile.email
     description = profile.description
     # Update user profile in the database
-    cursor = get_cursor()
-    cursor.execute(
-        'UPDATE users SET email = %s, first_name = %s, last_name = %s, description = %s, location = %s '
-        'WHERE user_id = %s',
-        (email, first_name, last_name, description, location, user_id)
-    )
+    with Cursor() as cursor:
+        cursor.execute(
+            'UPDATE users SET email = %s, first_name = %s, last_name = %s, description = %s, location = %s '
+            'WHERE user_id = %s',
+            (email, first_name, last_name, description, location, user_id)
+        )
