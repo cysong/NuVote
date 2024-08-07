@@ -5,6 +5,7 @@ import yob.config as config
 from yob.config import DEFAULT_PROFILE_IMAGES_FOLDER, DEFAULT_COMPETITOR_IMAGES_FOLDER, DEFAULT_COMPETITION_IMAGES_FOLDER
 from yob.login_manage import LoginManager
 from .repositories.users_repository import get_user_by_id
+from datetime import timedelta
 
 app = Flask(__name__, static_folder='static', template_folder='templates')
 
@@ -44,3 +45,26 @@ def inject_user():
     current_user = g.user if 'user' in g else {}
     return dict(APP_NAME=config.APP_NAME, SLOGAN=config.SLOGAN, CURRENT_USER=current_user, DEFAULT_PROFILE_IMAGE=config.DEFAULT_PROFILE_IMAGE)
 
+@app.template_filter('format_relative_time')
+def format_relative_time(time_diff):
+    """Custom Jinja filter, format timedelta to human-readable style"""
+    if isinstance(time_diff, timedelta):
+        intervals = [
+            ('year', timedelta(days=365)),
+            ('month', timedelta(days=30)),
+            ('week', timedelta(weeks=1)),
+            ('day', timedelta(days=1)),
+            ('hour', timedelta(hours=1)),
+            ('minute', timedelta(minutes=1)),
+            ('second', timedelta(seconds=1))
+        ]
+
+        for label, interval in intervals:
+            count = int(time_diff / interval)
+            if count >= 1:
+                # Return a formatted string with the appropriate time label
+                return f"{count} {label}{'s' if count > 1 else ''}"
+
+        return 'now'
+    else:
+        raise TypeError("Expected timedelta type for time_diff")
