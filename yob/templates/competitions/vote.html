@@ -108,10 +108,11 @@
                 .then(response => response.json())
                 .then(data => {
                     if (data.success) {
+                        // showSuccessMessage('You have voted successfully!')
                         window.location.reload();
                     } else {
                         voteModal.hide()
-                        showErrorMessage('Vote failed, please try again later.');
+                        showErrorMessage(data.message || 'Vote failed, please try again later.');
                     }
                 });
             }

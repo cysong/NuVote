@@ -19,3 +19,7 @@ USERNAME_REGX = r'^[a-zA-Z0-9_-]{3,50}$'
 DEFAULT_PASSWORD_REGEX = r'^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$'
 EMAIL_REGEX = r'^([A-Za-z0-9]+[.-_])*[A-Za-z0-9]+@[A-Za-z0-9-]+(\.[A-Z|a-z]{2,})+$'
 ALLOWED_EXTENSIONS = ('png', 'jpg', 'jpeg', 'gif', '.webp', '.bmp')
+
+DEFAULT_VOTE_STATUS = 'valid'
+PERMITED_VOTE_ROLES = ['voter']
+MAX_TICKETS_PER_COMPETITION = 1

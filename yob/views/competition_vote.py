@@ -1,9 +1,10 @@
-from flask import render_template, g, request, jsonify, abort
+from flask import render_template, g, request, jsonify, abort, redirect, url_for, flash
 from yob import app
 from yob.repositories.competition_repository import get_competition_by_id
 from yob.repositories.competitors_repository import get_competitors_and_votes, get_competitor_by_id
 from yob.repositories.votes_repository import get_votes_by_competition_and_user, create_vote
 from yob.login_manage import login_required, roles_required
+from yob.config import DEFAULT_VOTE_STATUS, PERMITED_VOTE_ROLES, MAX_TICKETS_PER_COMPETITION
 
 from datetime import datetime
 
@@ -11,20 +12,21 @@ from datetime import datetime
 @app.route('/competition/vote/<int:competition_id>', methods=['GET'])
 @login_required
 def competition_vote(competition_id):
+    """The page view of vote for a competition"""
     competition = get_competition_by_id(competition_id)
     if not competition:
         raise ValueError(f"competition with id {competition_id} not found")
     competitors = get_competitors_and_votes(competition_id, g.user['user_id'])
-    votes_by_me = get_votes_by_competition_and_user(competition_id, g.user['user_id'])
+    my_votes = get_votes_by_competition_and_user(competition_id, g.user['user_id'])
     (can_vote, message) = can_be_voted(competition)
-    has_voted = votes_by_me and len(votes_by_me)>0
+    has_voted = my_votes and len(my_votes)>=MAX_TICKETS_PER_COMPETITION
     if can_vote:
         if has_voted:
             can_vote = False
             message = "You have voted!"
-        elif g.user['role'] != 'voter':
+        elif g.user['role'] not in PERMITED_VOTE_ROLES:
             can_vote = False
-            message = "Your account are not permited to vote!"
+            message = "Your role are not permited to vote!"
     return render_template('competitions/vote.html', competition=competition, competitors=competitors, can_vote=can_vote, has_voted=has_voted, message=message, CURR_TIME=datetime.now())
 
 
@@ -49,22 +51,29 @@ def vote():
     if not can_vote:
         abort(400, description=message)
 
-    if g.user['role'] != 'voter':
-        abort(403, description='Your account is not permitted to vote!')
+    if g.user['role'] not in PERMITED_VOTE_ROLES:
+        return jsonify({'success': False, 'message': 'Your role is not permitted to vote!'}), 200
+
+    my_votes = get_votes_by_competition_and_user(competition['competition_id'], g.user['user_id'])
+    if my_votes and len(my_votes)>=MAX_TICKETS_PER_COMPETITION:
+        return jsonify({'success': False, 'message': 'You have voted, can not vote again!'}), 200
 
     vote = {
         'competitor_id': competitor_id,
         'voted_by': g.user['user_id'],
         'competition_id': competition['competition_id'],
         'voted_ip': request.remote_addr,
-        'status': 'valid'
+        'status': DEFAULT_VOTE_STATUS
     }
 
     vote_id = create_vote(vote)
 
+    # flash('You have successfully voted!', 'danger')
+
     return jsonify({'success': True, 'vote_id': vote_id}), 200
 
 def can_be_voted(competition):
+    """If a competition can be vote and alert message depends on status and start and end date"""
     now = datetime.now()
     message = "This competition can not vote right now!"
     if not competition:
