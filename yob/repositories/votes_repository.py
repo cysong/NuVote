@@ -157,3 +157,25 @@ def invalidate_votes_by_ip_for_competition(competition_id, voted_ip):
         """, (competition_id, voted_ip))
         affected_rows = cursor.rowcount
     return affected_rows > 0
+
+def get_votes_by_competition_and_user(competition_id, user_id):
+    """
+    Retrieve all votes for a specific competition and user, including the username of the voter
+    """
+    with Cursor(dictionary=True) as cursor:
+        cursor.execute("""
+            SELECT 
+                v.vote_id,
+                v.competition_id,
+                v.competitor_id,
+                v.voted_by,
+                v.status,
+                v.voted_ip,
+                v.voted_at
+            FROM 
+                votes v
+            WHERE 
+                v.competition_id = %s AND v.voted_by = %s
+        """, (competition_id, user_id))
+        votes = cursor.fetchall()
+    return votes

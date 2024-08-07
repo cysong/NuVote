@@ -22,14 +22,14 @@ def competition_list():
 def competition_detail(competition_id):
     pass
 
+@app.route('/competitor/<int:competitor_id>')
+def competitor_details(competitor_id):
+    pass
+
 @app.route('/announcement/list')
 def announcement_list():
     pass
 
 @app.route('/announcement/<int:announcement_id>')
 def announcement_detail(announcement_id):
-    pass
-
-@app.route('/vote/<int:competition_id>')
-def competition_vote(competition_id):
     pass
