@@ -12,7 +12,8 @@ db_pool = mysql.connector.pooling.MySQLConnectionPool(
     password=connect.dbpass,
     host=connect.dbhost,
     database=connect.dbname,
-    auth_plugin='mysql_native_password'
+    auth_plugin='mysql_native_password',
+    autocommit=True
 )
 
 def get_connection():
@@ -20,7 +21,7 @@ def get_connection():
     try:
         connection = db_pool.get_connection()
         if connection.is_connected():
-            connection.autocommit = True  # Enable autocommit
+            # connection.autocommit = True  # Enable autocommit
             return connection
         else:
             raise Error("Failed to connect to the database.")
