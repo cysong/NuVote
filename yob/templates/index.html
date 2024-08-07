@@ -3,11 +3,120 @@
 {% block title %}Home{% endblock %}
 
 {% block content %}
-<p>This is Homepage index page</p>
-<p>is_logged_in: {{ is_logged_in }}</p>
-<p>username: {{ username }}</p>
-<p>user_id: {{ user_id }}</p>
-<p>role: {{ role }}</p>
-<p>user_status: {{ user_status }}</p>
-<p>request: {{ request }}</p>
+<div>
+    <!-- Latest Announcement Section -->
+    <div class="announcement rounded shadow-sm position-relative">
+        {% if announcement %}
+            <div class="card border-0 shadow-sm">
+                <div class="card-body position-relative">
+                    <h5 class="card-title">{{ announcement.title }}</h5>
+                    <p class="card-text announcement-content">{{ announcement.content }}</p>
+                    <a href="{{ url_for('announcement_detail', announcement_id=announcement.announcement_id) }}" class="stretched-link"></a>
+                    <div class="text-end position-absolute bottom-0 end-0 m-3">
+                        <a href="{{ url_for('announcement_list') }}" class="link-primary text-decoration-none">View All Announcements</a>
+                    </div>
+                </div>
+            </div>
+        {% else %}
+            <p>No active announcements at the moment.</p>
+        {% endif %}
+    </div>
+
+    <!-- Competitions Section -->
+    <div class="competitions">
+        <div>
+            {% for competition in competitions %}
+                <div class="competition-card">
+                    <div class="card h-100 border-0 shadow-sm text-white position-relative" style="background: url('{{ competition.image or '/static/images/default_competition.png' }}') no-repeat center center / cover;">
+                        <div class="card-body d-flex flex-column justify-content-between p-4 bg-opacity-50 position-relative">
+                            <div>
+                                <h5 class="card-title">{{ competition.name }}</h5>
+                                <p class="card-text">
+                                    {% if competition.status == 'approved' %}
+                                        Status: Results Pending
+                                    {% elif competition.start_date > CURR_TIME %}
+                                        Voting starts in {{ (competition.start_date - CURR_TIME) | format_relative_time }}
+                                    {% elif competition.end_date >= CURR_TIME %}
+                                        Voting ends in {{ (competition.end_date - CURR_TIME) | format_relative_time }} - Cast your vote now!
+                                    {% else %}
+                                        Status: Awaiting Results
+                                    {% endif %}
+                                </p>
+                            </div>
+                            <div class="text-end position-absolute bottom-0 end-0 m-3">
+                                <a href="{{ url_for('competition_detail', competition_id=competition.competition_id) }}" class="link-light text-decoration-none me-3">Details</a>
+                                <a href="{{ url_for('competition_vote', competition_id=competition.competition_id) }}" class="link-light text-decoration-none">Vote</a>
+                            </div>
+                            <a href="{{ url_for('competition_vote', competition_id=competition.competition_id) }}" class="stretched-link"></a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<style>
+    .announcement, .competition-card {
+        transition: box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out;
+    }
+
+    .announcement:hover, .competition-card:hover {
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+        transform: translateY(-5px);
+    }
+
+    .announcement {
+        cursor: pointer;
+        padding: 0px;
+        margin-bottom: 30px;
+    }
+
+    .announcement .card {
+        background-color: #d8e9da;
+        border-radius: 8px;
+    }
+
+    .announcement .stretched-link,
+    .competition-card .stretched-link {
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        z-index: 1;
+    }
+
+    .competition-card {
+        position: relative;
+        overflow: hidden;
+        cursor: pointer;
+        /* background-color: #eee; */
+        border-radius: 8px;
+        padding-left: 0px;
+        padding-right: 0px;
+        margin-top: 30px;
+    }
+
+    .competition-card .card-body {
+        position: relative;
+        /* z-index: 2; */
+    }
+
+    .competition-card .card-body {
+        height: 200px;
+    }
+
+    .competition-card img {
+        width: 100%;
+        object-fit: cover;
+    }
+
+    .announcement .text-end a,
+    .competition-card .text-end a {
+        z-index: 2;
+        position: relative;
+    }
+</style>
+
 {% endblock %}
