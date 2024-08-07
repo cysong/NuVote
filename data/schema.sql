@@ -77,7 +77,6 @@ CREATE TABLE IF NOT EXISTS votes
     voted_at      TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
     PRIMARY KEY (`vote_id`),
-    FOREIGN KEY (`competition_id`) REFERENCES `competitions` (`competition_id`),
     FOREIGN KEY (`competitor_id`) REFERENCES `competitors` (`competitor_id`) ON DELETE CASCADE,
     FOREIGN KEY (`voted_by`) REFERENCES `users` (`user_id`)
 );
