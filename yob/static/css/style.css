@@ -68,3 +68,28 @@ body {
   .user-table td .form-check {
     height: 100%;
   }
+
+.announcement, .competition-card {
+    transition: box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
+.announcement:hover, .competition-card:hover {
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    transform: translateY(-5px);
+}
+
+.competition-card {
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  /* background-color: #eee; */
+  border-radius: 8px;
+  padding-left: 0px;
+  padding-right: 0px;
+  margin-top: 30px;
+}
+
+.competition-card .card-body {
+  position: relative;
+  height: 200px;
+}
