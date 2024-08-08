@@ -27,7 +27,7 @@ def competition_vote(competition_id):
         elif g.user['role'] not in PERMITED_VOTE_ROLES:
             can_vote = False
             message = "Your role are not permited to vote!"
-    return render_template('competitions/vote.html', competition=competition, competitors=competitors, can_vote=can_vote, has_voted=has_voted, message=message, CURR_TIME=datetime.now())
+    return render_template('competitions/competition_vote.html', competition=competition, competitors=competitors, can_vote=can_vote, has_voted=has_voted, message=message, CURR_TIME=datetime.now())
 
 
 @app.route('/vote', methods=['POST'])
