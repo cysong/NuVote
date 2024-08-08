@@ -15,28 +15,3 @@ def index():
     now = get_current_datetime()
     return render_template('index.html',
                            announcement=latest_announcement, competitions=competitions, CURR_TIME=now)
-
-
-@app.route('/competition/list')
-def competition_list():
-    pass
-
-
-@app.route('/competition/<int:competition_id>')
-def competition_detail(competition_id):
-    pass
-
-
-@app.route('/competitor/<int:competitor_id>')
-def competitor_details(competitor_id):
-    pass
-
-
-@app.route('/announcement/list')
-def announcement_list():
-    pass
-
-
-@app.route('/announcement/<int:announcement_id>')
-def announcement_detail(announcement_id):
-    pass
