@@ -15,4 +15,4 @@ def competition_edit(competition_id):
 
 @app.route('/competition/view/<int:competition_id>')
 def competition_view(competition_id):
-    return render_template('competitions/competion_view.html')
+    return render_template('competitions/competition_view.html')
