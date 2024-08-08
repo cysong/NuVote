@@ -1,6 +1,6 @@
 {% extends 'layout.html' %}
 
-{% block title %}Home{% endblock %}
+{% block title %}{{ APP_NAME if APP_NAME else "Voting" }} - {{ SLOGAN }}{% endblock %}
 
 {% block content %}
 <div>
