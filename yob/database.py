@@ -1,7 +1,8 @@
 import mysql.connector
-from mysql.connector import Error, pooling
-from yob import connect
 from flask import current_app as app
+from mysql.connector import Error
+
+from yob import connect
 
 # Create a database connection pool
 db_pool = mysql.connector.pooling.MySQLConnectionPool(
@@ -16,6 +17,7 @@ db_pool = mysql.connector.pooling.MySQLConnectionPool(
     autocommit=True
 )
 
+
 def get_connection():
     """Get a connection from the pool and enable autocommit"""
     try:
@@ -28,6 +30,7 @@ def get_connection():
     except Error as e:
         app.logger.error(f"Error getting connection from pool: {e}")
         raise
+
 
 def get_cursor():
     """Gets a new dictionary cursor for the database.
@@ -43,8 +46,10 @@ def get_cursor():
         connection.close()
         raise
 
+
 class Cursor:
     """Context Manager of Cursor"""
+
     def __init__(self, **cursor_params):
         self.connection = None
         self.cursor = None

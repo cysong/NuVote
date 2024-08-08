@@ -1,4 +1,3 @@
-from yob.config import DEFAULT_PROFILE_IMAGE
 from yob.database import Cursor
 
 

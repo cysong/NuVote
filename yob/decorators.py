@@ -3,7 +3,6 @@ from functools import wraps
 from flask import session, redirect, url_for, flash, render_template, request
 
 from yob import app
-from yob import config
 
 
 # Helper functions to manage session data
@@ -27,6 +26,7 @@ def get_user_id_from_session():
 def get_username_id_from_session():
     return session['username'] if 'username' in session else ''
 
+
 def get_profile_image_from_session():
     return session['profile_image'] if 'profile_image' in session else ''
 
@@ -34,8 +34,9 @@ def get_profile_image_from_session():
 # Context processor to inject user information into templates
 @app.context_processor
 def inject_user():
-    return dict( is_logged_in=is_logged_in(), role=get_role_from_session(), user_status=get_status_from_session(),
-                user_id=get_user_id_from_session(), username=get_username_id_from_session(), profile_image=get_profile_image_from_session(), request=request)
+    return dict(is_logged_in=is_logged_in(), role=get_role_from_session(), user_status=get_status_from_session(),
+                user_id=get_user_id_from_session(), username=get_username_id_from_session(),
+                profile_image=get_profile_image_from_session(), request=request)
 
 
 def login_required(f):

@@ -1,9 +1,11 @@
-from flask import session, g, redirect, url_for, current_app, abort
 from functools import wraps
+
+from flask import session, g, redirect, url_for, current_app, abort
 
 
 class LoginManager:
     """Handling login and role verifying"""
+
     def __init__(self, app, login_view='login'):
         self.app = app
         if app:
@@ -44,8 +46,10 @@ class LoginManager:
         else:
             g.user = None
 
+
 def is_logged_in():
     return 'user_id' in session
+
 
 def login_required(func):
     """the decorator for the method need user login
@@ -53,16 +57,19 @@ def login_required(func):
     Args:
         func (function): the decorated method
     """
+
     @wraps(func)
     def decorated_view(*args, **kwargs):
         if g.user is None:
             return redirect(url_for(current_app.login_manager.login_view))
         return func(*args, **kwargs)
+
     return decorated_view
 
 
 def roles_required(*roles):
     """the decorator for the method need verify user's role"""
+
     def wrapper(func):
         @wraps(func)
         @login_required
@@ -70,5 +77,7 @@ def roles_required(*roles):
             if g.user['role'] in roles:
                 return func(*args, **kwargs)
             abort(403, description=f'Only role(s) {roles} can access this page.')
+
         return decorated_view
+
     return wrapper

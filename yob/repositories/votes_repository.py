@@ -1,5 +1,6 @@
 from yob.database import Cursor
 
+
 def get_vote_by_id(vote_id):
     """
     Retrieve a vote by its ID, including the username of the voter
@@ -24,6 +25,7 @@ def get_vote_by_id(vote_id):
         vote = cursor.fetchone()
     return vote
 
+
 def create_vote(vote):
     """
     Create a new vote
@@ -42,6 +44,7 @@ def create_vote(vote):
         vote_id = cursor.lastrowid
     return vote_id
 
+
 def set_vote_status(vote_id, status):
     """
     Set the status of a vote (valid/invalid)
@@ -54,6 +57,7 @@ def set_vote_status(vote_id, status):
         """, (status, vote_id))
         affected_rows = cursor.rowcount
     return affected_rows > 0
+
 
 def get_daily_votes_by_competition(competition_id):
     """
@@ -75,6 +79,7 @@ def get_daily_votes_by_competition(competition_id):
         """, (competition_id,))
         daily_votes = cursor.fetchall()
     return daily_votes
+
 
 def get_votes_by_competitor_id(competitor_id):
     """
@@ -98,6 +103,7 @@ def get_votes_by_competitor_id(competitor_id):
         """, (competitor_id,))
         votes = cursor.fetchall()
     return votes
+
 
 def get_votes_by_competition_and_ip(competition_id, voted_ip):
     """
@@ -123,6 +129,7 @@ def get_votes_by_competition_and_ip(competition_id, voted_ip):
         votes = cursor.fetchall()
     return votes
 
+
 def get_votes_by_ip_for_competition(competition_id):
     """
     Retrieve the number of votes per IP address for a specific competition,
@@ -145,6 +152,7 @@ def get_votes_by_ip_for_competition(competition_id):
         votes_by_ip = cursor.fetchall()
     return votes_by_ip
 
+
 def invalidate_votes_by_ip_for_competition(competition_id, voted_ip):
     """
     Invalidate all votes for a specific IP address in a competition
@@ -157,6 +165,7 @@ def invalidate_votes_by_ip_for_competition(competition_id, voted_ip):
         """, (competition_id, voted_ip))
         affected_rows = cursor.rowcount
     return affected_rows > 0
+
 
 def get_votes_by_competition_and_user(competition_id, user_id):
     """
