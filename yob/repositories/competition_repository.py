@@ -13,6 +13,7 @@ def get_competition_by_id(competition_id):
         competition = cursor.fetchone()
     return competition
 
+
 def create_competition(competition):
     """
     Create a new competition
@@ -32,6 +33,7 @@ def create_competition(competition):
         ))
         competition_id = cursor.lastrowid
     return competition_id
+
 
 def update_competition(competition_id, competition):
     """
@@ -54,6 +56,7 @@ def update_competition(competition_id, competition):
         affected_rows = cursor.rowcount
     return affected_rows > 0
 
+
 def update_competition_status(competition_id, status):
     """
     Update the status of a competition
@@ -70,6 +73,7 @@ def update_competition_status(competition_id, status):
         affected_rows = cursor.rowcount
     return affected_rows > 0
 
+
 def get_all_competitions():
     """
     Retrieve all competitions
@@ -80,6 +84,7 @@ def get_all_competitions():
         """)
         competitions = cursor.fetchall()
     return competitions
+
 
 def delete_competition(competition_id):
     """
@@ -92,6 +97,7 @@ def delete_competition(competition_id):
         """, (competition_id,))
         affected_rows = cursor.rowcount
     return affected_rows > 0
+
 
 def get_recent_competitions():
     """

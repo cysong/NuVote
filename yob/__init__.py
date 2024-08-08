@@ -1,11 +1,13 @@
-from flask import Flask, g
 import os
+from datetime import timedelta
+
+from flask import Flask, g
 
 import yob.config as config
-from yob.config import DEFAULT_PROFILE_IMAGES_FOLDER, DEFAULT_COMPETITOR_IMAGES_FOLDER, DEFAULT_COMPETITION_IMAGES_FOLDER
+from yob.config import DEFAULT_PROFILE_IMAGES_FOLDER, DEFAULT_COMPETITOR_IMAGES_FOLDER, \
+    DEFAULT_COMPETITION_IMAGES_FOLDER
 from yob.login_manage import LoginManager
 from .repositories.users_repository import get_user_by_id
-from datetime import timedelta
 
 app = Flask(__name__, static_folder='static', template_folder='templates')
 
@@ -16,6 +18,7 @@ app = Flask(__name__, static_folder='static', template_folder='templates')
 app.secret_key = config.DEFAULT_SECRET_KEY
 
 from . import decorators, views
+
 
 # Create image upload directories and save to app
 
@@ -43,7 +46,9 @@ def load_user(user_id):
 def inject_user():
     """inject global template variables"""
     current_user = g.user if 'user' in g else {}
-    return dict(APP_NAME=config.APP_NAME, SLOGAN=config.SLOGAN, CURRENT_USER=current_user, DEFAULT_PROFILE_IMAGE=config.DEFAULT_PROFILE_IMAGE)
+    return dict(APP_NAME=config.APP_NAME, SLOGAN=config.SLOGAN, CURRENT_USER=current_user,
+                DEFAULT_PROFILE_IMAGE=config.DEFAULT_PROFILE_IMAGE)
+
 
 @app.template_filter('format_relative_time')
 def format_relative_time(time_diff):

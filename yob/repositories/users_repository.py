@@ -1,10 +1,12 @@
-from yob.config import DEFAULT_USER_ROLE, DEFAULT_USER_STATUS, DEFAULT_PROFILE_IMAGE, DEFAULT_PASSWORD_SALT
-from yob.utility import get_current_datetime
-from yob.database import get_cursor, Cursor
 from flask_hashing import Hashing
+
+from yob.config import DEFAULT_USER_ROLE, DEFAULT_USER_STATUS, DEFAULT_PROFILE_IMAGE, DEFAULT_PASSWORD_SALT
+from yob.database import Cursor
+from yob.utility import get_current_datetime
 
 PASSWORD_SALT = DEFAULT_PASSWORD_SALT
 hashing = Hashing()
+
 
 class User:
     def __init__(self, username, first_name, last_name, location, email, description, password):
@@ -46,7 +48,9 @@ def get_user_by_username(username):
     # We need all the account info for the user, so we can display it on the profile page
     with Cursor() as cursor:
         cursor.execute(
-            'SELECT user_id, username, first_name, last_name, location,email,description, profile_image, role, status, created_at FROM users WHERE username = %s',
+            'SELECT user_id, username, first_name, last_name, '
+            'location,email,description, profile_image, role, status, '
+            'created_at FROM users WHERE username = %s',
             (username,))
         user = cursor.fetchone()
     # Set default Profile Image
@@ -148,6 +152,7 @@ def update_user_role(user_id, role):
         cursor.execute('UPDATE users SET role = %s WHERE user_id = %s', (role, user_id))
     return get_user_by_id(user_id)
 
+
 def check_username_exists(username):
     """Check if username exists"""
     with Cursor() as cursor:
@@ -156,6 +161,7 @@ def check_username_exists(username):
         exists = cursor.fetchone()[0] > 0
     return exists
 
+
 def check_email_exists(email):
     """Check if email exists"""
     with Cursor() as cursor:
@@ -163,6 +169,7 @@ def check_email_exists(email):
             "SELECT COUNT(*) FROM users WHERE email = %s", (email,))
         exists = cursor.fetchone()[0] > 0
     return exists
+
 
 def update_user(user):
     """
@@ -183,6 +190,7 @@ def update_user(user):
         ))
         affected_rows = cursor.rowcount
     return affected_rows > 0
+
 
 def update_profile_image(user_id, profile_image):
     """

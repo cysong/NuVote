@@ -12,7 +12,7 @@ DEFAULT_PROFILE_IMAGES_FOLDER = 'static/uploads/profile_images'
 DEFAULT_COMPETITOR_IMAGES_FOLDER = 'static/uploads/competitor_images'
 DEFAULT_COMPETITION_IMAGES_FOLDER = 'static/uploads/competition_images'
 DEFAULT_PROFILE_IMAGE = '/static/images/default_profile.png'
-DEFAULT_COMPETIION_IMAGE = '/static/images/default_competition.png'
+DEFAULT_COMPETITION_IMAGE = '/static/images/default_competition.png'
 DEFAULT_COMPETITOR_IMAGE = '/static/images/default_competiotr.png'
 DEFAULT_MIN_BIRTHDATE = '1900-01-01'
 USERNAME_REGX = r'^[a-zA-Z0-9_-]{3,50}$'
@@ -21,5 +21,5 @@ EMAIL_REGEX = r'^([A-Za-z0-9]+[.-_])*[A-Za-z0-9]+@[A-Za-z0-9-]+(\.[A-Z|a-z]{2,})
 ALLOWED_EXTENSIONS = ('png', 'jpg', 'jpeg', 'gif', '.webp', '.bmp')
 
 DEFAULT_VOTE_STATUS = 'valid'
-PERMITED_VOTE_ROLES = ['voter']
+PERMITTED_VOTE_ROLES = ['voter']
 MAX_TICKETS_PER_COMPETITION = 1

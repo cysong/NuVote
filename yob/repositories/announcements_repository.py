@@ -1,5 +1,6 @@
 from yob.database import Cursor
 
+
 def create_announcement(announcement):
     """
     Create a new announcement.
@@ -18,6 +19,7 @@ def create_announcement(announcement):
         announcement_id = cursor.lastrowid
     return announcement_id
 
+
 def get_announcement_by_id(announcement_id):
     """
     Get an announcement by its ID.
@@ -30,6 +32,7 @@ def get_announcement_by_id(announcement_id):
         announcement = cursor.fetchone()
     return announcement
 
+
 def get_all_announcements():
     """
     Get all announcements, ordered by created_at descending.
@@ -41,6 +44,7 @@ def get_all_announcements():
         """)
         announcements = cursor.fetchall()
     return announcements
+
 
 def get_active_announcements():
     """
@@ -55,6 +59,7 @@ def get_active_announcements():
         active_announcements = cursor.fetchall()
     return active_announcements
 
+
 def get_latest_active_announcement():
     """
     Get the latest active announcement.
@@ -68,6 +73,7 @@ def get_latest_active_announcement():
         """)
         latest_active_announcement = cursor.fetchone()
     return latest_active_announcement
+
 
 def update_announcement(announcement_id, announcement):
     """
@@ -87,6 +93,7 @@ def update_announcement(announcement_id, announcement):
         ))
         affected_rows = cursor.rowcount
     return affected_rows > 0
+
 
 def delete_announcement(announcement_id):
     """

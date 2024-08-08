@@ -1,7 +1,9 @@
+import logging
+
 from flask import render_template
 
 from yob import app
-import logging
+
 
 @app.errorhandler(400)
 def bad_request(e):
@@ -19,6 +21,7 @@ def page_not_found(e):
 def internal_server_error(e):
     # Render custom 500 error page
     return render_template('error/500.html'), 500
+
 
 @app.errorhandler(Exception)
 def handle_exception(e):

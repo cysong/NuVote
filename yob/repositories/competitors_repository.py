@@ -1,5 +1,6 @@
 from yob.database import Cursor
 
+
 def get_competitor_by_id(competitor_id):
     """
     Retrieve a competitor by their ID
@@ -11,6 +12,7 @@ def get_competitor_by_id(competitor_id):
         """, (competitor_id,))
         competitor = cursor.fetchone()
     return competitor
+
 
 def create_competitor(competitor):
     """
@@ -32,6 +34,7 @@ def create_competitor(competitor):
         competitor_id = cursor.lastrowid
     return competitor_id
 
+
 def update_competitor(competitor_id, competitor):
     """
     Update competitor information based on competitor_id
@@ -52,6 +55,7 @@ def update_competitor(competitor_id, competitor):
         affected_rows = cursor.rowcount
     return affected_rows > 0
 
+
 def get_all_competitors():
     """
     Retrieve all competitors, ordered by creation time
@@ -64,6 +68,7 @@ def get_all_competitors():
         competitors = cursor.fetchall()
     return competitors
 
+
 def get_competitors_by_competition_id(competition_id):
     """
     Retrieve competitors by their competition_id
@@ -75,6 +80,7 @@ def get_competitors_by_competition_id(competition_id):
         """, (competition_id,))
         competitors = cursor.fetchall()
     return competitors
+
 
 def get_competitors_with_valid_votes(competition_id):
     """
@@ -108,6 +114,7 @@ def get_competitors_with_valid_votes(competition_id):
         competitors = cursor.fetchall()
     return competitors
 
+
 def get_competitors_with_votes_percentage(competition_id):
     """
     Retrieve all competitors in a competition with their total valid votes and vote count percentage
@@ -120,7 +127,7 @@ def get_competitors_with_votes_percentage(competition_id):
             WHERE competition_id = %s AND status = 'valid'
         """, (competition_id,))
         total_votes = cursor.fetchone()['total_votes']
-        
+
         # Retrieve competitors with their valid vote counts and calculate percentage
         cursor.execute("""
             SELECT 
@@ -149,6 +156,7 @@ def get_competitors_with_votes_percentage(competition_id):
 
         competitors = cursor.fetchall()
     return competitors
+
 
 def get_competitors_and_votes(competition_id, user_id):
     """

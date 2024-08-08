@@ -21,7 +21,7 @@ CREATE TABLE IF NOT EXISTS users
     password_hash CHAR(64)                              NOT NULL COMMENT 'SHA256 password hash stored in hexadecimal (64 characters)',
     role          ENUM ('voter', 'scrutineer', 'admin') NOT NULL,
     status        ENUM ('active', 'inactive')           NOT NULL,
-    created_at    TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    created_at    TIMESTAMP                             NOT NULL DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (`user_id`)
 );
 
@@ -38,7 +38,7 @@ CREATE TABLE IF NOT EXISTS competitions
     end_date       datetime                                             NOT NULL,
     status         ENUM ('finished', 'on_going', 'in_plan', 'approved') NOT NULL,
     create_by      INT                                                  NOT NULL,
-    created_at     TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    created_at     TIMESTAMP                                            NOT NULL DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (`competition_id`),
     FOREIGN KEY (`create_by`) REFERENCES `users` (`user_id`)
 );
@@ -56,7 +56,7 @@ CREATE TABLE IF NOT EXISTS competitors
     status         ENUM ('win', 'passed','attending') NOT NULL,
     author         VARCHAR(50)                        NOT NULL,
     create_by      INT                                NOT NULL,
-    created_at     TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    created_at     TIMESTAMP                          NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
     PRIMARY KEY (`competitor_id`),
     FOREIGN KEY (`create_by`) REFERENCES `users` (`user_id`),
@@ -68,13 +68,13 @@ CREATE TABLE IF NOT EXISTS competitors
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS votes
 (
-    vote_id       INT                       NOT NULL AUTO_INCREMENT,
-    competition_id int                                NOT NULL,
-    competitor_id INT                       NOT NULL,
-    voted_by      INT                       NOT NULL,
-    status        ENUM ('valid', 'invalid') NOT NULL,
-    voted_ip      varchar(64)               NOT NULL,
-    voted_at      TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    vote_id        INT                       NOT NULL AUTO_INCREMENT,
+    competition_id int                       NOT NULL,
+    competitor_id  INT                       NOT NULL,
+    voted_by       INT                       NOT NULL,
+    status         ENUM ('valid', 'invalid') NOT NULL,
+    voted_ip       varchar(64)               NOT NULL,
+    voted_at       TIMESTAMP                 NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
     PRIMARY KEY (`vote_id`),
     FOREIGN KEY (`competitor_id`) REFERENCES `competitors` (`competitor_id`) ON DELETE CASCADE,
@@ -92,7 +92,7 @@ CREATE TABLE IF NOT EXISTS announcements
     end_at          datetime                    NOT NULL,
     status          ENUM ('active', 'inactive') NOT NULL,
     created_by      int                         NOT NULL,
-    created_at     TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    created_at      TIMESTAMP                   NOT NULL DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (`announcement_id`),
     FOREIGN KEY (`created_by`) REFERENCES `users` (`user_id`)
 );
