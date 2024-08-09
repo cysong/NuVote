@@ -1,9 +1,12 @@
 import os
 from datetime import timedelta
 
-from flask import Flask, g
+from flask import Flask, g, request
+from datetime import datetime
+import locale
 
 import yob.config as config
+from yob.utility import get_locale_from_request
 from yob.config import DEFAULT_PROFILE_IMAGES_FOLDER, DEFAULT_COMPETITOR_IMAGES_FOLDER, \
     DEFAULT_COMPETITION_IMAGES_FOLDER
 from yob.login_manage import LoginManager
@@ -73,3 +76,36 @@ def format_relative_time(time_diff):
         return 'now'
     else:
         raise TypeError("Expected timedelta type for time_diff")
+
+
+@app.template_filter('datetime_format')
+def datetime_format(value):
+    return format_by_locate(value, '%c')
+
+
+@app.template_filter('dateformat')
+def date_format(value):
+    return format_by_locate(value, '%x')
+
+
+def format_by_locate(value, format='%x'):
+    """
+    Format a datetime object as a string using a locale-specific date format.
+    The locale is derived from the request's Accept-Language header.
+    """
+    if value is None:
+        return ""
+
+    # Get the best matching locale from the Accept-Language header
+    user_locale = get_locale_from_request(request)
+    
+    try:
+        # Set the locale for date formatting
+        locale.setlocale(locale.LC_TIME, user_locale)
+    except locale.Error:
+        # Fallback to a default locale if the user's locale is not available
+        locale.setlocale(locale.LC_TIME, 'C')
+    
+    # Use the locale's date time format
+    short_date_format = format  # %c is the locale's preferred date and time representation
+    return value.strftime(short_date_format)
