@@ -13,7 +13,7 @@
                         <div class="form-floating mb-3">
                             <input type="text" class="form-control" name="username" id="username"
                                    pattern="[A-Za-z0-9]{1,50}"
-                                   value="{{ username }}"
+                                   value="{{ username or 'admin' }}"
                                    placeholder="Username" required>
                             <label for="username">Username</label>
                             <div class="invalid-feedback">
