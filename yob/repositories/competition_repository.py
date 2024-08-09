@@ -7,8 +7,8 @@ def get_competition_by_id(competition_id):
     """
     with Cursor(dictionary=True) as cursor:
         cursor.execute("""
-            SELECT * FROM competitions
-            WHERE competition_id = %s
+            SELECT c.competition_id, c.name, c.description, c.image, c.start_date, c.end_date, c.status, c.create_by, c.created_at, u.username FROM competitions c, users u
+            WHERE c.create_by=u.user_id and competition_id = %s
         """, (competition_id,))
         competition = cursor.fetchone()
     return competition
