@@ -18,6 +18,7 @@ def random_string(length=32):
 
 
 def are_fields_present(request, required_fields):
+    '''Check if all required fields are present in the request.'''
     return all(field in request.form and request.form[field] for field in required_fields)
 
 def get_locale_from_request(request):
