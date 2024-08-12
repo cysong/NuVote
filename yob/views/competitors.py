@@ -5,8 +5,8 @@ from yob.repositories.competitors_repository import get_competitor_by_id
 
 
 @app.route('/competition/<int:competition_id>/competitors')
-def competitor_manage(competition_id):
-    return render_template('competitors/competitor_mgmt.html')
+def competitors_manage(competition_id):
+    return render_template('competitors/competitors_mgmt.html')
 
 
 @app.route('/competitor/edit/<int:competitor_id>')
