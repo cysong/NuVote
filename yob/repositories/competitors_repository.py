@@ -151,7 +151,7 @@ def get_competitors_with_votes_percentage(competition_id):
             WHERE 
                 c.competition_id = %s
             ORDER BY 
-                c.created_at DESC
+                vote_percentage DESC
         """, (total_votes, competition_id, competition_id))
 
         competitors = cursor.fetchall()
