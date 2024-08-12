@@ -1,9 +1,13 @@
-from flask import request, flash, render_template, session, g, jsonify, url_for
+import hashlib
+import os
+import re
+
+from flask import request, flash, render_template, g, jsonify
 
 from yob import app, config
 from yob.login_manage import login_required
-import re, hashlib, os
 from yob.repositories import users_repository
+
 
 @app.route('/user/<int:user_id>', methods=['GET', 'POST'])
 @login_required
@@ -55,8 +59,9 @@ def profile(user_id):
         flash('Profile updated successfully!', 'success')
 
     showBack = 'showBack' in request.args
-    editable=user['user_id'] == g.user['user_id']
+    editable = user['user_id'] == g.user['user_id']
     return render_template('user/profile.html', user=user, editable=editable, showBack=showBack)
+
 
 @app.route('/user/profile_image', methods=['POST'])
 @login_required
@@ -70,9 +75,8 @@ def upload_profile_image():
         return jsonify(success=False, error='No selected file')
 
     if file and allowed_file(file.filename):
-        extension = file.filename.rsplit('.', 2)[1].lower()
         # Hash file with md5 to generate unieq filename, avoding filename conflict
-        filename = calculate_md5_hash(file) + '.' + extension
+        filename = get_hashed_filename(file, read_file_extension(file.filename))
         file_path = os.path.join(app.config['PROFILE_IMAGES_ABS_PATH'], filename)
         if os.path.exists(file_path):
             file.close()
@@ -99,6 +103,7 @@ def allowed_file(filename):
     """Validate profile image extension"""
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in config.ALLOWED_EXTENSIONS
 
+
 def calculate_md5_hash(file):
     """Calculate the MD5 hash of a file-like object."""
     hasher = hashlib.md5()
@@ -107,3 +112,11 @@ def calculate_md5_hash(file):
     # Reset the file pointer to the beginning after reading
     file.seek(0)
     return hasher.hexdigest()
+
+
+def read_file_extension(filename):
+    return filename.rsplit('.', 2)[1].lower()
+
+
+def get_hashed_filename(file, extension):
+    return calculate_md5_hash(file) + '.' + extension

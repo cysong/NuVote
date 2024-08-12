@@ -1,6 +1,17 @@
 from yob.database import Cursor
 
 
+class Competition:
+    def __init__(self, name, description, image, start_date, end_date, status, create_by):
+        self.name = name
+        self.description = description
+        self.image = image
+        self.start_date = start_date
+        self.end_date = end_date
+        self.status = status
+        self.create_by = create_by
+
+
 def get_competition_by_id(competition_id):
     """
     Retrieve a competition by its ID
@@ -23,13 +34,13 @@ def create_competition(competition):
             INSERT INTO competitions (name, description, image, start_date, end_date, status, create_by)
             VALUES (%s, %s, %s, %s, %s, %s, %s)
         """, (
-            competition['name'],
-            competition['description'],
-            competition['image'],
-            competition['start_date'],
-            competition['end_date'],
-            competition['status'],
-            competition['create_by']
+            competition.name,
+            competition.description,
+            competition.image,
+            competition.start_date,
+            competition.end_date,
+            competition.status,
+            competition.create_by
         ))
         competition_id = cursor.lastrowid
     return competition_id
@@ -45,12 +56,12 @@ def update_competition(competition_id, competition):
             SET name = %s, description = %s, image = %s, start_date = %s, end_date = %s, status = %s
             WHERE competition_id = %s
         """, (
-            competition['name'],
-            competition['description'],
-            competition['image'],
-            competition['start_date'],
-            competition['end_date'],
-            competition['status'],
+            competition.name,
+            competition.description,
+            competition.image,
+            competition.start_date,
+            competition.end_date,
+            competition.status,
             competition_id
         ))
         affected_rows = cursor.rowcount

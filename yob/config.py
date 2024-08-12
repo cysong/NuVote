@@ -21,5 +21,6 @@ EMAIL_REGEX = r'^([A-Za-z0-9]+[.-_])*[A-Za-z0-9]+@[A-Za-z0-9-]+(\.[A-Z|a-z]{2,})
 ALLOWED_EXTENSIONS = ('png', 'jpg', 'jpeg', 'gif', '.webp', '.bmp')
 
 DEFAULT_VOTE_STATUS = 'valid'
+DEFAULT_COMPETITION_STATUS = 'in_plan'
 PERMITTED_VOTE_ROLES = ['voter']
 MAX_TICKETS_PER_COMPETITION = 1
