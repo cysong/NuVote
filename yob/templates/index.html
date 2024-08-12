@@ -45,9 +45,13 @@
                             </div>
                             <div class="text-end position-absolute bottom-0 end-0 m-3">
                                 <a href="{{ url_for('competition_view', competition_id=competition.competition_id) }}" class="link-light text-decoration-none me-3">Details</a>
-                                <a href="{{ url_for('competition_vote', competition_id=competition.competition_id) }}" class="link-light text-decoration-none">Vote</a>
+                                <!-- <a href="{{ url_for('competition_vote', competition_id=competition.competition_id) }}" class="link-light text-decoration-none">Vote</a> -->
                             </div>
-                            <a href="{{ url_for('competition_vote', competition_id=competition.competition_id) }}" class="stretched-link"></a>
+                            {% if competition.status == 'approved' %}
+                                <a href="{{ url_for('competition_result', competition_id=competition.competition_id) }}" class="stretched-link"></a>
+                            {% else %}
+                                <a href="{{ url_for('competition_vote', competition_id=competition.competition_id) }}" class="stretched-link"></a>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
