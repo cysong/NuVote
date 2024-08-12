@@ -30,6 +30,8 @@
                                     <li><a class="dropdown-item" href="{{url_for('password', user_id=user_id)}}">Change Password</a></li>
                                     {% if role == 'admin' %}
                                         <li><a class="dropdown-item" href="{{url_for('users_mgmt')}}">Manage Users</a></li>
+                                        <li><a class="dropdown-item" href="{{url_for('competitions_mgmt')}}">Manage Competitions</a></li>
+                                        <li><a class="dropdown-item" href="{{url_for('announcements_mgmt')}}">Manage Announcements</a></li>
                                     {% endif %}
                                     <li><hr class="dropdown-divider"></li>
                                     <li><a class="dropdown-item" href="{{ url_for('logout') }}">Logout</a></li>
