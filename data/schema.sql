@@ -78,7 +78,8 @@ CREATE TABLE IF NOT EXISTS votes
 
     PRIMARY KEY (`vote_id`),
     FOREIGN KEY (`competitor_id`) REFERENCES `competitors` (`competitor_id`) ON DELETE CASCADE,
-    FOREIGN KEY (`voted_by`) REFERENCES `users` (`user_id`)
+    FOREIGN KEY (`voted_by`) REFERENCES `users` (`user_id`),
+    UNIQUE KEY `uniq_comp_voter` (`competition_id`, `voted_by`)
 );
 
 -- -----------------------------------------------------
