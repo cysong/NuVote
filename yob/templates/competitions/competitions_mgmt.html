@@ -17,22 +17,24 @@
                             <h5 class="card-title">{{ competition.name }}</h5>
                             <p class="card-text">{{ competition.status }}</p>
                         </div>
-                        <div class="text-end position-absolute bottom-0 end-0 m-3">
+                        <div class="text-end position-absolute bottom-0 end-0 m-3 d-flex">
                             {% if competition.status == 'in_plan' %}
                             <a href="{{ url_for('competition_edit', competition_id=competition.competition_id) }}"
                                class="link-light text-decoration-none me-3">Edit</a>
+                            <a href="{{ url_for('competitors_manage', competition_id=competition.competition_id) }}"
+                               class="link-light text-decoration-none me-3">Manage Competitors</a>
                             <form action="{{ url_for('competition_delete', competition_id=competition.competition_id) }}"
-                                  method="POST" class="mt-3">
-                                <button type="button" class="btn btn-outline-danger btn-sm delete-btn"
-                                        data-bs-toggle="modal"
-                                        data-bs-target="#confirmDeleteModal"
-                                        data-item-id="{{ competition.competition_id }}"
-                                        data-item-type="competition">
-                                    <i class="bi bi-backspace"></i>
-                                    <span class="delete-text">Delete</span>
-                                </button>
-                            </form>
-                            {% endif %}
+                               method="POST" class="">
+                             <button type="button" class="btn btn-outline-danger btn-sm delete-btn"
+                                     data-bs-toggle="modal"
+                                     data-bs-target="#confirmDeleteModal"
+                                     data-item-id="{{ competition.competition_id }}"
+                                     data-item-type="competition">
+                                 <i class="bi bi-backspace"></i>
+                                 <span class="delete-text">Delete</span>
+                             </button>
+                         </form>
+                         {% endif %}
                         </div>
                     </div>
                 </div>
