@@ -110,23 +110,16 @@ def delete_competition(competition_id):
     return affected_rows > 0
 
 
-def get_recent_competitions():
+def get_latest_competitions():
     """
-    Get recent competitions including:
-    - Currently ongoing competitions
-    - Competitions ended within the past week
-    - Competitions starting within the next week
-    Results are ordered by start_date in descending order.
+    Get latest 5 competitions order by start_date in descending order
     """
     with Cursor(dictionary=True) as cursor:
         cursor.execute("""
             SELECT *
             FROM competitions
-            WHERE 
-                (start_date <= NOW() AND end_date >= NOW())
-                OR (end_date BETWEEN NOW() - INTERVAL 1 MONTH and NOW())
-                OR (start_date BETWEEN NOW() AND NOW() + INTERVAL 1 MONTH)
             ORDER BY start_date DESC
+            LIMIT 5
         """)
         recent_competitions = cursor.fetchall()
     return recent_competitions
