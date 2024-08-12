@@ -1,6 +1,15 @@
 from yob.database import Cursor
 
 
+class Announcement:
+    def __init__(self, title, content, end_at, status, create_by):
+        self._title = title
+        self._content = content
+        self._end_at = end_at
+        self._status = status
+        self._create_by = create_by
+
+
 def create_announcement(announcement):
     """
     Create a new announcement.
@@ -10,11 +19,11 @@ def create_announcement(announcement):
             INSERT INTO announcements (title, content, end_at, status, created_by)
             VALUES (%s, %s, %s, %s, %s)
         """, (
-            announcement['title'],
-            announcement['content'],
-            announcement['end_at'],
-            announcement['status'],
-            announcement['created_by']
+            announcement.title,
+            announcement.content,
+            announcement.end_at,
+            announcement.status,
+            announcement.created_by
         ))
         announcement_id = cursor.lastrowid
     return announcement_id
@@ -85,10 +94,10 @@ def update_announcement(announcement_id, announcement):
             SET title = %s, content = %s, end_at = %s, status = %s
             WHERE announcement_id = %s
         """, (
-            announcement['title'],
-            announcement['content'],
-            announcement['end_at'],
-            announcement['status'],
+            announcement.title,
+            announcement.content,
+            announcement.end_at,
+            announcement.status,
             announcement_id
         ))
         affected_rows = cursor.rowcount
