@@ -35,7 +35,7 @@ def create_competitor(competitor):
     return competitor_id
 
 
-def update_competitor(competitor_id, competitor):
+def update_competitor(competitor):
     """
     Update competitor information based on competitor_id
     """
@@ -50,7 +50,7 @@ def update_competitor(competitor_id, competitor):
             competitor['image'],
             competitor['status'],
             competitor['author'],
-            competitor_id
+            competitor['competitor_id']
         ))
         affected_rows = cursor.rowcount
     return affected_rows > 0
@@ -193,3 +193,15 @@ def get_competitors_and_votes(competition_id, user_id):
 
         competitors = cursor.fetchall()
     return competitors
+
+def delete_competitor(competitor_id):
+    """
+    Delete a competitor by its ID
+    """
+    with Cursor(dictionary=True) as cursor:
+        cursor.execute("""
+            DELETE FROM competitors
+            WHERE competitor_id = %s
+        """, (competitor_id,))
+        affected_rows = cursor.rowcount
+    return affected_rows > 0
