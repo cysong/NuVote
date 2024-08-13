@@ -16,6 +16,7 @@ def competition_view(competition_id):
     (status, status_message) = get_competition_status(competition)
     return render_template('competitions/competition_view.html', competition=competition, status=status, status_message=status_message)
 
+
 @app.route('/competition/result/<int:competition_id>')
 def competition_result(competition_id):
     """Return the result page of approved competition"""
@@ -27,10 +28,11 @@ def competition_result(competition_id):
 
     competitors = get_competitors_with_votes_percentage(competition_id)
     if not competitors or len(competitors) == 0:
-        abort(400, description = "No competitor found in this competition!")
+        abort(400, description="No competitor found in this competition!")
 
     winner = competitors[0]
     return render_template('competitions/competition_result.html', competition=competition, competitors=competitors, winner=winner)
+
 
 def get_competition_status(competition):
     """Determine the status and status tooltip by combining fields of stauts and date"""
