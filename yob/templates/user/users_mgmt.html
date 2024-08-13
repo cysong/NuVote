@@ -30,7 +30,7 @@
             </thead>
             <tbody id="userTable">
             {% for user in users %}
-            <tr onclick="window.location.href='{{ url_for('profile', user_id=user['user_id']) }}?showBack';"
+            <tr onclick="window.location.href='{{ url_for('profile', user_id=user['user_id']) }}';"
                 style="cursor: pointer;">
                 <td>{{ user['user_id'] }}</td>
                 <td>{{ user['username'] }}</td>

@@ -58,9 +58,8 @@ def profile(user_id):
         users_repository.update_user(user)
         flash('Profile updated successfully!', 'success')
 
-    showBack = 'showBack' in request.args
     editable = user['user_id'] == g.user['user_id']
-    return render_template('user/profile.html', user=user, editable=editable, showBack=showBack)
+    return render_template('user/profile.html', user=user, editable=editable)
 
 
 @app.route('/user/profile_image', methods=['POST'])

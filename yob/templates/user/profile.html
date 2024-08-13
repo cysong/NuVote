@@ -6,11 +6,11 @@
 <div>
     <div class="row justify-content-center">
         <div class="col-xxl-7 col-xl-8 col-lg-9 col-md-10 col-sm-11">
-            {% if showBack %}
-            <a href="javascript:void(0);" onclick="history.back();">Back</a>
-            {% else %}
-            <a href="{{ url_for('index') }}" class="mb-3 text-decoration-none">Back to Home</a>
-            {% endif %}
+
+            <div class="mb-2">
+                <button class="btn btn-outline-secondary" onclick="goBack()">← Back</button>
+            </div>
+
             <div class="card">
                 <div class="card-body">
                     <h1 class="fs-4 card-title fw-bold mb-4">{{ 'Edit' if editable else 'View' }} Profile</h1>
