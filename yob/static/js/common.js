@@ -26,3 +26,18 @@ function showSuccessMessage(message) {
 function showErrorMessage(message) {
     showMessage(message, 'danger');
 }
+
+function enter_from_menu() {
+    sessionStorage.setItem('fromMenu', 'true');
+}
+
+function goBack() {
+    var previousPage = sessionStorage.getItem("previousPage");
+    if (previousPage && previousPage !== "" && previousPage !== window.location.href) {
+        // If there's a previous page and it's not the current page, navigate to the previous page
+        window.location.href = previousPage;
+    } else {
+        // Otherwise, navigate to the homepage
+        window.location.href = "/";
+    }
+}
