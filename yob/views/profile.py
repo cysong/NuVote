@@ -86,7 +86,7 @@ def upload_profile_image():
         users_repository.update_profile_image(g.user['user_id'], file_url)
         return jsonify(success=True, profile_image=file_url)
 
-    return jsonify(success=False, error='File not allowed')
+    return jsonify(success=False, error='Image format is not allowed')
 
 
 @app.route('/user/profile_image', methods=['DELETE'])
