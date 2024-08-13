@@ -22,5 +22,6 @@ ALLOWED_EXTENSIONS = ('png', 'jpg', 'jpeg', 'gif', '.webp', '.bmp')
 
 DEFAULT_VOTE_STATUS = 'valid'
 DEFAULT_COMPETITION_STATUS = 'in_plan'
+DEFAULT_ANNOUNCEMENT_STATUS = 'active'
 PERMITTED_VOTE_ROLES = ['voter']
 MAX_TICKETS_PER_COMPETITION = 1

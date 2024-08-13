@@ -2,12 +2,12 @@ from yob.database import Cursor
 
 
 class Announcement:
-    def __init__(self, title, content, end_at, status, create_by):
-        self._title = title
-        self._content = content
-        self._end_at = end_at
-        self._status = status
-        self._create_by = create_by
+    def __init__(self, title, content, end_at, status, created_by):
+        self.title = title
+        self.content = content
+        self.end_at = end_at
+        self.status = status
+        self.created_by = created_by
 
 
 def create_announcement(announcement):
