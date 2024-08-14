@@ -1,6 +1,6 @@
 from flask_hashing import Hashing
 
-from yob.config import DEFAULT_USER_ROLE, DEFAULT_USER_STATUS, DEFAULT_PROFILE_IMAGE, DEFAULT_PASSWORD_SALT
+from yob.config import DEFAULT_USER_STATUS, DEFAULT_PROFILE_IMAGE, DEFAULT_PASSWORD_SALT
 from yob.database import Cursor
 from yob.utility import get_current_datetime
 
@@ -9,7 +9,7 @@ hashing = Hashing()
 
 
 class User:
-    def __init__(self, username, first_name, last_name, location, email, description, password):
+    def __init__(self, username, first_name, last_name, location, email, description, password, role):
         self.username = username
         self.first_name = first_name
         self.last_name = last_name
@@ -17,6 +17,7 @@ class User:
         self.email = email
         self.description = description
         self.password = password
+        self.role = role
 
 
 def get_users():
@@ -115,7 +116,7 @@ def create_user(user: User):
                 user.description,
                 DEFAULT_PROFILE_IMAGE,
                 hashing.hash_value(user.password, PASSWORD_SALT),
-                DEFAULT_USER_ROLE,
+                user.role,
                 DEFAULT_USER_STATUS,
                 get_current_datetime(),))
     return get_user_by_username(user.username)
