@@ -99,16 +99,30 @@
                                 Location is required.
                             </div>
                         </div>
-
+                        {% if user.role == 'voter' %}
                         <div class="form-floating mb-3">
-                            <input type="text" class="form-control" name="role" id="role" placeholder="Role"
-                                   value="{{ user.role }}" required {% if not editable %} disabled {% endif %}>
-                            <label for="role">Role</label>
+                            <select class="form-select" id="role" aria-label="Role" name="role" disabled>
+                                <option value="voter">Voter</option>
+                            </select>
+                            <label for="status">Role</label>
                         </div>
+                        {% else %}
+                        <div class="form-floating mb-3">
+                            <select class="form-select" id="role" aria-label="Role" name="role">
+                                {% for s in ['scrutineer', 'admin'] %}
+                                <option value="{{ s }}" {% if user.role == s %}selected{% endif %}>{{ s.capitalize() }}</option>
+                                {% endfor %}
+                            </select>
+                            <label for="status">Role</label>
+                        </div>
+                        {% endif %}
 
                         <div class="form-floating mb-3">
-                            <input type="text" class="form-control" name="status" id="status" placeholder="Status"
-                                   value="{{ user.status }}" required {% if not editable %} disabled {% endif %}>
+                            <select class="form-select" id="status" aria-label="Status" name="status">
+                                {% for s in ['active', 'inactive'] %}
+                                <option value="{{ s }}" {% if user.status == s %}selected{% endif %}>{{ s.capitalize() }}</option>
+                                {% endfor %}
+                            </select>
                             <label for="status">Status</label>
                         </div>
 
