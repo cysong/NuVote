@@ -25,7 +25,7 @@ def announcement_create():
             announcements_repository.create_announcement(announcement)
             flash("Announcement has crated successfully", "success")
         return redirect(url_for('announcements_mgmt'))
-    return render_template('announcements/announcement_mgmt.html')
+    return render_template('announcements/announcement_create.html')
 
 
 @app.route('/announcement/edit/<int:announcement_id>')
