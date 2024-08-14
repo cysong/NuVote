@@ -399,10 +399,10 @@ VALUES ('jack', 'Jack', 'Smith', 'New York', 'jack.smith@example.com', 'Enthusia
 -- -----------------------------------------------------
 INSERT INTO competitions (name, description, image, start_date, end_date, status, create_by, created_at)
 VALUES
-('New Zealand Dog in 2022', 'Celebrate the agility, strength, and loyalty of dogs in this annual competition. From high-energy obstacle courses to demonstrations of incredible obedience, this event showcases the best in canine talent, drawing participants and spectators from across the country.', '/static/images/default_competition.png', '2024-03-01', '2024-03-10', 'finished', 46, NOW()),
-('New Zealand Bee of 2023', 'A buzzing competition that puts the spotlight on our hard-working pollinators. This event is dedicated to showcasing the skills and speed of bees in pollination challenges, honey production, and hive-building activities. A unique and engaging way to celebrate these vital creatures.', '/static/images/default_competition.png', '2024-06-01', '2024-06-20', 'approved', 47, NOW()),
-('New Zealand Bird of 2024', 'A vibrant celebration of the country’s avian diversity. This competition invites bird enthusiasts to showcase the beauty and talents of their feathered friends, from singing competitions to displays of unique plumage. It’s a colorful and lively event that draws nature lovers from all corners.', '/static/images/default_competition.png', '2024-09-01', '2024-09-15', 'on_going', 48, NOW()),
-('New Zealand Deer of 2025', 'An impressive showcase of the elegance and majesty of deer. This competition highlights the finest stags and does, focusing on attributes such as antler growth, agility, and overall health. A must-see for wildlife enthusiasts and those passionate about conservation.', '/static/images/default_competition.png', '2025-09-01', '2025-09-15', 'in_plan', 49, NOW());
+('New Zealand Dog in 2022', 'Celebrate the agility, strength, and loyalty of dogs in this annual competition. From high-energy obstacle courses to demonstrations of incredible obedience, this event showcases the best in canine talent, drawing participants and spectators from across the country.', '/static/uploads/competition_images/dogcompetition.png', '2024-03-01', '2024-03-10', 'finished', 46, NOW()),
+('New Zealand Bee in 2023', 'A buzzing competition that puts the spotlight on our hard-working pollinators. This event is dedicated to showcasing the skills and speed of bees in pollination challenges, honey production, and hive-building activities. A unique and engaging way to celebrate these vital creatures.', '/static/uploads/competition_images/beecompetition.png', '2024-06-01', '2024-06-20', 'approved', 47, NOW()),
+('New Zealand Bird in 2024', 'A vibrant celebration of the country’s avian diversity. This competition invites bird enthusiasts to showcase the beauty and talents of their feathered friends, from singing competitions to displays of unique plumage. It’s a colorful and lively event that draws nature lovers from all corners.', '/static/uploads/competition_images/birdcompetition.png', '2024-09-01', '2024-09-15', 'on_going', 48, NOW()),
+('New Zealand Deer in 2025', 'An impressive showcase of the elegance and majesty of deer. This competition highlights the finest stags and does, focusing on attributes such as antler growth, agility, and overall health. A must-see for wildlife enthusiasts and those passionate about conservation.', '/static/uploads/competition_images/deercompetition.png', '2025-09-01', '2025-09-15', 'in_plan', 49, NOW());
 
 INSERT INTO competitors (name, description, image, competition_id, status, author, create_by, created_at)
 VALUES 
@@ -576,6 +576,8 @@ VALUES
     (3, 1, 47, 'valid', '192.168.1.3'),
     (3, 1, 48, 'valid', '192.168.1.4'),
     (3, 1, 49, 'valid', '192.168.1.5'),
+	(3, 1, 71, 'valid', '192.168.1.71'),
+    (3, 1, 72, 'valid', '192.168.1.72'),
     
     -- Votes for Competitor 2
     (3, 2, 11, 'valid', '192.168.1.11'),
@@ -587,6 +589,10 @@ VALUES
     (3, 2, 17, 'valid', '192.168.1.17'),
     (3, 2, 18, 'valid', '192.168.1.18'),
     (3, 2, 19, 'valid', '192.168.1.19'),
+	(3, 2, 73, 'valid', '192.168.1.73'),
+    (3, 2, 74, 'valid', '192.168.1.74'),
+    (3, 2, 75, 'valid', '192.168.1.75'),
+    
     
     -- Votes for Competitor 3
     (3, 3, 20, 'valid', '192.168.1.20'),
@@ -604,6 +610,9 @@ VALUES
     (3, 4, 30, 'valid', '192.168.1.30'),
     (3, 4, 31, 'valid', '192.168.1.31'),
     (3, 4, 32, 'valid', '192.168.1.32'),
+	(3, 4, 76, 'valid', '192.168.1.76'),
+    (3, 4, 77, 'valid', '192.168.1.77'),
+    (3, 4, 78, 'valid', '192.168.1.78'),
     
     -- Votes for Competitor 5
     (3, 5, 33, 'valid', '192.168.1.33'),
@@ -612,6 +621,27 @@ VALUES
     (3, 5, 36, 'valid', '192.168.1.36'),
     (3, 5, 37, 'valid', '192.168.1.37'),
     (3, 5, 38, 'valid', '192.168.1.38'),
+	(3, 5, 79, 'valid', '192.168.1.79'),
+    (3, 5, 80, 'valid', '192.168.1.80'),
+    (3, 5, 81, 'valid', '192.168.1.81'),
+    (3, 5, 82, 'valid', '192.168.1.82'),
+    (3, 5, 83, 'valid', '192.168.1.82'),
+    (3, 5, 84, 'valid', '192.168.1.82'),
+    (3, 5, 85, 'valid', '192.168.1.82'),
+    (3, 5, 86, 'valid', '192.168.1.82'),
+    (3, 5, 87, 'valid', '192.168.1.82'),
+    (3, 5, 88, 'valid', '192.168.1.82'),
+    (3, 5, 89, 'valid', '192.168.1.82'),
+    (3, 5, 90, 'valid', '192.168.1.82'),
+    (3, 5, 91, 'valid', '192.168.1.82'),
+    (3, 5, 92, 'valid', '192.168.1.82'),
+    (3, 5, 93, 'valid', '192.168.1.82'),
+    (3, 5, 94, 'valid', '192.168.1.82'),
+    (3, 5, 95, 'valid', '192.168.1.82'),
+    (3, 5, 96, 'valid', '192.168.1.82'),
+    (3, 5, 97, 'valid', '192.168.1.82'),
+    (3, 5, 98, 'valid', '192.168.1.82'),
+    (3, 5, 99, 'valid', '192.168.1.82'),
     
     -- Votes for Competitor 6
     (3, 6, 39, 'valid', '192.168.1.39'),
@@ -634,6 +664,17 @@ VALUES
     (3, 8, 58, 'valid', '192.168.1.58'),
     (3, 8, 59, 'valid', '192.168.1.59'),
     (3, 8, 60, 'valid', '192.168.1.60'),
+    (3, 8, 100, 'valid', '192.168.1.100'),
+    (3, 8, 101, 'valid', '192.168.1.100'),
+    (3, 8, 102, 'valid', '192.168.1.100'),
+    (3, 8, 103, 'valid', '192.168.1.100'),
+    (3, 8, 104, 'valid', '192.168.1.100'),
+    (3, 8, 105, 'valid', '192.168.1.100'),
+    (3, 8, 106, 'valid', '192.168.1.100'),
+    (3, 8, 107, 'valid', '192.168.1.100'),
+    (3, 8, 108, 'valid', '192.168.1.100'),
+    (3, 8, 109, 'valid', '192.168.1.100'),
+    (3, 8, 110, 'valid', '192.168.1.100'),
     
     -- Votes for Competitor 9
     (3, 9, 61, 'valid', '192.168.1.61'),
@@ -646,27 +687,7 @@ VALUES
     (3, 10, 66, 'valid', '192.168.1.66'),
     (3, 10, 67, 'valid', '192.168.1.67'),
     (3, 10, 68, 'valid', '192.168.1.68'),
-    (3, 10, 69, 'valid', '192.168.1.69'),
-    
-    -- Additional Votes for Competitor 1
-    (3, 1, 71, 'valid', '192.168.1.71'),
-    (3, 1, 72, 'valid', '192.168.1.72'),
-    
-    -- Additional Votes for Competitor 2
-    (3, 2, 73, 'valid', '192.168.1.73'),
-    (3, 2, 74, 'valid', '192.168.1.74'),
-    (3, 2, 75, 'valid', '192.168.1.75'),
-    
-    -- Additional Votes for Competitor 4
-    (3, 4, 76, 'valid', '192.168.1.76'),
-    (3, 4, 77, 'valid', '192.168.1.77'),
-    (3, 4, 78, 'valid', '192.168.1.78'),
-    
-    -- Additional Votes for Competitor 5
-    (3, 5, 79, 'valid', '192.168.1.79'),
-    (3, 5, 80, 'valid', '192.168.1.80'),
-    (3, 5, 81, 'valid', '192.168.1.81');
-    
+    (3, 10, 69, 'valid', '192.168.1.69');
     
 -- -----------------------------------------------------
 -- Insert additional announcements
