@@ -35,8 +35,8 @@
 
                 <div class="form-floating mb-3">
                     <input type="text" class="form-control" name="first_name" id="first_name" placeholder="First name"
-                           value="{{ form_data['first_name'] }}" pattern="[A-Za-z0-9 ]{1,50}" required>
-                    <label for="first_name">First name</label>
+                           value="{{ form_data['first_name'] }}" pattern="[A-Za-z0-9 ]{0,50}">
+                    <label for="first_name">First name (optional)</label>
                     <div class="invalid-feedback">
                         First name must contain only characters and numbers! Max length is 50.
                     </div>
@@ -44,14 +44,21 @@
 
                 <div class="form-floating mb-3">
                     <input type="text" class="form-control" name="last_name" id="last_name" placeholder="Last name"
-                           value="{{ form_data['last_name'] }}" pattern="[A-Za-z0-9 ]{1,50}" required>
-                    <label for="last_name">Last name</label>
+                           value="{{ form_data['last_name'] }}" pattern="[A-Za-z0-9 ]{0,50}">
+                    <label for="last_name">Last name (optional)</label>
                     <div class="invalid-feedback">
                         Last name must contain only characters and numbers! Max length is 50.
                     </div>
                 </div>
 
-                <input type="hidden" name="location" value=" ">
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" name="location" id="location" placeholder="Location"
+                           value="{{ form_data['location'] }}" pattern="[A-Za-z0-9 ]{0,50}">
+                    <label for="location">Location (optional)</label>
+                    <div class="invalid-feedback">
+                        Location must contain only characters and numbers! Max length is 50.
+                    </div>
+                </div>
 
                 <div class="form-floating mb-3">
                     <input type="password" class="form-control" name="password" id="password" placeholder="Password"

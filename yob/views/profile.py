@@ -36,24 +36,10 @@ def profile(user_id):
                 return render_template('user/profile.html', user=request.form)
 
             user['email'] = email
-
-        if first_name != user['first_name']:
-            if not first_name or first_name == '':
-                flash("First name required")
-                return render_template('user/profile.html', user=request.form)
-            user['first_name'] = first_name
-        if last_name != user['last_name']:
-            if not last_name or last_name == '':
-                flash("Last name required")
-                return render_template('user/profile.html', user=request.form)
-            user['last_name'] = last_name
-        if location != user['location']:
-            if not location or location == '':
-                flash("Location required")
-                return render_template('user/profile.html', user=request.form)
-            user['location'] = location
-        if description != user['description']:
-            user['description'] = description
+        user['first_name'] = first_name
+        user['last_name'] = last_name
+        user['location'] = location
+        user['description'] = description
 
         users_repository.update_user(user)
         flash('Profile updated successfully!', 'success')
