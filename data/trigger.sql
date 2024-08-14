@@ -65,6 +65,30 @@ END//
 
 DELIMITER ;
 
+DELIMITER //
+
+CREATE TRIGGER verify_vote_time_before_insert
+    BEFORE INSERT ON votes
+    FOR EACH ROW
+BEGIN
+    DECLARE comp_start DATETIME;
+    DECLARE comp_end DATETIME;
+
+    -- Retrieve the start and end dates of the competition
+    SELECT start_date, end_date INTO comp_start, comp_end
+    FROM competitions
+    WHERE competition_id = NEW.competition_id;
+
+    -- Check if the vote is within the competition's start and end dates
+    IF NEW.voted_at < comp_start OR NEW.voted_at > comp_end THEN
+        SIGNAL SQLSTATE '45000'
+            SET MESSAGE_TEXT = 'Vote time must be between the start and end dates of the competition.';
+    END IF;
+END//
+
+DELIMITER ;
+
+
 
 # competitions
 
