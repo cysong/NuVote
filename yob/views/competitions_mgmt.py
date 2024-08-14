@@ -5,9 +5,9 @@ from datetime import datetime
 from flask import render_template, redirect, abort, url_for, flash, request, jsonify, g
 
 from yob import app, config
-from yob.decorators import login_required, admin_required
+from yob.decorators import login_required, admin_required, admin_or_scrutineer_required
 from yob.repositories.competition_repository import get_all_competitions, get_competition_by_id, delete_competition, \
-    Competition, create_competition, update_competition
+    Competition, create_competition, update_competition, update_competition_status
 from yob.repositories.competitions_mgmt_repository import update_competition_image_update
 from yob.utility import are_fields_present
 from yob.views.profile import allowed_file, get_hashed_filename, read_file_extension
@@ -91,13 +91,24 @@ def competition_edit(competition_id):
 
 @app.route('/competition/delete/<int:competition_id>', methods=['POST'])
 @login_required
-@admin_required
+@admin_or_scrutineer_required
 def competition_delete(competition_id):
     if delete_competition(competition_id):
         flash("Competition deleted successfully", "success")
-        return redirect(url_for('competitions_mgmt', deleted_competition_id=competition_id))
+        return redirect(url_for('competitions_mgmt'))
     else:
         abort(403, description=f"Filed to delete the Competition with id {competition_id}!")
+
+
+@app.route('/competition/approve/<int:competition_id>', methods=['POST'])
+@login_required
+@admin_required
+def competition_approve(competition_id):
+    if update_competition_status(competition_id, 'approved'):
+        flash("Competition approved successfully", "success")
+        return redirect(url_for('competitions_mgmt'))
+    else:
+        abort(403, description=f"Filed to approve the Competition with id {competition_id}!")
 
 
 @app.route('/competition/competition_image', methods=['DELETE'])
