@@ -81,7 +81,7 @@ body {
 .competition-card {
   position: relative;
   overflow: hidden;
-  cursor: pointer;
+  /* cursor: pointer; */
   /* background-color: #eee; */
   border-radius: 8px;
   padding-left: 0px;
