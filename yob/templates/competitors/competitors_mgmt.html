@@ -21,22 +21,24 @@
     <!-- Competitors List -->
     <div class="list-group">
         {% for competitor in competitors %}
-        <div class="list-group-item d-flex align-items-start">
+        <div class="list-group-item d-flex">
             <!-- Competitor Image with Link -->
-            <a href="{{ url_for('competitor_view', competitor_id=competitor.competitor_id) }}">
-                <img src="{{ competitor.image }}" class="rounded me-3" alt="{{ competitor.name }}" width="200">
+            <a href="{{ url_for('competitor_view', competitor_id=competitor.competitor_id) }}" class="d-block" style="width: 200px;">
+                <div class="position-relative" style="padding-top: 100%; overflow: hidden;">
+                    <img src="{{ competitor.image }}" class="rounded position-absolute top-0 start-0 w-100 h-100" alt="{{ competitor.name }}" style="object-fit: cover;">
+                </div>
             </a>
             
             <!-- Competitor Details -->
-            <div class="d-flex flex-column flex-grow-1">
+            <div class="d-flex flex-column justify-content-between flex-grow-1 ms-3">
                 <div class="mb-3">
                     <h5 class="mb-1">{{ competitor.name }}</h5>
                     <p class="mb-1 text-muted">By {{ competitor.author }}</p>
                     <p class="mb-1 text-truncate" style="max-height: 4.5rem; overflow: hidden;">{{ competitor.description }}</p>
                 </div>
                 <!-- Action Buttons -->
-                 {% if can_edit %}
-                <div class="mt-auto text-end">
+                {% if can_edit %}
+                <div class="text-end">
                     <a href="{{ url_for('competitor_edit', competitor_id=competitor.competitor_id) }}" class="btn btn-link">Edit</a>
                     <button class="btn btn-link text-danger" data-bs-toggle="modal" data-bs-target="#deleteModal" data-competitor-id="{{ competitor.competitor_id }}">Delete</button>
                 </div>
@@ -45,6 +47,7 @@
         </div>
         {% endfor %}
     </div>
+    
 </div>
 
 <!-- Delete Confirmation Modal -->
