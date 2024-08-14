@@ -120,7 +120,7 @@ DELIMITER ;
 
 DELIMITER //
 
-CREATE TRIGGER prevent_non_admin_from_inserting_announcements
+CREATE TRIGGER prevent_user_from_inserting_announcements
     BEFORE INSERT ON announcements
     FOR EACH ROW
 BEGIN
@@ -132,10 +132,10 @@ BEGIN
     WHERE user_id = NEW.created_by;
 
     -- Check if the role is not 'admin'
-    IF user_role != 'admin' THEN
+    IF user_role = 'voter' THEN
         -- Raise an error to prevent the insert
         SIGNAL SQLSTATE '45000'
-            SET MESSAGE_TEXT = 'Only users with the role ''admin'' can insert into the announcements table';
+            SET MESSAGE_TEXT = 'Only users with the role ''admin/scrutineer'' can insert into the announcements table';
     END IF;
 END//
 
