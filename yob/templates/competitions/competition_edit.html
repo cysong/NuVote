@@ -25,9 +25,9 @@
         <input type="hidden" name="image" value="{{ competition['image'] }}">
 
         <div class="form-floating mb-3">
-            <input type="text" class="form-control" id="description" name="description"
+            <textarea type="text" class="form-control" id="description" name="description"
                    value="{{ competition['description'] }}"
-                   placeholder="Competition Description" required>
+                   placeholder="Competition Description" required style="height: 100px;"></textarea>
             <label class="ms-2" for="description">Competition Description</label>
         </div>
 

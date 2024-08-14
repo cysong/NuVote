@@ -15,100 +15,117 @@
                 <div class="card-body">
                     <h1 class="fs-4 card-title fw-bold mb-4">{{ 'Edit' if editable else 'View' }} Profile</h1>
                     <div class="text-center my-3">
-                        <img src="{{ user.profile_image }}" alt="Profile Image" id="profile-image" 
+                        <img src="{{ user.profile_image }}" alt="Profile Image" id="profile-image"
+                             {% if editable %}
+                             onclick="document.getElementById('profile-image-input').click()"
+                             style="cursor: pointer;"
+                             {% endif %}
+                             class="profile-large shadow"/>
                         {% if editable %}
-                        onclick="document.getElementById('profile-image-input').click()" 
-                        style="cursor: pointer;"
-                        {% endif %}
-                        class="profile-large shadow"/>
-                        {% if editable %}
-                        <input type="file" id="profile-image-input" class="d-none" accept="image/*" onchange="previewImage(event)">
+                        <input type="file" id="profile-image-input" class="d-none" accept="image/*"
+                               onchange="previewImage(event)">
                         <div class="mt-2">
                             <!-- <button class="btn btn-outline-primary" onclick="document.getElementById('profile-image-input').click()">Choose New Image</button> -->
-                            <button class="btn btn-link text-decoration-none d-none" id="upload-button" onclick="uploadImage()">Upload</button>
-                            <button class="btn btn-link text-decoration-none d-none" id="cancel-button" onclick="cancelUpload()">Cancel</button>
-                            <button class="btn btn-link text-decoration-none" id="deleteProfileImageButton" onclick="confirmDeleteProfileImage()"
-                            {% if user.profile_image == DEFAULT_PROFILE_IMAGE %}
-                                disabled
-                            {% endif %}
-                            >Delete Image</button>
+                            <button class="btn btn-link text-decoration-none d-none" id="upload-button"
+                                    onclick="uploadImage()">Upload
+                            </button>
+                            <button class="btn btn-link text-decoration-none d-none" id="cancel-button"
+                                    onclick="cancelUpload()">Cancel
+                            </button>
+                            <button class="btn btn-link text-decoration-none" id="deleteProfileImageButton"
+                                    onclick="confirmDeleteProfileImage()"
+                                    {% if user.profile_image== DEFAULT_PROFILE_IMAGE %}
+                                    disabled
+                                    {% endif %}
+                            >Delete Image
+                            </button>
                         </div>
                         {% endif %}
                     </div>
-                    <form method="POST" action="{{url_for('profile', user_id=user['user_id'])}}" class="needs-validation" novalidate="" autocomplete="off">
+                    <form method="POST" action="{{url_for('profile', user_id=user['user_id'])}}"
+                          class="needs-validation" novalidate="" autocomplete="off">
 
-                        <input id="user_id" type="hidden" class="form-control" name="user_id" value="{{ user.user_id }}">
-                        <input id="profile_image" type="hidden" class="form-control" name="profile_image" value="{{ user.profile_image }}">
+                        <input id="user_id" type="hidden" class="form-control" name="user_id"
+                               value="{{ user.user_id }}">
+                        <input id="profile_image" type="hidden" class="form-control" name="profile_image"
+                               value="{{ user.profile_image }}">
 
-                        <div class="mb-3 row">
-                            <label class="col-sm-3 col-form-label text-muted" for="username">Username</label>
-                            <div class="col-sm-9">
-                                <input id="username" type="text" class="form-control" name="username" value="{{ user.username }}" readonly
-                                {% if not editable %} disabled {% endif %}>
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" name="username" id="username" placeholder="Username"
+                                   value="{{ user.username }}" pattern="[A-Za-z0-9_-]{3,50}" required {% if not editable
+                                   %} disabled {% endif %}>
+                            <label for="username">Username</label>
+                            <div class="invalid-feedback">
+                                Username must contain only characters and numbers! Length between 3 and 50.
                             </div>
                         </div>
 
-                        <div class="mb-3 row">
-                            <label class="col-sm-3 col-form-label text-muted" for="email">Email Address</label>
-                            <div class="col-sm-9">
-                                <input id="email" type="email" class="form-control" name="email" value="{{ user.email }}" required 
-                                {% if not editable %} disabled {% endif %}>
-                                <div class="invalid-feedback">Email is invalid</div>
+                        <div class="form-floating mb-3">
+                            <input type="email" class="form-control" name="email" id="email" placeholder="Email"
+                                   value="{{ user.email }}" required {% if not editable %} disabled {% endif %}>
+                            <label for="email">Email address</label>
+                            <div class="invalid-feedback">
+                                Please enter a valid email (example@domain.com).
                             </div>
                         </div>
 
-                        <div class="mb-3 row">
-                            <label class="col-sm-3 col-form-label text-muted" for="first_name">First Name</label>
-                            <div class="col-sm-9">
-                                <input id="first_name" type="text" class="form-control" name="first_name" value="{{ user.first_name }}" pattern="[A-Za-z0-9 ]{1,50}" required
-                                {% if not editable %} disabled {% endif %}>
-                                <div class="invalid-feedback">First name is required</div>
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" name="first_name" id="first_name"
+                                   placeholder="First name"
+                                   value="{{ user.first_name }}" pattern="[A-Za-z0-9 ]{1,50}" required {% if not
+                                   editable %} disabled {% endif %}>
+                            <label for="first_name">First name</label>
+                            <div class="invalid-feedback">
+                                First name must contain only characters and numbers! Max length is 50.
                             </div>
                         </div>
 
-                        <div class="mb-3 row">
-                            <label class="col-sm-3 col-form-label text-muted" for="last_name">Last Name</label>
-                            <div class="col-sm-9">
-                                <input id="last_name" type="text" class="form-control" name="last_name" value="{{ user.last_name }}" pattern="[A-Za-z0-9 ]{1,50}" required
-                                {% if not editable %} disabled {% endif %}>
-                                <div class="invalid-feedback">Last name is required</div>
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" name="last_name" id="last_name"
+                                   placeholder="Last name"
+                                   value="{{ user.last_name }}" pattern="[A-Za-z0-9 ]{1,50}" required {% if not editable
+                                   %} disabled {% endif %}>
+                            <label for="last_name">Last name</label>
+                            <div class="invalid-feedback">
+                                Last name must contain only characters and numbers! Max length is 50.
                             </div>
                         </div>
 
-                        <div class="mb-3 row">
-                            <label class="col-sm-3 col-form-label text-muted" for="location">Location</label>
-                            <div class="col-sm-9">
-                                <input id="location" type="text" class="form-control" name="location" value="{{ user.location }}" required
-                                {% if not editable %} disabled {% endif %}>
-                                <div class="invalid-feedback">Location is required</div>
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" name="location" id="location" placeholder="Location"
+                                   value="{{ user.location }}" required {% if not editable %} disabled {% endif %}>
+                            <label for="location">Location</label>
+                            <div class="invalid-feedback">
+                                Location is required.
                             </div>
                         </div>
 
-                        <div class="mb-3 row">
-                            <label class="col-sm-3 col-form-label text-muted" for="role">Role</label>
-                            <div class="col-sm-9">
-                                <input id="role" type="text" class="form-control" name="role" value="{{ user.role }}" disabled>
-                            </div>
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" name="role" id="role" placeholder="Role"
+                                   value="{{ user.role }}" required {% if not editable %} disabled {% endif %}>
+                            <label for="role">Role</label>
                         </div>
 
-                        <div class="mb-3 row">
-                            <label class="col-sm-3 col-form-label text-muted" for="status">Status</label>
-                            <div class="col-sm-9">
-                                <input id="status" type="text" class="form-control" name="status" value="{{ user.status }}" disabled>
-                            </div>
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" name="status" id="status" placeholder="Status"
+                                   value="{{ user.status }}" required {% if not editable %} disabled {% endif %}>
+                            <label for="status">Status</label>
                         </div>
 
-                        <div class="mb-3 row">
-                            <label class="col-sm-3 col-form-label text-muted" for="description">Description</label>
-                            <div class="col-sm-9">
-                                <textarea id="description" rows="5" class="form-control" name="description"
-                                {% if not editable %} disabled {% endif %}>{{ user.description }}</textarea>
-                                <div class="invalid-feedback"></div>
+                        <div class="form-floating mb-3">
+                            <textarea type="text" class="form-control" name="description" id="description"
+                                   placeholder="Description"
+                                      value="{{ user.description }}" required {% if not editable %} disabled {% endif %} style="height: 100px;"></textarea>
+                            <label for="description">Description</label>
+                            <div class="invalid-feedback">
+                                Description is required.
                             </div>
                         </div>
 
                         <div class="d-grid">
-                            <button type="submit" class="btn btn-primary" {% if not editable %} disabled {% endif %}>Update Profile</button>
+                            <button type="submit" class="btn btn-primary" {% if not editable %} disabled {% endif %}>
+                                Update Profile
+                            </button>
                         </div>
                     </form>
                 </div>
@@ -117,7 +134,8 @@
     </div>
 
     <!-- Delete Confirmation Modal -->
-    <div class="modal fade" id="deleteConfirmationModal" tabindex="-1" aria-labelledby="deleteConfirmationModalLabel" aria-hidden="true">
+    <div class="modal fade" id="deleteConfirmationModal" tabindex="-1" aria-labelledby="deleteConfirmationModalLabel"
+         aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
