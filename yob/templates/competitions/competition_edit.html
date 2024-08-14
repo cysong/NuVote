@@ -4,13 +4,13 @@
 
 {% block content %}
 <div>
-    <div class="text-center my-3">
+    <div class="text-center my-3 rounded shadow-sm d-flex align-items-center justify-content-center" style="height:200px;overflow: hidden;">
         <img src="{{ competition['image'] }}" alt="Competition Image" id="competition-image"
              {% if editable %}
              onclick="document.getElementById('competition-image-input').click()"
              style="cursor: pointer;"
              {% endif %}
-             class="img-fluid shadow"/>
+             class="img-fluid shadow" style="object-fit:cover;"/>
         <input type="file" id="competition-image-input" class="d-none" accept="image/*" onchange="previewImage(event)">
     </div>
     <form class="row g-3 needs-validation"
