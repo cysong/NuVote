@@ -1,0 +1,85 @@
+{% extends 'layout.html' %}
+
+{% block title %}Create Competition{% endblock %}
+
+{% block content %}
+<div>
+    <form class="row g-3 needs-validation"
+          action="{{ url_for('competition_create') }}"
+          enctype="multipart/form-data"
+          method="POST" novalidate>
+
+        <div class="form-floating mb-3">
+            <input type="text" class="form-control" id="name" name="name" placeholder="Competition Name" required>
+            <label class="ms-2" for="name">Competition Name</label>
+            <div class="invalid-feedback">Competition Name is required</div>
+        </div>
+
+        <div class="form-floating mb-3">
+            <input type="text" class="form-control" id="competition-description" name="description"
+                   placeholder="Competition Description" required>
+            <label class="ms-2" for="competition-description">Competition Description</label>
+            <div class="invalid-feedback">Competition Description is required</div>
+        </div>
+
+        <div class="form-floating mb-3">
+            <input type="file" class="form-control" id="image" name="image" placeholder="Competition Image"
+                   required>
+            <label class="ms-2" for="image">Competition Image</label>
+            <div class="invalid-feedback">Competition Image is required</div>
+        </div>
+
+        <div class="form-floating mb-3">
+            <input type="datetime-local" class="form-control" id="start_date" name="start_date"
+                   placeholder="Competition Start Date" required>
+            <label class="ms-2" for="start_date">Competition Start Date</label>
+            <div class="invalid-feedback">Competition Start Date is required and it cannot be in the past</div>
+        </div>
+
+        <div class="form-floating mb-3">
+            <input type="datetime-local" class="form-control" id="end_date" name="end_date"
+                   placeholder="Competition End Date" required>
+            <label class="ms-2" for="end_date">Competition End Date</label>
+            <div class="invalid-feedback">Competition Start Date is required and it cannot be equal to or earlier than the start date</div>
+        </div>
+
+
+        <div class="d-grid mt-4 col-md-8 col-lg-6 mx-auto">
+            <button type="submit" class="btn btn-success">Create</button>
+        </div>
+    </form>
+</div>
+<script>
+    // Function to set current time as default for start_date
+    function setDefaultStartDate() {
+        const now = new Date();
+        const formattedDate = now.toISOString().slice(0, 16);
+        document.getElementById('start_date').value = formattedDate;
+        document.getElementById('start_date').min = formattedDate;
+        document.getElementById('end_date').min = formattedDate;
+    }
+
+
+    // Validate the form before submission
+    function validateForm() {
+        const startDate = new Date(document.getElementById('start_date').value);
+        const endDate = new Date(document.getElementById('end_date').value);
+        const now = new Date();
+
+        if (startDate < now) {
+            alert('Start date cannot be in the past.');
+            return false;
+        }
+
+        if (endDate <= startDate) {
+            alert('End date cannot be equal to or earlier than the start date.');
+            return false;
+        }
+
+        return true;
+    }
+
+    // Set the default start date when the page loads
+    window.onload = setDefaultStartDate;
+</script>
+{% endblock %}

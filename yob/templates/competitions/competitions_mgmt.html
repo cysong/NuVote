@@ -5,7 +5,7 @@
 {% block content %}
 <div>
     <!-- Competitions Section -->
-    <a href="{{ url_for('competition_manage') }}" class="btn btn-outline-success" role="button">Create a Competition</a>
+    <a href="{{ url_for('competition_create') }}" class="btn btn-outline-success" role="button">Create a Competition</a>
     <div class="competitions">
         <div>
             {% for competition in competitions %}
