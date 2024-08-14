@@ -48,6 +48,7 @@ def inject_user():
 
 def login_required(f):
     '''Decorator to check if the user is logged in.'''
+
     @wraps(f)
     def decorated_function(*args, **kwargs):
         if not is_logged_in():
@@ -60,6 +61,7 @@ def login_required(f):
 
 def admin_required(f):
     '''Decorator to check if the user is an administrator.'''
+
     @wraps(f)
     def decorated_function(*args, **kwargs):
         if 'role' not in session or session['role'] != 'admin':
@@ -70,8 +72,22 @@ def admin_required(f):
     return decorated_function
 
 
+def admin_or_scrutineer_required(f):
+    '''Decorator to check if the user is an administrator.'''
+
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if 'role' not in session or session['role'] != 'admin' or session['role'] != 'scrutineer':
+            flash("Access denied", "danger")
+            return render_template('error/error.html')
+        return f(*args, **kwargs)
+
+    return decorated_function
+
+
 def owner_required(f):
     '''Decorator to check if the user is the owner of the resource.'''
+
     @wraps(f)
     def decorated_function(*args, **kwargs):
         user_id = kwargs.get('user_id')
@@ -85,6 +101,7 @@ def owner_required(f):
 
 def inactive_user_message(f):
     '''Decorator to display a message if the user is inactive.'''
+
     @wraps(f)
     def decorated_function(*args, **kwargs):
         if 'status' in session and session['status'] == 'inactive':
@@ -97,6 +114,7 @@ def inactive_user_message(f):
 
 def inactive_user_action_check(f):
     '''Decorator to check if the user is inactive and restrict certain actions.'''
+
     @wraps(f)
     def decorated_function(*args, **kwargs):
         if request.method == 'POST' and 'status' in session and session['status'] == 'inactive':
