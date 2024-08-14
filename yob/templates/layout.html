@@ -26,23 +26,23 @@
                                     <img src="{{ profile_image }}" alt="{{ username }}" class="profile-small">
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                    <li><a class="dropdown-item" href="{{url_for('profile', user_id=user_id)}}" onclick="enter_from_menu">Edit Profile</a></li>
-                                    <li><a class="dropdown-item" href="{{url_for('password', user_id=user_id)}}" onclick="enter_from_menu">Change Password</a></li>
+                                    <li><a class="dropdown-item" href="{{url_for('profile', user_id=user_id)}}" onclick="enter_from_menu()">Edit Profile</a></li>
+                                    <li><a class="dropdown-item" href="{{url_for('password', user_id=user_id)}}" onclick="enter_from_menu()">Change Password</a></li>
                                     {% if role == 'admin' %}
-                                        <li><a class="dropdown-item" href="{{url_for('users_mgmt')}}" onclick="enter_from_menu">Manage Users</a></li>
-                                        <li><a class="dropdown-item" href="{{url_for('competitions_mgmt')}}" onclick="enter_from_menu">Manage Competitions</a></li>
-                                        <li><a class="dropdown-item" href="{{url_for('announcements_mgmt')}}" onclick="enter_from_menu">Manage Announcements</a></li>
+                                        <li><a class="dropdown-item" href="{{url_for('users_mgmt')}}" onclick="enter_from_menu()">Manage Users</a></li>
+                                        <li><a class="dropdown-item" href="{{url_for('competitions_mgmt')}}" onclick="enter_from_menu()">Manage Competitions</a></li>
+                                        <li><a class="dropdown-item" href="{{url_for('announcements_mgmt')}}" onclick="enter_from_menu()">Manage Announcements</a></li>
                                     {% endif %}
                                     <li><hr class="dropdown-divider"></li>
-                                    <li><a class="dropdown-item" href="{{ url_for('logout') }}" onclick="enter_from_menu">Logout</a></li>
+                                    <li><a class="dropdown-item" href="{{ url_for('logout') }}" onclick="enter_from_menu()">Logout</a></li>
                                 </ul>
                             </li>
                         {% else %}
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ url_for('login') }}" onclick="enter_from_menu">Login</a>
+                                <a class="nav-link" href="{{ url_for('login') }}" onclick="enter_from_menu()">Login</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ url_for('register') }}" onclick="enter_from_menu">Register</a>
+                                <a class="nav-link" href="{{ url_for('register') }}" onclick="enter_from_menu()">Register</a>
                             </li>
                         {% endif %}
                     </ul>
