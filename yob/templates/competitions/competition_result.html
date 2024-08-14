@@ -1,0 +1,121 @@
+{% extends 'layout.html' %}
+
+{% block title %}Result of {{competition.name}}{% endblock %}
+
+{% block content %}
+
+<div class="">
+    <!-- Back button -->
+    <div class="text-start mb-4">
+        <a href="{{ url_for('index') }}" class="btn btn-outline-secondary">
+            <i class="bi bi-arrow-left-circle"></i> Back
+        </a>
+    </div>
+
+    <!-- Winner display at the top -->
+    <div class="winner-display text-center mb-5">
+        <div class="position-relative d-inline-block winner-image-container" onclick="window.location.href='{{ url_for('competitor_view', competitor_id=winner.competitor_id) }}'">
+            <!-- Winner's image with moving background -->
+            <div class="winner-image"></div>
+        </div>
+        <h2 class="mt-3 fw-bold text-uppercase">{{ winner.name }}</h2>
+    </div>
+
+    <!-- Competitors display -->
+    <div class="row">
+        {% for competitor in competitors %}
+        <div class="col-lg-12 mb-4">
+            <div class="card competitor-card p-4 border-0 shadow-sm" style="cursor: pointer;" onclick="window.location.href='{{ url_for('competitor_view', competitor_id=competitor.competitor_id) }}'">
+                <div class="row align-items-center">
+                    <!-- Competitor's image -->
+                    <div class="col-md-3">
+                        <img src="{{ competitor.image }}" class="img-fluid rounded shadow-sm" alt="{{ competitor.name }}">
+                    </div>
+                    <!-- Competitor's voting details -->
+                    <div class="col-md-9">
+                        <div class="d-flex justify-content-between">
+                            <h5 class="fw-bold text-secondary">
+                                {{ competitor.name }}
+                            </h5>
+                            <span class="fw-bold {% if loop.first %}text-warning{% else %}text-success{% endif %}">
+                                {{ competitor.vote_count }} votes
+                            </span>
+                        </div>
+                        <!-- Progress bar -->
+                        <div class="progress mt-3" style="height: 20px;">
+                            <div class="progress-bar {% if loop.first %}bg-warning{% else %}bg-success{% endif %}" role="progressbar" style="width: {{ competitor.vote_percentage }}%;" aria-valuenow="{{ competitor.vote_percentage }}" aria-valuemin="0" aria-valuemax="100">
+                                {{ competitor.vote_percentage }}%
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<style>
+h2, h5 {
+    letter-spacing: 1px;
+}
+
+/* Winner display at the top */
+.winner-image-container {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    border: 6px solid #FFD700; /* Gold border for the winner */
+    overflow: hidden; /* To ensure the moving background is clipped to the border */
+    box-shadow: 0 0 15px rgba(255, 215, 0, 0.8);
+    cursor: pointer;
+}
+
+.winner-image {
+    width: 100%;
+    height: 100%;
+    background-image: url('{{ winner.image }}');
+    background-size: cover;
+    background-position: center;
+    animation: moveBird 10s linear infinite;
+}
+
+/* Bird movement animation */
+@keyframes moveBird {
+    0% {
+        background-position: center;
+    }
+    50% {
+        background-position: center 10px;
+    }
+    100% {
+        background-position: center;
+    }
+}
+
+/* Card hover effect */
+.competitor-card:hover {
+    transform: scale(1.02);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Progress bar customization */
+.progress-bar {
+    font-size: 1rem;
+    font-weight: bold;
+    color: white;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    transition: width 0.6s ease;
+}
+
+.bg-warning {
+    background-color: #FFD700 !important; /* Gold color for the winner */
+}
+
+.bg-success {
+    background-color: #28a745 !important; /* Green color for other competitors */
+}
+
+</style>
+
+{% endblock %}

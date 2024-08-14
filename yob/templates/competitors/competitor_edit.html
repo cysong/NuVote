@@ -1,0 +1,64 @@
+{% extends 'layout.html' %}
+
+{% block title %}Edit Competitor{% endblock %}
+
+{% block content %}
+
+<div class="container mt-4">
+    <form method="POST" action="{{ url_for('competitor_edit', competitor_id=competitor.competitor_id) if competitor.competitor_id else  url_for('competitor_new', competition_id=competitor.competition_id)}}" enctype="multipart/form-data" class="needs-validation" novalidate>
+        <div class="row mb-3">
+            <!-- Competitor Name -->
+             <div class="col">
+                <div class="form-floating">
+                    <input type="text" class="form-control" id="name" name="name" value="{{ competitor.name }}" required {% if view %}readonly{% endif %}>
+                    <label for="name" class="form-label">Name</label>
+                    <div class="invalid-feedback">Name is required.</div>
+                </div>
+            </div>
+
+            <!-- Competitor Author -->
+             <div class="col">
+                <div class="form-floating">
+                    <input type="text" class="form-control" id="author" name="author" value="{{ competitor.author }}" required {% if view %}readonly{% endif %}>
+                    <label for="author" class="form-label">Author</label>
+                    <div class="invalid-feedback">Author is required.</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Competitor Description -->
+        <div class="form-floating mb-3">
+            <textarea class="form-control" id="description" name="description" rows="4" required {% if view %}readonly{% endif %}>{{ competitor.description }}</textarea>
+            <label for="description" class="form-label">Description</label>
+            <div class="invalid-feedback">Description is required.</div>
+        </div>
+
+        <!-- Competitor Image -->
+        <div class="form-floating mb-3">
+            <input type="file" class="form-control" id="image" name="image" accept="image/*" {{ 'required' if not competitor.image else '' }} {% if view %}disabled{% endif %} onchange="previewImage(event)">
+            <label for="image" class="form-label">Image</label>
+            <div class="invalid-feedback">Image is required.</div>
+            <!-- Image Preview -->
+            <img id="imagePreview" src="{{ competitor.image }}" alt="Image Preview" class="img-fluid mt-2" style="max-width: 300px; {{ 'display:none;' if not competitor.image else '' }}">
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit" class="btn btn-primary" {% if view %}disabled{% endif %}>Save</button>
+        <a href="{{ url_for('competitors_manage', competition_id=competitor.competition_id) }}" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>
+
+<!-- JavaScript for Image Preview -->
+<script>
+    function previewImage(event) {
+        var reader = new FileReader();
+        reader.onload = function(){
+            var output = document.getElementById('imagePreview');
+            output.src = reader.result;
+            output.style.display = 'block';
+        };
+        reader.readAsDataURL(event.target.files[0]);
+    }
+</script>
+
+{% endblock %}

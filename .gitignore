@@ -370,3 +370,4 @@ $RECYCLE.BIN/
 connect.py
 *.pdf
 docker-compose.yml
+yob/static/uploads

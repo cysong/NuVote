@@ -1,0 +1,75 @@
+{% extends 'layout.html' %}
+
+{% block title %}View Competitor{% endblock %}
+
+{% block content %}
+
+<div class="">
+
+    <!-- Back Button -->
+    <div class="mb-2">
+        <a href="{{ url_for('competition_vote', competition_id=competitor.competition_id) }}" class="btn btn-outline-secondary">
+            ← Back
+        </a>
+    </div>
+
+    <!-- Competitor Image -->
+    <div class="row mb-4 justify-content-center">
+        <div class="col-12 text-center">
+            <img src="{{ competitor['image'] }}" alt="Competitor Image" class="competitor-banner">
+        </div>
+    </div>
+
+    <!-- Competitor Details -->
+    <div class="row mb-4 details-container">
+        <div class="col-12">
+            <h1 class="display-5">{{ competitor['name'] }}</h1>
+            <div class="info-row">
+                Competition: {{ competitor['competition_name'] }}
+            </div>
+            <div class="info-row">
+                Author: {{ competitor['author'] }}
+            </div>
+            <div class="info-row">
+                Created At: {{ competitor['created_at'] | datetime_format }}
+            </div>
+        </div>
+    </div>
+    
+    <!-- Other Competition Details or Description -->
+    <div class="row">
+        <div class="col-12">
+            <p class="lead description">{{ competitor['description'] }}</p>
+        </div>
+    </div>
+
+</div>
+
+<style>
+.competitor-banner {
+    height: 300px;
+    width: 300px;
+    object-fit: cover;
+    margin-bottom: 1rem;
+    border-radius: 0.5rem;
+}
+.description {
+    white-space: pre-wrap; /* Preserve line breaks and spaces */
+}
+.details-container {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+}
+.info-row {
+    margin-bottom: 0.5rem;
+}
+.info-row:not(:last-child) {
+    margin-bottom: 1rem;
+}
+.description {
+    white-space: pre-wrap; /* Preserve line breaks and spaces */
+    min-height: 200px;
+}
+</style>
+{% endblock %}

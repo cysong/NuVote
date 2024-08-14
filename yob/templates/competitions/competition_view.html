@@ -1,0 +1,79 @@
+{% extends 'layout.html' %}
+
+{% block title %}View Competition{% endblock %}
+
+{% block content %}
+
+
+<div class="">
+
+    <!-- Back Button -->
+    <div class="mb-2">
+        <button class="btn btn-outline-secondary" onclick="goBack()">← Back</button>
+    </div>
+
+    <!-- Banner Image -->
+    <div class="mb-4">
+        <div class="competition-banner">
+            <img src="{{ competition['image'] }}" alt="Competition Banner" class="img-fluid rounded">
+        </div>
+    </div>
+
+    <!-- Competition Title and Status -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="title-container">
+                <h1 class="display-5">{{ competition['name'] }}</h1>
+                <span class="badge bg-primary status-badge" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ status_message }}">
+                    {{ status }}
+                </span>
+            </div>
+            <p class="text-muted">
+                {{ competition['start_date'] | datetime_format }} - {{ competition['end_date'] | datetime_format }}
+            </p>
+        </div>
+    </div>
+
+    <!-- Other Competition Details or Description -->
+    <div class="row">
+        <div class="col-12">
+            <p class="lead description">{{ competition['description'] }}</p>
+        </div>
+    </div>
+
+</div>
+
+<style>
+.competition-banner {
+    height: 300px;
+    overflow: hidden;
+}
+.competition-banner img {
+    object-fit: cover;
+    height: 100%;
+    width: 100%;
+}
+.description {
+    white-space: pre-wrap; /* Preserve line breaks and spaces */
+    min-height: 200px;
+}
+.title-container {
+    display: flex;
+    align-items: baseline;
+    justify-content: start;
+}
+.status-badge {
+    margin-left: 1rem;
+}
+</style>
+<script>
+    // Initialize Bootstrap tooltips
+    document.addEventListener('DOMContentLoaded', function () {
+            var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+            var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+                return new bootstrap.Tooltip(tooltipTriggerEl)
+            })
+        });
+</script>
+
+{% endblock %}

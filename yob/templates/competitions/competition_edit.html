@@ -1,0 +1,61 @@
+{% extends 'layout.html' %}
+
+{% block title %}Edit Competition{% endblock %}
+
+{% block content %}
+<div>
+    <div class="text-center my-3">
+        <img src="{{ competition['image'] }}" alt="Competition Image" id="competition-image"
+             {% if editable %}
+             onclick="document.getElementById('competition-image-input').click()"
+             style="cursor: pointer;"
+             {% endif %}
+             class="img-fluid shadow"/>
+        <input type="file" id="competition-image-input" class="d-none" accept="image/*" onchange="previewImage(event)">
+    </div>
+    <form class="row g-3 needs-validation"
+          action="{{ url_for('competition_edit', competition_id=competition['competition_id']) }}"
+          method="POST" novalidate>
+
+        <div class="form-floating mb-3">
+            <input type="text" class="form-control" id="name" name="name" value="{{ competition['name'] }}"
+                   placeholder="Competition Name" required>
+            <label class="ms-2" for="name">Competition Name</label>
+        </div>
+        <input type="hidden" name="image" value="{{ competition['image'] }}">
+
+        <div class="form-floating mb-3">
+            <textarea type="text" class="form-control" id="description" name="description"
+                   value="{{ competition['description'] }}"
+                   placeholder="Competition Description" required style="height: 100px;"></textarea>
+            <label class="ms-2" for="description">Competition Description</label>
+        </div>
+
+        <div class="form-floating mb-3">
+            <input type="datetime-local" class="form-control" id="start_date" name="start_date"
+                   value="{{ competition['start_date'] }}" placeholder="Competition Start Date" required>
+            <label class="ms-2" for="start_date">Competition Start Date</label>
+        </div>
+
+        <div class="form-floating mb-3">
+            <input type="datetime-local" class="form-control" id="end_date" name="end_date"
+                   value="{{ competition['end_date'] }}" placeholder="Competition End Date" required>
+            <label class="ms-2" for="end_date">Competition End Date</label>
+        </div>
+
+        <div class="form-floating mb-3">
+            <select class="form-select" id="status" aria-label="Competition Status" name="status">
+            {% for s in ['in_plan', 'on_going' ,'finished', 'approved'] %}
+            <option value="{{ s }}" {% if competition['status'] == s %}selected{% endif %}>{{ s.capitalize() }}</option>
+            {% endfor %}
+            </select>
+            <label for="status">Competition Status</label>
+        </div>
+
+        <div class="d-grid mt-4 col-md-8 col-lg-6 mx-auto">
+            <button type="submit" class="btn btn-success">Save</button>
+        </div>
+    </form>
+</div>
+
+{% endblock %}

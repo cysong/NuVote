@@ -1,0 +1,110 @@
+{% extends 'layout.html' %}
+
+{% block title %}Users Management{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="mb-4">User Management Page</h2>
+    <p class="lead">Welcome back, {{ username }}!</p>
+
+    <!-- Search input field -->
+    <div class="mb-4">
+        <input type="text" id="searchInput" class="form-control form-control-lg shadow-sm"
+               placeholder="Search for users...">
+    </div>
+
+    <div class="table-responsive mb-5 user-table">
+        <table class="table table-bordered table-striped table-hover align-middle table-custom">
+            <thead class="table-custom-head">
+            <tr>
+                <th scope="col">User ID</th>
+                <th scope="col">Username</th>
+                <th scope="col">Email</th>
+                <th scope="col">Full Name</th>
+                <!-- <th scope="col">Description</th> -->
+                <th scope="col">Location</th>
+                <th scope="col">Profile Image</th>
+                <th scope="col">Role</th>
+                <th scope="col">Status</th>
+            </tr>
+            </thead>
+            <tbody id="userTable">
+            {% for user in users %}
+            <tr onclick="window.location.href='{{ url_for('profile', user_id=user['user_id']) }}';"
+                style="cursor: pointer;">
+                <td>{{ user['user_id'] }}</td>
+                <td>{{ user['username'] }}</td>
+                <td>{{ user['email'] }}</td>
+                <td>{{ user['firstname'] }} {{ user['last_name'] }}</td>
+                <!-- <td>{{ user['description'] }}</td> -->
+                <td>{{ user['location'] }}</td>
+                <td>
+                    {% if user['profile_image'] %}
+                    <img src="{{ user['profile_image'] }}" alt="Profile Image" class="profile-small"
+                         style="width: 50px; height: 50px;">
+                    {% else %}
+                    No Image
+                    {% endif %}
+                </td>
+                <td>{{ user['role'] }}</td>
+                <td>{{ user['status'] }}</td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<style>
+    .table-custom {
+        background-color: #ffffff; /* Ensures table background is solid white */
+        border-radius: 0.5rem; /* Rounded corners for table */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for table */
+    }
+
+    .table-custom-head {
+        background-color: #4a9a3c; /* Darker green for the table header */
+        color: white;
+    }
+
+    .table-custom tbody tr:nth-child(even) {
+        background-color: rgba(97, 184, 97, 0.1); /* Light green background for even rows */
+    }
+
+    .table-custom tbody tr:hover {
+        background-color: rgba(97, 184, 97, 0.2); /* Light green highlight on hover */
+    }
+
+    .form-control-lg {
+        border-color: #61b861;
+    }
+
+    .form-control-lg:focus {
+        box-shadow: 0 0 0 0.2rem rgba(97, 184, 97, 0.25);
+    }
+</style>
+
+<script>
+    document.getElementById('searchInput').addEventListener('keyup', function() {
+        var input, filter, table, tr, td, i, j, txtValue;
+        input = document.getElementById('searchInput');
+        filter = input.value.toLowerCase();
+        table = document.getElementById('userTable');
+        tr = table.getElementsByTagName('tr');
+
+        for (i = 0; i < tr.length; i++) {
+            tr[i].style.display = 'none'; // Initially hide all rows
+            td = tr[i].getElementsByTagName('td');
+            for (j = 0; j < td.length; j++) {
+                if (td[j]) {
+                    txtValue = td[j].textContent || td[j].innerText;
+                    if (txtValue.toLowerCase().indexOf(filter) > -1) {
+                        tr[i].style.display = ''; // Show the row if match found
+                        break; // Break inner loop if one column has matched
+                    }
+                }
+            }
+        }
+    });
+</script>
+{% endblock %}
