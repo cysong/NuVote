@@ -77,7 +77,7 @@ def admin_or_scrutineer_required(f):
 
     @wraps(f)
     def decorated_function(*args, **kwargs):
-        if 'role' not in session or session['role'] != 'admin' or session['role'] != 'scrutineer':
+        if 'role' not in session or session['role'] != 'admin' and session['role'] != 'scrutineer':
             flash("Access denied", "danger")
             return render_template('error/error.html')
         return f(*args, **kwargs)

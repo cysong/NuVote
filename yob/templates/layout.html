@@ -33,6 +33,11 @@
                                         <li><a class="dropdown-item" href="{{url_for('competitions_mgmt')}}" onclick="enter_from_menu()">Manage Competitions</a></li>
                                         <li><a class="dropdown-item" href="{{url_for('announcements_mgmt')}}" onclick="enter_from_menu()">Manage Announcements</a></li>
                                     {% endif %}
+                                    {% if role == 'scrutineer' %}
+<!--                                    <li><a class="dropdown-item" href="{{url_for('users_mgmt')}}" onclick="enter_from_menu()">Manage Users</a></li>-->
+                                    <li><a class="dropdown-item" href="{{url_for('competitions_mgmt')}}" onclick="enter_from_menu()">Manage Competitions</a></li>
+                                    <li><a class="dropdown-item" href="{{url_for('announcements_mgmt')}}" onclick="enter_from_menu()">Manage Announcements</a></li>
+                                    {% endif %}
                                     <li><hr class="dropdown-divider"></li>
                                     <li><a class="dropdown-item" href="{{ url_for('logout') }}" onclick="enter_from_menu()">Logout</a></li>
                                 </ul>
