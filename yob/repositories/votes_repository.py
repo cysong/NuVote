@@ -61,17 +61,18 @@ def set_vote_status(vote_id, status):
 
 def get_daily_votes_by_competition(competition_id):
     """
-    Retrieve the daily number of new votes for a competition
+    Retrieve the daily number of valid and invalid votes for a competition
     """
     with Cursor(dictionary=True) as cursor:
         cursor.execute("""
             SELECT 
                 DATE(v.voted_at) AS vote_date,
-                COUNT(*) AS vote_count
+                SUM(CASE WHEN v.status = 'valid' THEN 1 ELSE 0 END) AS valid_votes,
+                SUM(CASE WHEN v.status = 'invalid' THEN 1 ELSE 0 END) AS invalid_votes
             FROM 
                 votes v
             WHERE 
-                v.competition_id = %s AND v.status = 'valid'
+                v.competition_id = %s
             GROUP BY 
                 DATE(v.voted_at)
             ORDER BY 
