@@ -6,7 +6,7 @@
 <div>
     <!-- Latest Announcement Section -->
      {% if CURRENT_USER %}
-    <div class="announcement rounded shadow-sm position-relative">
+    <div class="announcement rounded shadow-sm position-relative mb-3">
         {% if announcement %}
             <div class="card border-0 shadow-sm">
                 <div class="card-body position-relative">
@@ -24,7 +24,7 @@
     </div>
     {% endif %}
 
-    <div class="voted-user-container rounded">
+    <div class="voted-user-container rounded mb-3">
         <div class="latest-voted-text fs-4 text-muted me-3">
             Recent Voted
         </div>
@@ -43,7 +43,7 @@
     <div class="competitions">
         <div>
             {% for competition in competitions %}
-                <div class="competition-card">
+                <div class="competition-card mb-3">
                     <div class="card h-100 border-0 shadow-sm text-white position-relative" style="background: url('{{ competition.image or '/static/images/default_competition.png' }}') no-repeat center center / cover;">
                         <div class="card-body d-flex flex-column justify-content-between p-4 bg-opacity-50 position-relative">
                             <div>
@@ -83,7 +83,6 @@
     .announcement {
         /* cursor: pointer; */
         padding: 0px;
-        margin-bottom: 30px;
     }
 
     .announcement .card {
@@ -99,10 +98,6 @@
         bottom: 0;
         right: 0;
         z-index: 1;
-    }
-
-    .competition-card .card-body {
-        height: 200px;
     }
 
     .competition-card img {
