@@ -5,13 +5,15 @@ from yob import app
 from yob.config import DEFAULT_ANNOUNCEMENT_STATUS
 from yob.decorators import login_required, admin_or_scrutineer_required
 from yob.repositories import announcements_repository
-from yob.repositories.announcements_repository import Announcement
+from yob.repositories.announcements_repository import Announcement, get_all_announcements
 from yob.utility import are_fields_present
 
 
 @app.route('/announcement/list')
 def announcement_list():
-    return render_template('announcements/announcement_list.html')
+    announcements = get_all_announcements()
+    announcements.reverse()
+    return render_template('announcements/announcement_list.html', announcements=announcements)
 
 
 @app.route('/announcement/create', methods=['GET', 'POST'])
