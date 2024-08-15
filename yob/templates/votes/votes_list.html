@@ -93,6 +93,7 @@
     }
 
     function renderVotesTable(votes) {
+        const profile_url = "{{ url_for('profile', user_id=0) }}".slice(0, -1)
         const tbody = document.getElementById('votes-table-body');
         tbody.innerHTML = '';
         votes.forEach(vote => {
@@ -100,7 +101,9 @@
             row.innerHTML = `
                 <td style="text-align: center;"><input type="checkbox" value="${vote.vote_id}"></td>
                 <td>${vote.competitor_name}</td>
-                <td>${vote.voted_by_username}</td>
+                <td>
+                    <a href="${profile_url + vote.voted_by}" class="text-decoration-none">${vote.voted_by_username}</a>
+                </td>
                 <td style="text-align: center;">${formatDateToNZTime(vote.voted_at)}</td>
                 <td style="text-align: center;">${vote.voted_ip}</td>
                 <td style="text-align: center;">${vote.status}</td>
@@ -114,7 +117,7 @@
     }
 
     function abandonVote(voteId) {
-        fetch(url_abandon_by_id.substring(0,-1) + `${voteId}`)
+        fetch(url_abandon_by_id.slice(0, -1) + `${voteId}`)
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
