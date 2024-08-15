@@ -52,8 +52,7 @@
 
                         <div class="form-floating mb-3">
                             <input type="text" class="form-control" name="username" id="username" placeholder="Username"
-                                   value="{{ user.username }}" pattern="[A-Za-z0-9_-]{3,50}" required {% if not editable
-                                   %} disabled {% endif %}>
+                                   value="{{ user.username }}" pattern="[A-Za-z0-9_-]{3,50}" required disabled>
                             <label for="username">Username</label>
                             <div class="invalid-feedback">
                                 Username must contain only characters and numbers! Length between 3 and 50.
