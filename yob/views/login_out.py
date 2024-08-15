@@ -28,7 +28,7 @@ def login():
                     login_user(user)
                     return redirect(url_for('index'))
 
-        flash('Incorrect credential!', 'danger')
+        flash('Invalid username or password!', 'danger')
         return render_template('user/login.html', username=username)
 
     # Show the login form with message (if any)
