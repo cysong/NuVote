@@ -34,18 +34,26 @@
                                     <span class="delete-text">Delete</span>
                                 </button>
                             </form>
+                            {% elif competition.status == 'on_going' %}
+                                <a href="{{ url_for('votes_scrutineering', competition_id=competition.competition_id) }}"
+                                class="link-light text-decoration-none me-3">View Votes</a>
                             {% elif competition.status == 'finished' %}
-                            <form action="{{ url_for('competition_approve', competition_id=competition.competition_id) }}"
-                                  method="POST" class="">
-                                <button type="button" class="btn btn-outline-danger btn-sm approve-btn"
-                                        data-bs-toggle="modal"
-                                        data-bs-target="#confirmApproveModal"
-                                        data-item-id="{{ competition.competition_id }}"
-                                        data-item-type="competition">
-                                    <i class="bi bi-backspace"></i>
-                                    <span class="approve-text">Approve</span>
-                                </button>
-                            </form>
+                                <a href="{{ url_for('votes_scrutineering', competition_id=competition.competition_id) }}"
+                                class="link-light text-decoration-none me-3">View Votes</a>
+                                <form action="{{ url_for('competition_approve', competition_id=competition.competition_id) }}"
+                                    method="POST" class="">
+                                    <button type="button" class="btn btn-outline-danger btn-sm approve-btn"
+                                            data-bs-toggle="modal"
+                                            data-bs-target="#confirmApproveModal"
+                                            data-item-id="{{ competition.competition_id }}"
+                                            data-item-type="competition">
+                                        <i class="bi bi-backspace"></i>
+                                        <span class="approve-text">Approve</span>
+                                    </button>
+                                </form>
+                            {% elif competition.status == 'approved' %}
+                                <a href="{{ url_for('votes_scrutineering', competition_id=competition.competition_id) }}"
+                                class="link-light text-decoration-none me-3">View Votes</a>
                             {% endif %}
                         </div>
                     </div>
