@@ -4,7 +4,9 @@
 
 {% block content %}
 
-<a href="{{ url_for('announcement_create') }}" class="btn btn-outline-success" role="button">Create an Announcement</a>
+<div class="mb-2 d-flex justify-content-end">
+    <a href="{{ url_for('announcement_create') }}" class="btn btn-outline-success" role="button">Create an Announcement</a>
+</div>
 
 {% for announcement in announcements %}
 <div class="announcement rounded shadow-sm position-relative mb-2">
