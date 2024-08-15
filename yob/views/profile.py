@@ -23,23 +23,24 @@ def profile(user_id):
         last_name = request.form['last_name']
         location = request.form['location']
         description = request.form['description']
+        editable = user['user_id'] == g.user['user_id']
 
-        # Validate email format
-        if email != user['email']:
-            if not re.match(config.EMAIL_REGEX, email):
-                flash("Invalid email format", 'danger')
-                return render_template('user/profile.html', user=request.form)
-
-            exist_user = users_repository.get_user_by_email(email);
-            if exist_user and exist_user['user_id'] != user_id:
-                flash("This email has been registered.", 'danger')
-                return render_template('user/profile.html', user=request.form)
-
-            user['email'] = email
         user['first_name'] = first_name
         user['last_name'] = last_name
         user['location'] = location
         user['description'] = description
+        # Validate email format
+        if email != user['email']:
+            if not re.match(config.EMAIL_REGEX, email):
+                flash("Invalid email format", 'danger')
+                return render_template('user/profile.html', user=user, editable=editable)
+
+            exist_user = users_repository.get_user_by_email(email)
+            if exist_user and exist_user['user_id'] != user_id:
+                flash("This email has been registered.", 'danger')
+                return render_template('user/profile.html', user=user, editable=editable)
+
+            user['email'] = email
 
         users_repository.update_user(user)
         flash('Profile updated successfully!', 'success')
