@@ -19,7 +19,7 @@ def announcement_list():
 
 @app.route('/announcement/create', methods=['GET', 'POST'])
 @login_required
-@roles_required(['admin', 'scrutineer'])
+@roles_required('admin', 'scrutineer')
 def announcement_create():
     if request.method == 'POST':
         if are_fields_present(request, ['title', 'content', 'end_at']):
@@ -33,14 +33,14 @@ def announcement_create():
 
 @app.route('/announcement/edit/<int:announcement_id>')
 @login_required
-@roles_required(['admin', 'scrutineer'])
+@roles_required('admin', 'scrutineer')
 def announcement_edit(announcement_id):
     return render_template('announcements/announcement_edit.html')
 
 
 @app.route('/announcement/delete/<int:announcement_id>', methods=['POST'])
 @login_required
-@roles_required(['admin', 'scrutineer'])
+@roles_required('admin', 'scrutineer')
 def announcement_delete(announcement_id):
     announcements_repository.delete_announcement(announcement_id)
     return redirect(url_for('announcements_mgmt'))
