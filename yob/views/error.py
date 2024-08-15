@@ -11,6 +11,12 @@ def bad_request(e):
     return render_template('error/400.html'), 400
 
 
+@app.errorhandler(403)
+def bad_request(e):
+    # Render custom 403 error page
+    return render_template('error/403.html'), 403
+
+
 @app.errorhandler(404)
 def page_not_found(e):
     # Render custom 404 error page
