@@ -16,7 +16,7 @@ from yob.views.profile import allowed_file, get_hashed_filename, read_file_exten
 
 @app.route('/competitions')
 @login_required
-@roles_required('admin')
+@roles_required('admin', 'scrutineer')
 def competitions_mgmt():
     # Render the admin home page with user information
     competitions = get_all_competitions()
