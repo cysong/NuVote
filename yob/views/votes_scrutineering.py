@@ -1,6 +1,7 @@
 from flask import render_template, abort, jsonify
 
 from yob import app
+from yob.login_manage import roles_required
 from yob.repositories.competition_repository import get_competition_by_id
 from yob.repositories.competitors_repository import get_competitors_by_competition_id, get_competitors_with_votes_percentage
 from yob.repositories.votes_repository import abandon_vote_by_id, abandon_votes_by_ids, abandon_votes_by_ip, get_daily_votes_by_competition, get_votes_by_filters, get_votes_group_by_ip_for_competition
@@ -10,6 +11,7 @@ from datetime import timedelta
 
 
 @app.route('/competition/<int:competition_id>/scrutineering')
+@roles_required(['admin', 'scrutineer'])
 def votes_scrutineering(competition_id):
     competition = get_competition_by_id(competition_id)
     if not competition:
@@ -18,6 +20,7 @@ def votes_scrutineering(competition_id):
     return render_template('votes/votes_scrutineering.html', competition=competition, votes=votes)
 
 @app.route('/competition/<int:competition_id>/dailyvotes', methods=['GET'])
+@roles_required(['admin', 'scrutineer'])
 def daily_votes(competition_id):
     competition = get_competition_by_id(competition_id)
     if not competition:
@@ -57,6 +60,7 @@ def daily_votes(competition_id):
 
 
 @app.route('/competition/<int:competition_id>/votes')
+@roles_required(['admin', 'scrutineer'])
 def votes_list(competition_id):
     competition = get_competition_by_id(competition_id)
     if not competition:
@@ -67,6 +71,7 @@ def votes_list(competition_id):
     return render_template('votes/votes_list.html', competition=competition, competitors=competitors, ip=ip)
 
 @app.route('/competition/<int:competition_id>/votes/query')
+@roles_required(['admin', 'scrutineer'])
 def votes_query(competition_id):
     competition = get_competition_by_id(competition_id)
     if not competition:
@@ -80,6 +85,7 @@ def votes_query(competition_id):
     return jsonify(success=True, votes=votes)
 
 @app.route('/competition/<int:competition_id>/votes/abandon/<int:vote_id>')
+@roles_required(['admin', 'scrutineer'])
 def abandon_vote(competition_id, vote_id):
     competition = get_competition_by_id(competition_id)
     if not competition or competition['status'] in ['in_plan', 'approved']:
@@ -91,6 +97,7 @@ def abandon_vote(competition_id, vote_id):
     return jsonify(success=False, message="Vote not found or already abandoned."), 404
 
 @app.route('/competition/<int:competition_id>/votes/abandonbyids', methods=['POST'])
+@roles_required(['admin', 'scrutineer'])
 def abandon_vote_batch(competition_id):
     vote_ids = request.form.getlist('vote_ids')
     vote_ids = request.get_json().get('vote_ids', [])
@@ -106,6 +113,7 @@ def abandon_vote_batch(competition_id):
     return jsonify(success=False, message="Votes not found or already abandoned."), 404
 
 @app.route('/competition/<int:competition_id>/votes/abandonbyip/<string:ip>')
+@roles_required(['admin', 'scrutineer'])
 def abandon_vote_batch_by_ip(competition_id, ip):
     competition = get_competition_by_id(competition_id)
     if not competition or competition['status'] in ['in_plan', 'approved']:
