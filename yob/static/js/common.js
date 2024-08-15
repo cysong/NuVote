@@ -43,7 +43,7 @@ function goBack() {
 }
 
 function formatDateToNZTime(gmtDateStr) {
-    debugger;
+
     const date = new Date(gmtDateStr);
     // Define the options for formatting
     const options = {
