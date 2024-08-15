@@ -24,6 +24,21 @@
     </div>
     {% endif %}
 
+    <div class="voted-user-container rounded">
+        <div class="latest-voted-text fs-4 text-muted me-3">
+            Recent Voted
+        </div>
+        <div class="users-container">
+            {% for user in users %}
+            <div class="user-item" title="{{ user.username }}">
+                <a href="{{url_for('profile', user_id=user.user_id)}}">
+                    <img class="profile-large user-profile" src="{{ user.profile_image }}" alt="{{ user.username }}">
+                </a>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
     <!-- Competitions Section -->
     <div class="competitions">
         <div>
@@ -99,6 +114,37 @@
     .competition-card .text-end a {
         z-index: 2;
         position: relative;
+    }
+
+    .voted-user-container {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        overflow: hidden; 
+        padding: 16px;
+        padding-right: 0px;
+        /* background-color: #d8e9da; */
+    }
+
+    .latest-voted-text {
+        white-space: nowrap;
+        flex-shrink: 0;
+    }
+
+    .users-container {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        overflow: hidden;
+        flex-wrap: nowrap;
+    }
+
+    .user-item + .user-item {
+        margin-left: -30px;
+    }
+
+    .user-profile {
+        border: #fff solid 3px; 
     }
 </style>
 
