@@ -43,23 +43,23 @@ function goBack() {
 }
 
 function formatDateToNZTime(gmtDateStr) {
-
     const date = new Date(gmtDateStr);
-    // Define the options for formatting
-    const options = {
-        timeZone: 'Pacific/Auckland', // New Zealand time zone
-        year: 'numeric',
-        month: '2-digit',
-        day: '2-digit',
-        hour: '2-digit',
-        minute: '2-digit',
-        second: '2-digit',
-        hour12: false // Use 24-hour time
-    };
 
-    // Create a formatter for New Zealand time
-    const formatter = new Intl.DateTimeFormat('en-NZ', options);
+    // Extract day, month, year, hour, minute, and second
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are zero-indexed
+    const year = date.getFullYear();
 
-    // Format the date
-    return formatter.format(date);
+    let hour = date.getHours();
+    const minute = String(date.getMinutes()).padStart(2, '0');
+    const second = String(date.getSeconds()).padStart(2, '0');
+
+    // Determine AM or PM
+    const ampm = hour >= 12 ? 'PM' : 'AM';
+    hour = hour % 12;
+    hour = hour ? hour : 12; // The hour '0' should be '12'
+    hour = String(hour).padStart(2, '0');
+
+    // Construct the formatted date string
+    return `${day}/${month}/${year} ${hour}:${minute}:${second} ${ampm}`;
 }
