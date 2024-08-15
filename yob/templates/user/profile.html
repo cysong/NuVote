@@ -13,15 +13,15 @@
 
             <div class="card">
                 <div class="card-body">
-                    <h1 class="fs-4 card-title fw-bold mb-4">{{ 'Edit' if editable else 'View' }} Profile</h1>
+                    <h1 class="fs-4 card-title fw-bold mb-4">{{ 'Edit' if editable and user_id == user.user_id else 'View' }} Profile</h1>
                     <div class="text-center my-3">
                         <img src="{{ user.profile_image }}" alt="Profile Image" id="profile-image"
-                             {% if editable %}
+                             {% if editable and user_id == user.user_id %}
                              onclick="document.getElementById('profile-image-input').click()"
                              style="cursor: pointer;"
                              {% endif %}
                              class="profile-large shadow"/>
-                        {% if editable %}
+                        {% if editable and user_id == user.user_id %}
                         <input type="file" id="profile-image-input" class="d-none" accept="image/*"
                                onchange="previewImage(event)">
                         <div class="mt-2">
@@ -61,7 +61,7 @@
 
                         <div class="form-floating mb-3">
                             <input type="email" class="form-control" name="email" id="email" placeholder="Email"
-                                   value="{{ user.email }}" required {% if not editable %} disabled {% endif %}>
+                                   value="{{ user.email }}" required {% if not editable or user_id !=user.user_id %} disabled {% endif %}>
                             <label for="email">Email address</label>
                             <div class="invalid-feedback">
                                 Please enter a valid email (example@domain.com).
@@ -72,7 +72,7 @@
                             <input type="text" class="form-control" name="first_name" id="first_name"
                                    placeholder="First name"
                                    value="{{ user.first_name }}" pattern="[A-Za-z0-9 ]{0,50}" {% if not
-                                   editable %} disabled {% endif %}>
+                                   editable or user_id !=user.user_id %} disabled {% endif %}>
                             <label for="first_name">First name (optional)</label>
                             <div class="invalid-feedback">
                                 First name must contain only characters and numbers! Max length is 50.
@@ -83,7 +83,7 @@
                             <input type="text" class="form-control" name="last_name" id="last_name"
                                    placeholder="Last name"
                                    value="{{ user.last_name }}" pattern="[A-Za-z0-9 ]{0,50}" {% if not editable
-                                   %} disabled {% endif %}>
+                                   or user_id !=user.user_id %} disabled {% endif %}>
                             <label for="last_name">Last name (optional)</label>
                             <div class="invalid-feedback">
                                 Last name must contain only characters and numbers! Max length is 50.
@@ -92,7 +92,7 @@
 
                         <div class="form-floating mb-3">
                             <input type="text" class="form-control" name="location" id="location" placeholder="Location"
-                                   value="{{ user.location }}" pattern="[A-Za-z0-9 ]{0,50}" {% if not editable %} disabled {% endif %}>
+                                   value="{{ user.location }}" pattern="[A-Za-z0-9 ]{0,50}" {% if not editable or user_id !=user.user_id %} disabled {% endif %}>
                             <label for="location">Location (optional)</label>
                             <div class="invalid-feedback">
                                 Location must contain only characters and numbers! Max length is 50.
@@ -135,7 +135,7 @@
                         <div class="form-floating mb-3">
                             <textarea type="text" class="form-control" name="description" id="description"
                                    placeholder="Description" pattern="[A-Za-z\d@$!%*?&0-9 ]{0,1024}"
-                                      {% if not editable %} disabled {% endif %} style="height: 100px;">{{ user.description }}</textarea>
+                                      {% if not editable or user_id !=user.user_id %} disabled {% endif %} style="height: 100px;">{{ user.description }}</textarea>
                             <label for="description">Description (optional)</label>
                             <div class="invalid-feedback">
                                 Description must contain only characters and numbers! Max length is 1024.
@@ -143,7 +143,7 @@
                         </div>
 
                         <div class="d-grid">
-                            <button type="submit" class="btn btn-primary" {% if not editable %} disabled {% endif %}>
+                            <button type="submit" class="btn btn-primary" {% if not editable and user.role != 'admin' %} disabled {% endif %}>
                                 Update Profile
                             </button>
                         </div>
