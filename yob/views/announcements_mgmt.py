@@ -9,7 +9,7 @@ from yob.repositories.announcements_repository import get_all_announcements
 
 @app.route('/announcements')
 @login_required
-@roles_required(['admin', 'scrutineer'])
+@roles_required('admin', 'scrutineer')
 def announcements_mgmt():
     # Render the admin home page with user information
     announcements = get_all_announcements()

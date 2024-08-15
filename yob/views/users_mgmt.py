@@ -14,7 +14,7 @@ CREATE_USER_REQUIRED_FIELDS = ['username', 'email', 'password', 'password2', 'fi
 
 @app.route('/users')
 @login_required
-@roles_required(['admin'])
+@roles_required('admin')
 def users_mgmt():
     # Render the admin home page with user information
     return render_template('user/users_mgmt.html', users=get_users())
@@ -22,7 +22,7 @@ def users_mgmt():
 
 @app.route('/users/create', methods=['GET', 'POST'])
 @login_required
-@roles_required(['admin'])
+@roles_required('admin')
 def user_create():
     if request.method == 'POST':
         form_data = request.form.to_dict()

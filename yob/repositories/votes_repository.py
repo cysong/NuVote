@@ -9,7 +9,7 @@ def get_vote_by_id(vote_id):
         cursor.execute("""
             SELECT 
                 v.vote_id,
-                v.competition_id,
+                c.competition_id,
                 v.competitor_id,
                 v.voted_by,
                 u.username AS voted_by_username,
@@ -19,6 +19,7 @@ def get_vote_by_id(vote_id):
             FROM 
                 votes v
                 JOIN users u ON v.voted_by = u.user_id
+                join competitors c on v.competitor_id = c.competitor_id
             WHERE 
                 v.vote_id = %s
         """, (vote_id,))
@@ -70,9 +71,9 @@ def get_daily_votes_by_competition(competition_id):
                 SUM(CASE WHEN v.status = 'valid' THEN 1 ELSE 0 END) AS valid_votes,
                 SUM(CASE WHEN v.status = 'invalid' THEN 1 ELSE 0 END) AS invalid_votes
             FROM 
-                votes v
+                votes v, competitors c
             WHERE 
-                v.competition_id = %s
+                v.competitor_id = c.competitor_id AND c.competition_id = %s
             GROUP BY 
                 DATE(v.voted_at)
             ORDER BY 
@@ -90,14 +91,15 @@ def get_votes_by_competitor_id(competitor_id):
         cursor.execute("""
             SELECT 
                 v.vote_id,
-                v.competition_id,
+                c.competition_id,
                 v.voted_by,
                 v.status,
                 v.voted_ip,
                 v.voted_at
             FROM 
-                votes v
+                votes v, competitors c
             WHERE 
+                v.competitor_id = c.competitor_id AND
                 v.competitor_id = %s
             ORDER BY 
                 v.voted_at DESC
@@ -114,7 +116,7 @@ def get_votes_by_competition_and_ip(competition_id, voted_ip):
         cursor.execute("""
             SELECT 
                 v.vote_id,
-                v.competition_id,
+                c.competition_id,
                 v.competitor_id,
                 v.voted_by,
                 u.username AS voted_by_username,
@@ -124,8 +126,9 @@ def get_votes_by_competition_and_ip(competition_id, voted_ip):
             FROM 
                 votes v
                 JOIN users u ON v.voted_by = u.user_id
+                join competitors c on v.competitor_id = c.competitor_id
             WHERE 
-                v.competition_id = %s AND v.voted_ip = %s
+                c.competition_id = %s AND v.voted_ip = %s
         """, (competition_id, voted_ip))
         votes = cursor.fetchall()
     return votes
@@ -143,9 +146,9 @@ def get_votes_group_by_ip_for_competition(competition_id):
                 COUNT(*) AS total_votes,
                 SUM(CASE WHEN v.status = 'valid' THEN 1 ELSE 0 END) AS valid_votes
             FROM 
-                votes v
+                votes v, competitors c
             WHERE 
-                v.competition_id = %s
+                v.competitor_id = c.competitor_id AND c.competition_id = %s
             GROUP BY 
                 v.voted_ip
             ORDER BY 
@@ -177,16 +180,16 @@ def get_votes_by_competition_and_user(competition_id, user_id):
         cursor.execute("""
             SELECT 
                 v.vote_id,
-                v.competition_id,
+                c.competition_id,
                 v.competitor_id,
                 v.voted_by,
                 v.status,
                 v.voted_ip,
                 v.voted_at
             FROM 
-                votes v
+                votes v, competitors c
             WHERE 
-                v.competition_id = %s AND v.voted_by = %s
+                v.competitor_id = c.competitor_id AND c.competition_id = %s AND v.voted_by = %s
         """, (competition_id, user_id))
         votes = cursor.fetchall()
     return votes
@@ -195,7 +198,7 @@ def get_votes_by_filters(competition_id, ip=None, status='valid', competitor_id=
     query = """
         SELECT 
             v.vote_id,
-            v.competition_id,
+            c.competition_id,
             v.competitor_id,
             v.voted_by,
             u.username AS voted_by_username,
@@ -208,7 +211,7 @@ def get_votes_by_filters(competition_id, ip=None, status='valid', competitor_id=
             JOIN users u ON v.voted_by = u.user_id
             JOIN competitors c ON v.competitor_id = c.competitor_id
         WHERE 
-            v.competition_id = %s AND v.status = %s
+            c.competition_id = %s AND v.status = %s
     """
     params = [competition_id, status]
     

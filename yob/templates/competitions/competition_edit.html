@@ -4,7 +4,12 @@
 
 {% block content %}
 <div>
-    <div class="text-center my-3 rounded shadow-sm d-flex align-items-center justify-content-center" style="height:200px;overflow: hidden;">
+
+    <div class="mb-2">
+        <a class="btn btn-outline-secondary" href="{{url_for('competitions_mgmt')}}"><i class="bi bi-arrow-left"></i>Back</a>
+    </div>
+
+    <div class="text-center mb-3 rounded shadow-sm d-flex align-items-center justify-content-center" style="height:200px;overflow: hidden;">
         <img src="{{ competition['image'] }}" alt="Competition Image" id="competition-image"
              {% if editable %}
              onclick="document.getElementById('competition-image-input').click()"

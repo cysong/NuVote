@@ -10,7 +10,7 @@
         <div class="card-body position-relative">
             <h5 class="card-title">{{ announcement.title }}</h5>
             <p class="card-text announcement-content">{{ announcement.content }}</p>
-            <p class="card-text announcement-content">{{ announcement.created_at }}</p>
+            <p class="card-text announcement-content">{{ announcement.created_at | datetime_format}}</p>
         </div>
     </div>
 </div>

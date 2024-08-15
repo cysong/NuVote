@@ -22,14 +22,9 @@
     <div class="row mb-4 details-container">
         <div class="col-12">
             <h1 class="display-5">{{ competitor['name'] }}</h1>
+            <div class="info-row">{{ competitor['competition_name'] }}</div>
             <div class="info-row">
-                Competition: {{ competitor['competition_name'] }}
-            </div>
-            <div class="info-row">
-                Author: {{ competitor['author'] }}
-            </div>
-            <div class="info-row">
-                Created At: {{ competitor['created_at'] | datetime_format }}
+                Propose by {{ competitor['author'] }} at {{ competitor['created_at'] | datetime_format }}
             </div>
         </div>
     </div>
@@ -51,9 +46,7 @@
     margin-bottom: 1rem;
     border-radius: 0.5rem;
 }
-.description {
-    white-space: pre-wrap; /* Preserve line breaks and spaces */
-}
+
 .details-container {
     display: flex;
     flex-direction: column;
@@ -62,9 +55,11 @@
 .info-row {
     margin-bottom: 0.5rem;
 }
+
 .info-row:not(:last-child) {
     margin-bottom: 1rem;
 }
+
 .description {
     white-space: pre-wrap; /* Preserve line breaks and spaces */
     min-height: 200px;
