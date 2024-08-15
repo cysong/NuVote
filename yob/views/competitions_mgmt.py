@@ -5,7 +5,8 @@ from datetime import datetime
 from flask import render_template, redirect, abort, url_for, flash, request, jsonify, g
 
 from yob import app, config
-from yob.decorators import login_required, admin_required, admin_or_scrutineer_required
+from yob.decorators import login_required
+from yob.login_manage import roles_required
 from yob.repositories.competition_repository import get_all_competitions, get_competition_by_id, delete_competition, \
     Competition, create_competition, update_competition, update_competition_status
 from yob.repositories.competitions_mgmt_repository import update_competition_image_update
@@ -15,7 +16,7 @@ from yob.views.profile import allowed_file, get_hashed_filename, read_file_exten
 
 @app.route('/competitions')
 @login_required
-@admin_required
+@roles_required(['admin'])
 def competitions_mgmt():
     # Render the admin home page with user information
     competitions = get_all_competitions()
@@ -25,7 +26,7 @@ def competitions_mgmt():
 
 @app.route('/competition/create', methods=['GET', 'POST'])
 @login_required
-@admin_required
+@roles_required(['admin'])
 def competition_create():
     if request.method == 'POST':
         if are_fields_present(request, ['name', 'description', 'start_date', 'end_date']):
@@ -61,14 +62,14 @@ def competition_create():
 
 @app.route('/competition/manage')
 @login_required
-@admin_required
+@roles_required(['admin'])
 def competition_manage():
     return render_template('competitions/competition_mgmt.html')
 
 
 @app.route('/competition/edit/<int:competition_id>', methods=['GET', 'POST'])
 @login_required
-@admin_required
+@roles_required(['admin'])
 def competition_edit(competition_id):
     if request.method == 'POST':
         # verify form
@@ -91,7 +92,7 @@ def competition_edit(competition_id):
 
 @app.route('/competition/delete/<int:competition_id>', methods=['POST'])
 @login_required
-@admin_or_scrutineer_required
+@roles_required(['admin', 'scrutineer'])
 def competition_delete(competition_id):
     if delete_competition(competition_id):
         flash("Competition deleted successfully", "success")
@@ -102,7 +103,7 @@ def competition_delete(competition_id):
 
 @app.route('/competition/approve/<int:competition_id>', methods=['POST'])
 @login_required
-@admin_required
+@roles_required(['admin'])
 def competition_approve(competition_id):
     if update_competition_status(competition_id, 'approved'):
         flash("Competition approved successfully", "success")
@@ -113,6 +114,7 @@ def competition_approve(competition_id):
 
 @app.route('/competition/competition_image', methods=['DELETE'])
 @login_required
+@roles_required(['admin'])
 def delete_competition_image():
     """Delete profile image for user"""
     profile_image = config.DEFAULT_COMPETITION_IMAGE
