@@ -8,15 +8,17 @@
         <div class="col-xxl-7 col-xl-8 col-lg-9 col-md-10 col-sm-11">
 
             <div class="mb-2">
-                <button class="btn btn-outline-secondary" onclick="goBack()"><i class="bi bi-arrow-left"></i>Back</button>
+                <button class="btn btn-outline-secondary" onclick="goBack()"><i class="bi bi-arrow-left"></i>Back
+                </button>
             </div>
 
             <div class="card">
                 <div class="card-body">
-                    <h1 class="fs-4 card-title fw-bold mb-4">{{ 'Edit' if editable and user_id == user.user_id else 'View' }} Profile</h1>
+                    <h1 class="fs-4 card-title fw-bold mb-4">{{ 'Edit' if editable and user_id == user.user_id else
+                        'View' }} Profile</h1>
                     <div class="text-center my-3">
                         <img src="{{ user.profile_image }}" alt="Profile Image" id="profile-image"
-                             {% if editable and user_id == user.user_id %}
+                             {% if editable and user_id== user.user_id %}
                              onclick="document.getElementById('profile-image-input').click()"
                              style="cursor: pointer;"
                              {% endif %}
@@ -61,7 +63,8 @@
 
                         <div class="form-floating mb-3">
                             <input type="email" class="form-control" name="email" id="email" placeholder="Email"
-                                   value="{{ user.email }}" required {% if not editable or user_id !=user.user_id %} disabled {% endif %}>
+                                   value="{{ user.email }}" required {% if not editable or user_id !=user.user_id %}
+                                   disabled {% endif %}>
                             <label for="email">Email address</label>
                             <div class="invalid-feedback">
                                 Please enter a valid email (example@domain.com).
@@ -92,7 +95,8 @@
 
                         <div class="form-floating mb-3">
                             <input type="text" class="form-control" name="location" id="location" placeholder="Location"
-                                   value="{{ user.location }}" pattern="[A-Za-z0-9 ]{0,50}" {% if not editable or user_id !=user.user_id %} disabled {% endif %}>
+                                   value="{{ user.location }}" pattern="[A-Za-z0-9 ]{0,50}" {% if not editable or
+                                   user_id !=user.user_id %} disabled {% endif %}>
                             <label for="location">Location (optional)</label>
                             <div class="invalid-feedback">
                                 Location must contain only characters and numbers! Max length is 50.
@@ -105,28 +109,32 @@
                             </select>
                             <label for="role">Role</label>
                         </div>
-
+                        {% else %}
                         <div class="form-floating mb-3">
-                            <select class="form-select" id="status" aria-label="Status" name="status" disabled>
-                                <option value="{{ user.status }}">{{ user.status.capitalize() }}</option>
+                            <select class="form-select" id="role" aria-label="Role" name="role">
+                                {% for s in ['scrutineer', 'admin'] %}
+                                <option value="{{ s }}" {% if user.role== s %}selected{% endif %}>{{ s.capitalize() }}
+                                </option>
+                                {% endfor %}
+                            </select>
+                            <label for="role">Role</label>
+                        </div>
+                        {% endif %}
+                        {% if role == 'admin' or role == 'scrutineer' %}
+                        <div class="form-floating mb-3">
+                            <select class="form-select" id="status" aria-label="Status" name="status">
+                                {% for s in ['active', 'inactive'] %}
+                                <option value="{{ s }}" {% if user.status== s %}selected{% endif %}>{{ s.capitalize()
+                                    }}
+                                </option>
+                                {% endfor %}
                             </select>
                             <label for="status">Status</label>
                         </div>
                         {% else %}
                         <div class="form-floating mb-3">
-                            <select class="form-select" id="role" aria-label="Role" name="role">
-                                {% for s in ['scrutineer', 'admin'] %}
-                                <option value="{{ s }}" {% if user.role == s %}selected{% endif %}>{{ s.capitalize() }}</option>
-                                {% endfor %}
-                            </select>
-                            <label for="role">Role</label>
-                        </div>
-
-                        <div class="form-floating mb-3">
-                            <select class="form-select" id="status" aria-label="Status" name="status">
-                                {% for s in ['active', 'inactive'] %}
-                                <option value="{{ s }}" {% if user.status == s %}selected{% endif %}>{{ s.capitalize() }}</option>
-                                {% endfor %}
+                            <select class="form-select" id="status" aria-label="Status" name="status" disabled>
+                                <option value="{{ user.status }}">{{ user.status.capitalize() }}</option>
                             </select>
                             <label for="status">Status</label>
                         </div>
@@ -134,8 +142,9 @@
 
                         <div class="form-floating mb-3">
                             <textarea type="text" class="form-control" name="description" id="description"
-                                   placeholder="Description" pattern="[A-Za-z\d@$!%*?&0-9 ]{0,1024}"
-                                      {% if not editable or user_id !=user.user_id %} disabled {% endif %} style="height: 100px;">{{ user.description }}</textarea>
+                                      placeholder="Description" pattern="[A-Za-z\d@$!%*?&0-9 ]{0,1024}"
+                                      {% if not editable or user_id !=user.user_id %} disabled {% endif %}
+                                      style="height: 100px;">{{ user.description }}</textarea>
                             <label for="description">Description (optional)</label>
                             <div class="invalid-feedback">
                                 Description must contain only characters and numbers! Max length is 1024.
@@ -143,7 +152,8 @@
                         </div>
 
                         <div class="d-grid">
-                            <button type="submit" class="btn btn-primary" {% if not editable and user.role != 'admin' %} disabled {% endif %}>
+                            <button type="submit" class="btn btn-primary" {% if not editable and user.role !='admin' %}
+                                    disabled {% endif %}>
                                 Update Profile
                             </button>
                         </div>
