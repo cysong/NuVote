@@ -20,20 +20,20 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ms-auto">
-                        {% if is_logged_in %}
+                        {% if CURRENT_USER %}
                             <li class="nav-item dropdown">
                                 <a class="nav-link" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    <img src="{{ profile_image }}" alt="{{ username }}" class="profile-small">
+                                    <img src="{{ CURRENT_USER.profile_image }}" alt="{{ CURRENT_USER.username }}" class="profile-small">
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                    <li><a class="dropdown-item" href="{{url_for('profile', user_id=user_id)}}" onclick="enter_from_menu()">Edit Profile</a></li>
-                                    <li><a class="dropdown-item" href="{{url_for('password', user_id=user_id)}}" onclick="enter_from_menu()">Change Password</a></li>
-                                    {% if role == 'admin' %}
+                                    <li><a class="dropdown-item" href="{{url_for('profile', user_id=CURRENT_USER.user_id)}}" onclick="enter_from_menu()">Edit Profile</a></li>
+                                    <li><a class="dropdown-item" href="{{url_for('password', user_id=CURRENT_USER.user_id)}}" onclick="enter_from_menu()">Change Password</a></li>
+                                    {% if CURRENT_USER.role == 'admin' %}
                                         <li><a class="dropdown-item" href="{{url_for('users_mgmt')}}" onclick="enter_from_menu()">Manage Users</a></li>
                                         <li><a class="dropdown-item" href="{{url_for('competitions_mgmt')}}" onclick="enter_from_menu()">Manage Competitions</a></li>
                                         <li><a class="dropdown-item" href="{{url_for('announcements_mgmt')}}" onclick="enter_from_menu()">Manage Announcements</a></li>
                                     {% endif %}
-                                    {% if role == 'scrutineer' %}
+                                    {% if CURRENT_USER.role == 'scrutineer' %}
 <!--                                    <li><a class="dropdown-item" href="{{url_for('users_mgmt')}}" onclick="enter_from_menu()">Manage Users</a></li>-->
                                     <li><a class="dropdown-item" href="{{url_for('competitions_mgmt')}}" onclick="enter_from_menu()">Manage Competitions</a></li>
                                     <li><a class="dropdown-item" href="{{url_for('announcements_mgmt')}}" onclick="enter_from_menu()">Manage Announcements</a></li>
