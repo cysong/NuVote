@@ -44,7 +44,7 @@
                         <!-- Progress bar -->
                         <div class="progress mt-3" style="height: 20px;">
                             <div class="progress-bar {% if loop.first %}bg-warning{% else %}bg-success{% endif %}" role="progressbar" style="width: {{ competitor.vote_percentage }}%;" aria-valuenow="{{ competitor.vote_percentage }}" aria-valuemin="0" aria-valuemax="100">
-                                {{ competitor.vote_percentage }}%
+                                {{ competitor.vote_percentage | round(2) }}%
                             </div>
                         </div>
                     </div>
