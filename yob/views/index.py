@@ -3,6 +3,7 @@ from flask import render_template
 from yob import app
 from yob.repositories.announcements_repository import get_latest_active_announcement
 from yob.repositories.competition_repository import get_latest_competitions
+from yob.repositories.users_repository import get_latest_voted_users
 from yob.utility import get_current_datetime
 
 
@@ -13,5 +14,6 @@ def index():
     latest_announcement = get_latest_active_announcement()
     competitions = get_latest_competitions()
     now = get_current_datetime()
+    latest_voted_users = get_latest_voted_users()
     return render_template('index.html',
-                           announcement=latest_announcement, competitions=competitions, CURR_TIME=now)
+                           announcement=latest_announcement, competitions=competitions, CURR_TIME=now, users=latest_voted_users)

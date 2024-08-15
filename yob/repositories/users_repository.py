@@ -205,3 +205,16 @@ def update_profile_image(user_id, profile_image):
         """, (profile_image, user_id))
         affected_rows = cursor.rowcount
     return affected_rows > 0
+
+def get_latest_voted_users():
+    """
+    Get the latest voted users
+    """
+    with Cursor() as cursor:
+        cursor.execute(
+            '''SELECT u.* 
+            FROM users u, votes v where u.user_id = v.voted_by
+            ORDER BY v.voted_at desc limit 10'''
+        )
+        users = cursor.fetchall()
+    return users
