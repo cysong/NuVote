@@ -80,12 +80,12 @@ def format_relative_time(time_diff):
 
 @app.template_filter('datetime_format')
 def datetime_format(value):
-    return format_by_locate(value, '%c')
+    return value.strftime('%d/%m/%Y %H:%M:%S')
 
 
 @app.template_filter('dateformat')
 def date_format(value):
-    return format_by_locate(value, '%x')
+    return value.strftime('%d/%m/%Y')
 
 
 def format_by_locate(value, format='%x'):
