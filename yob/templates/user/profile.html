@@ -184,6 +184,42 @@
     </div>
 </div>
 
+<style>
+    /* Styling for readonly inputs */
+    input[readonly],
+    textarea[readonly],
+    select[readonly] {
+        background-color: #e9ecef;
+        opacity: 1;
+        cursor: not-allowed;
+        color: #6c757d;
+    }
+
+    /* Adjust the label positioning for form-floating layout */
+    .form-floating input[readonly] ~ label,
+    .form-floating textarea[readonly] ~ label,
+    .form-floating select[readonly] ~ label {
+        color: #6c757d;
+        transform: translateY(-50%) scale(0.85); /* Keep label floated and scaled */
+        background-color: transparent;
+        pointer-events: none; /* Disable clicking on the label */
+    }
+
+    /* Disabled label styling */
+    label[for][readonly] {
+        color: #6c757d;
+    }
+
+    /* For better alignment in form-floating with readonly fields */
+    .form-floating input[readonly]:not(:placeholder-shown) ~ label,
+    .form-floating textarea[readonly]:not(:placeholder-shown) ~ label,
+    .form-floating select[readonly]:not(:placeholder-shown) ~ label {
+        color: #6c757d;
+        font-size: 0.85em;
+    }
+
+</style>
+
 <script src="/static/js/common.js"></script>
 <script>
     document.addEventListener('DOMContentLoaded', function() {
