@@ -1,0 +1,217 @@
+{% extends 'layout.html' %}
+
+{% block title %}Votes List{% endblock %}
+
+{% block content %}
+<div class="">
+
+    <div class="mb-2">
+        <a class="btn btn-outline-secondary" href="{{url_for('votes_scrutineering', competition_id=competition.competition_id)}}"><i class="bi bi-arrow-left"></i>Back</a>
+    </div>
+
+    <div class="mb-3">
+        <h1>{{competition.name}}</h1>
+    </div>
+
+    <!-- Filter Row -->
+    <div class="row mb-3">
+        <div class="col-md-4">
+            <input type="text" class="form-control" id="ip-filter" placeholder="Vote Ip" value="{{ip}}">
+        </div>
+        <div class="col-md-4">
+            <select class="form-select" id="competitor-filter">
+                <option value="">Select Competitor</option>
+                {% for competitor in competitors %}
+                <option value="{{ competitor.competitor_id }}">{{ competitor.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="col-md-2 d-flex align-items-center">
+            <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox" id="status-filter" checked>
+                <label class="form-check-label" for="status-filter">Valid</label>
+            </div>
+        </div>
+        <div class="col-md-2 d-flex align-items-center justify-content-end">
+            <button class="btn btn-primary" onclick="abandonVoteByIds()">Disable Selected</button>
+        </div>
+    </div>
+
+    <!-- Votes Table -->
+    <table class="table table-hover table-striped">
+        <thead class="thead-light">
+            <tr>
+                <th scope="col" style="width:60px;"><input type="checkbox" id="select-all"></th>
+                <th scope="col">Competitor</th>
+                <th scope="col">Voter Name</th>
+                <th scope="col" style="width:180px;">Vote Time</th>
+                <th scope="col">Vote IP</th>
+                <th scope="col" style="width:180px;">Status</th>
+                <th scope="col" style="width:260px;">Actions</th>
+            </tr>
+        </thead>
+        <tbody id="votes-table-body">
+            <!-- Table rows will be rendered here asynchronously -->
+        </tbody>
+    </table>
+</div>
+
+<script>
+    let timer;
+    let competition_id = {{competition.competition_id}}
+    let url_abandon_by_id="{{ url_for('abandon_vote', competition_id=competition.competition_id, vote_id=1)}}"
+    let url_abandon_by_ip="{{ url_for('abandon_vote_batch_by_ip', competition_id=competition.competition_id, ip='')}}"
+
+    document.addEventListener('DOMContentLoaded', function() {
+        // Call the fetchVotes method to load the votes based on the current filters
+        fetchVotes();
+    });
+
+    document.getElementById('ip-filter').addEventListener('input', function() {
+        clearTimeout(timer);
+        timer = setTimeout(fetchVotes, 500);  // Debounce
+    });
+
+    document.getElementById('competitor-filter').addEventListener('change', fetchVotes);
+    document.getElementById('status-filter').addEventListener('change', fetchVotes);
+
+    function fetchVotes() {
+        const ip = document.getElementById('ip-filter').value;
+        const competitorId = document.getElementById('competitor-filter').value;
+        const status = document.getElementById('status-filter').checked ? 'valid' : 'invalid';
+
+        fetch(`{{ url_for('votes_query', competition_id=competition.competition_id) }}?ip=${ip}&competitor_id=${competitorId}&status=${status}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    renderVotesTable(data.votes);
+                    enableSelectAll();
+                } else {
+                    showErrorMessage(data.message);
+                }
+            });
+    }
+
+    function renderVotesTable(votes) {
+        const tbody = document.getElementById('votes-table-body');
+        tbody.innerHTML = '';
+        votes.forEach(vote => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td style="text-align: center;"><input type="checkbox" value="${vote.vote_id}"></td>
+                <td>${vote.competitor_name}</td>
+                <td>${vote.voted_by_username}</td>
+                <td style="text-align: center;">${formatDateToNZTime(vote.voted_at)}</td>
+                <td style="text-align: center;">${vote.voted_ip}</td>
+                <td style="text-align: center;">${vote.status}</td>
+                <td>
+                    <button onclick="abandonVote(${vote.vote_id})" class="btn btn-link text-danger" ${vote.status === 'invalid' ? 'disabled' : ''}>Disable</button>
+                    <button onclick="abandonVotesByIp('${vote.voted_ip}')" class="btn btn-link text-danger" ${vote.status === 'invalid' ? 'disabled' : ''}>Disable All by IP</button>
+                </td>
+            `;
+            tbody.appendChild(row);
+        });
+    }
+
+    function abandonVote(voteId) {
+        fetch(url_abandon_by_id.substring(0,-1) + `${voteId}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    showSuccessMessage(data.message);
+                    fetchVotes();
+                } else {
+                    showErrorMessage(data.message);
+                }
+            });
+    }
+
+    function abandonVotesByIp(ip) {
+        fetch(url_abandon_by_ip + `${ip}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    showSuccessMessage(data.message);
+                    fetchVotes();
+                } else {
+                    showErrorMessage(data.message);
+                }
+            });
+    }
+
+    function abandonVoteByIds() {
+        // Get all selected rows
+        const selectedRows = document.querySelectorAll('.table tbody input[type="checkbox"]:checked');
+        
+        // Extract vote IDs from the selected rows
+        let voteIds = Array.from(selectedRows).map(row => row.value);
+
+        // If no votes are selected, return early
+        if (voteIds.length === 0) {
+            showErrorMessage("Please select at least one vote to abandon.");
+            return;
+        }
+
+        // Prepare the JSON payload
+        const payload = {
+            vote_ids: voteIds
+        };
+
+        // Send the POST request to the backend
+        fetch('{{ url_for("abandon_vote_batch", competition_id=competition.competition_id) }}', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(payload)
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                // Show success message
+                showSuccessMessage(data.message);
+                // Refresh the table
+                fetchVotes();
+            } else {
+                // Show error message
+                showErrorMessage(data.message || "Failed to abandon votes.");
+            }
+        })
+        .catch(error => {
+            showErrorMessage("An unexpected error occurred.");
+        });
+    }
+
+    function enableSelectAll() {
+        const selectAllCheckbox = document.getElementById('select-all');
+        const rowCheckboxes = document.querySelectorAll('.table tbody input[type="checkbox"]');
+
+        // Uncheck "Select All" checkbox if reload data
+        if(selectAllCheckbox.checked) {
+            selectAllCheckbox.checked = false;
+        }
+
+        // Handle "Select All" checkbox click
+        selectAllCheckbox.addEventListener('change', function () {
+            rowCheckboxes.forEach(checkbox => {
+                checkbox.checked = selectAllCheckbox.checked;
+            });
+        });
+
+        // Handle individual checkbox click to update "Select All" checkbox state
+        rowCheckboxes.forEach(checkbox => {
+            checkbox.addEventListener('change', function () {
+                // Check if all checkboxes are checked
+                const allChecked = Array.from(rowCheckboxes).every(cb => cb.checked);
+                selectAllCheckbox.checked = allChecked;
+            });
+        });
+    }
+
+</script>
+<style>
+.table thead th {
+    text-align: center;
+}
+</style>
+{% endblock %}

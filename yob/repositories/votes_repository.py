@@ -130,24 +130,25 @@ def get_votes_by_competition_and_ip(competition_id, voted_ip):
     return votes
 
 
-def get_votes_by_ip_for_competition(competition_id):
+def get_votes_group_by_ip_for_competition(competition_id):
     """
-    Retrieve the number of votes per IP address for a specific competition,
-    ordered by the number of votes in descending order
+    Retrieve the number of total votes and valid votes per IP address for a specific competition,
+    ordered by the total number of votes in descending order
     """
     with Cursor(dictionary=True) as cursor:
         cursor.execute("""
             SELECT 
                 v.voted_ip,
-                COUNT(*) AS vote_count
+                COUNT(*) AS total_votes,
+                SUM(CASE WHEN v.status = 'valid' THEN 1 ELSE 0 END) AS valid_votes
             FROM 
                 votes v
             WHERE 
-                v.competition_id = %s AND v.status = 'valid'
+                v.competition_id = %s
             GROUP BY 
                 v.voted_ip
             ORDER BY 
-                vote_count DESC
+                total_votes DESC
         """, (competition_id,))
         votes_by_ip = cursor.fetchall()
     return votes_by_ip
@@ -188,3 +189,53 @@ def get_votes_by_competition_and_user(competition_id, user_id):
         """, (competition_id, user_id))
         votes = cursor.fetchall()
     return votes
+
+def get_votes_by_filters(competition_id, ip=None, status='valid', competitor_id=None):
+    query = """
+        SELECT 
+            v.vote_id,
+            v.competition_id,
+            v.competitor_id,
+            v.voted_by,
+            u.username AS voted_by_username,
+            v.status,
+            v.voted_ip,
+            v.voted_at,
+            c.name AS competitor_name
+        FROM 
+            votes v
+            JOIN users u ON v.voted_by = u.user_id
+            JOIN competitors c ON v.competitor_id = c.competitor_id
+        WHERE 
+            v.competition_id = %s AND v.status = %s
+    """
+    params = [competition_id, status]
+    
+    if ip:
+        query += " AND v.voted_ip = %s"
+        params.append(ip)
+    
+    if competitor_id:
+        query += " AND v.competitor_id = %s"
+        params.append(competitor_id)
+
+    with Cursor(dictionary=True) as cursor:
+        cursor.execute(query, params)
+        votes = cursor.fetchall()
+    return votes
+
+def abandon_vote_by_id(vote_id):
+    with Cursor() as cursor:
+        cursor.execute("UPDATE votes SET status = 'invalid' WHERE vote_id = %s AND status = 'valid'", (vote_id,))
+        return cursor.rowcount
+
+def abandon_votes_by_ids(vote_ids):
+    placeholders = ', '.join(['%s'] * len(vote_ids))
+    with Cursor() as cursor:
+        cursor.execute(f"UPDATE votes SET status = 'invalid' WHERE vote_id IN ({placeholders}) AND status = 'valid'", vote_ids)
+        return cursor.rowcount
+
+def abandon_votes_by_ip(ip):
+    with Cursor() as cursor:
+        cursor.execute("UPDATE votes SET status = 'invalid' WHERE voted_ip = %s AND status = 'valid'", (ip,))
+        return cursor.rowcount

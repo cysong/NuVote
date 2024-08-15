@@ -1,0 +1,46 @@
+{% extends 'layout.html' %} 
+
+{% block title %}Competition Scrutineering{% endblock %} 
+
+{% block content %}
+
+<div>
+    <div class="mb-2">
+        <a class="btn btn-outline-secondary" href="{{url_for('competitions_mgmt')}}"><i class="bi bi-arrow-left"></i>Back</a>
+    </div>
+
+  <div class="mb-3">
+    <h1>{{competition.name}}</h1>
+  </div>
+
+  <table class="table table-hover table-striped thead-light">
+    <thead>
+      <tr>
+        <th scope="col">IP Address</th>
+        <th scope="col">Total Votes</th>
+        <th scope="col">Valid Votes</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for vote in votes %}
+      <tr>
+        <td>
+          <a href="{{ url_for('votes_list', competition_id=competition.competition_id) }}?ip={{ vote.voted_ip }}"
+            onclick="enter_from_menu()">{{ vote.voted_ip }}</a`
+          >
+        </td>
+        <td>{{ vote.total_votes }}</td>
+        <td>{{ vote.valid_votes }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+<style>
+  .table thead th,
+  .table tbody td {
+    text-align: center;
+  }
+</style>
+{% endblock %}

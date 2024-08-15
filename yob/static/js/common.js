@@ -41,3 +41,25 @@ function goBack() {
         window.location.href = "/";
     }
 }
+
+function formatDateToNZTime(gmtDateStr) {
+    debugger;
+    const date = new Date(gmtDateStr);
+    // Define the options for formatting
+    const options = {
+        timeZone: 'Pacific/Auckland', // New Zealand time zone
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+        hour12: false // Use 24-hour time
+    };
+
+    // Create a formatter for New Zealand time
+    const formatter = new Intl.DateTimeFormat('en-NZ', options);
+
+    // Format the date
+    return formatter.format(date);
+}
