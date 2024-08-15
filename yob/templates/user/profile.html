@@ -37,7 +37,7 @@
                             <button class="btn btn-link text-decoration-none" id="deleteProfileImageButton"
                                     onclick="confirmDeleteProfileImage()"
                                     {% if user.profile_image== DEFAULT_PROFILE_IMAGE %}
-                                    disabled
+                                    readonly
                                     {% endif %}
                             >Delete Image
                             </button>
@@ -54,7 +54,7 @@
 
                         <div class="form-floating mb-3">
                             <input type="text" class="form-control" name="username" id="username" placeholder="Username"
-                                   value="{{ user.username }}" pattern="[A-Za-z0-9_-]{3,50}" required disabled>
+                                   value="{{ user.username }}" pattern="[A-Za-z0-9_-]{3,50}" required readonly>
                             <label for="username">Username</label>
                             <div class="invalid-feedback">
                                 Username must contain only characters and numbers! Length between 3 and 50.
@@ -64,7 +64,7 @@
                         <div class="form-floating mb-3">
                             <input type="email" class="form-control" name="email" id="email" placeholder="Email"
                                    value="{{ user.email }}" required {% if not editable or user_id !=user.user_id %}
-                                   disabled {% endif %}>
+                                   readonly {% endif %}>
                             <label for="email">Email address</label>
                             <div class="invalid-feedback">
                                 Please enter a valid email (example@domain.com).
@@ -75,7 +75,7 @@
                             <input type="text" class="form-control" name="first_name" id="first_name"
                                    placeholder="First name"
                                    value="{{ user.first_name }}" pattern="[A-Za-z0-9 ]{0,50}" {% if not
-                                   editable or user_id !=user.user_id %} disabled {% endif %}>
+                                   editable or user_id !=user.user_id %} readonly {% endif %}>
                             <label for="first_name">First name (optional)</label>
                             <div class="invalid-feedback">
                                 First name must contain only characters and numbers! Max length is 50.
@@ -86,7 +86,7 @@
                             <input type="text" class="form-control" name="last_name" id="last_name"
                                    placeholder="Last name"
                                    value="{{ user.last_name }}" pattern="[A-Za-z0-9 ]{0,50}" {% if not editable
-                                   or user_id !=user.user_id %} disabled {% endif %}>
+                                   or user_id !=user.user_id %} readonly {% endif %}>
                             <label for="last_name">Last name (optional)</label>
                             <div class="invalid-feedback">
                                 Last name must contain only characters and numbers! Max length is 50.
@@ -96,7 +96,7 @@
                         <div class="form-floating mb-3">
                             <input type="text" class="form-control" name="location" id="location" placeholder="Location"
                                    value="{{ user.location }}" pattern="[A-Za-z0-9 ]{0,50}" {% if not editable or
-                                   user_id !=user.user_id %} disabled {% endif %}>
+                                   user_id !=user.user_id %} readonly {% endif %}>
                             <label for="location">Location (optional)</label>
                             <div class="invalid-feedback">
                                 Location must contain only characters and numbers! Max length is 50.
@@ -104,7 +104,7 @@
                         </div>
                         {% if user.role == 'voter' %}
                         <div class="form-floating mb-3">
-                            <select class="form-select" id="role" aria-label="Role" name="role" disabled>
+                            <select class="form-select" id="role" aria-label="Role" name="role" readonly>
                                 <option value="voter">Voter</option>
                             </select>
                             <label for="role">Role</label>
@@ -133,7 +133,7 @@
                         </div>
                         {% else %}
                         <div class="form-floating mb-3">
-                            <select class="form-select" id="status" aria-label="Status" name="status" disabled>
+                            <select class="form-select" id="status" aria-label="Status" name="status" readonly>
                                 <option value="{{ user.status }}">{{ user.status.capitalize() }}</option>
                             </select>
                             <label for="status">Status</label>
@@ -143,7 +143,7 @@
                         <div class="form-floating mb-3">
                             <textarea type="text" class="form-control" name="description" id="description"
                                       placeholder="Description" pattern="[A-Za-z\d@$!%*?&0-9 ]{0,1024}"
-                                      {% if not editable or user_id !=user.user_id %} disabled {% endif %}
+                                      {% if not editable or user_id !=user.user_id %} readonly {% endif %}
                                       style="height: 100px;">{{ user.description }}</textarea>
                             <label for="description">Description (optional)</label>
                             <div class="invalid-feedback">
@@ -153,7 +153,7 @@
 
                         <div class="d-grid">
                             <button type="submit" class="btn btn-primary" {% if not editable and user.role !='admin' %}
-                                    disabled {% endif %}>
+                                    readonly {% endif %}>
                                 Update Profile
                             </button>
                         </div>
@@ -184,6 +184,42 @@
     </div>
 </div>
 
+<style>
+    /* Styling for readonly inputs */
+    input[readonly],
+    textarea[readonly],
+    select[readonly] {
+        background-color: #e9ecef;
+        opacity: 1;
+        cursor: not-allowed;
+        color: #6c757d;
+    }
+
+    /* Adjust the label positioning for form-floating layout */
+    .form-floating input[readonly] ~ label,
+    .form-floating textarea[readonly] ~ label,
+    .form-floating select[readonly] ~ label {
+        color: #6c757d;
+        transform: translateY(-50%) scale(0.85); /* Keep label floated and scaled */
+        background-color: transparent;
+        pointer-events: none; /* Disable clicking on the label */
+    }
+
+    /* Disabled label styling */
+    label[for][readonly] {
+        color: #6c757d;
+    }
+
+    /* For better alignment in form-floating with readonly fields */
+    .form-floating input[readonly]:not(:placeholder-shown) ~ label,
+    .form-floating textarea[readonly]:not(:placeholder-shown) ~ label,
+    .form-floating select[readonly]:not(:placeholder-shown) ~ label {
+        color: #6c757d;
+        font-size: 0.85em;
+    }
+
+</style>
+
 <script src="/static/js/common.js"></script>
 <script>
     document.addEventListener('DOMContentLoaded', function() {
@@ -192,7 +228,7 @@
 
         form.addEventListener('submit', function(event) {
             if (form.checkValidity()) {
-                submitButton.disabled = true;
+                submitButton.readonly = true;
             }
         });
     });
@@ -222,7 +258,7 @@
                 const output = document.getElementById('profile-image');
                 output.src = data.profile_image;
                 switchUploadAndCancelButton(false)
-                document.getElementById('deleteProfileImageButton').disabled = false
+                document.getElementById('deleteProfileImageButton').readonly = false
                 showSuccessMessage("Profile image upload successfully")
             }
         })
@@ -266,7 +302,7 @@
         .then(data => {
             if (data.success) {
                 document.getElementById('profile-image').src = data.profile_image;
-                document.getElementById('deleteProfileImageButton').disabled = true
+                document.getElementById('deleteProfileImageButton').readonly = true
                 showSuccessMessage('Delete profile image successfully')
             }else{
                 showErrorMessage("Failed to delete profile image, please try again")
