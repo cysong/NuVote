@@ -35,13 +35,13 @@
                                 <h5 class="card-title">{{ competition.name }}</h5>
                                 <p class="card-text">
                                     {% if competition.status == 'approved' %}
-                                        Status: Results Pending
+                                        Results verifed
                                     {% elif competition.start_date > CURR_TIME %}
                                         Voting starts in {{ (competition.start_date - CURR_TIME) | format_relative_time }}
                                     {% elif competition.end_date >= CURR_TIME %}
                                         Voting ends in {{ (competition.end_date - CURR_TIME) | format_relative_time }} - Cast your vote now!
                                     {% else %}
-                                        Status: Awaiting Results
+                                        Awaiting Results Verification
                                     {% endif %}
                                 </p>
                             </div>
