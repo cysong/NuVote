@@ -59,32 +59,6 @@ def login_required(f):
     return decorated_function
 
 
-def admin_required(f):
-    '''Decorator to check if the user is an administrator.'''
-
-    @wraps(f)
-    def decorated_function(*args, **kwargs):
-        if 'role' not in session or session['role'] != 'admin':
-            flash("Access denied", "danger")
-            return render_template('error/error.html')
-        return f(*args, **kwargs)
-
-    return decorated_function
-
-
-def admin_or_scrutineer_required(f):
-    '''Decorator to check if the user is an administrator.'''
-
-    @wraps(f)
-    def decorated_function(*args, **kwargs):
-        if 'role' not in session or session['role'] != 'admin' and session['role'] != 'scrutineer':
-            flash("Access denied", "danger")
-            return render_template('error/error.html')
-        return f(*args, **kwargs)
-
-    return decorated_function
-
-
 def owner_required(f):
     '''Decorator to check if the user is the owner of the resource.'''
 
@@ -94,33 +68,6 @@ def owner_required(f):
         if user_id != session['user_id']:
             flash("Access denied", "danger")
             return render_template('error/error.html')
-        return f(*args, **kwargs)
-
-    return decorated_function
-
-
-def inactive_user_message(f):
-    '''Decorator to display a message if the user is inactive.'''
-
-    @wraps(f)
-    def decorated_function(*args, **kwargs):
-        if 'status' in session and session['status'] == 'inactive':
-            flash("You are currently inactive and cannot post or reply. Please contact the "
-                  "administrator for assistance!", "warning")
-        return f(*args, **kwargs)
-
-    return decorated_function
-
-
-def inactive_user_action_check(f):
-    '''Decorator to check if the user is inactive and restrict certain actions.'''
-
-    @wraps(f)
-    def decorated_function(*args, **kwargs):
-        if request.method == 'POST' and 'status' in session and session['status'] == 'inactive':
-            flash("You are currently inactive and cannot post, reply and delete. Please contact the "
-                  "administrator for assistance!", "warning")
-            return render_template('error/error.html')  # Render an error page or redirect as needed
         return f(*args, **kwargs)
 
     return decorated_function

@@ -2,13 +2,14 @@
 from flask import render_template
 
 from yob import app
-from yob.decorators import login_required, admin_required, admin_or_scrutineer_required
+from yob.decorators import login_required
+from yob.login_manage import roles_required
 from yob.repositories.announcements_repository import get_all_announcements
 
 
 @app.route('/announcements')
 @login_required
-@admin_or_scrutineer_required
+@roles_required(['admin', 'scrutineer'])
 def announcements_mgmt():
     # Render the admin home page with user information
     announcements = get_all_announcements()

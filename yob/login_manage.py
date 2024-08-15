@@ -74,7 +74,7 @@ def roles_required(*roles):
         @wraps(func)
         @login_required
         def decorated_view(*args, **kwargs):
-            if g.user['role'] in roles:
+            if g.user['role'] in str(roles):
                 return func(*args, **kwargs)
             abort(403, description=f'Only role(s) {roles} can access this page.')
 

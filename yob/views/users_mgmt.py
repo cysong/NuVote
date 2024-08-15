@@ -4,7 +4,8 @@ import re
 from flask import render_template, request, flash, redirect, url_for
 
 from yob import app, config
-from yob.decorators import login_required, admin_required
+from yob.decorators import login_required
+from yob.login_manage import roles_required
 from yob.repositories.users_repository import get_users, get_user_by_username, get_user_by_email, User, create_user
 from yob.utility import are_fields_present
 
@@ -13,7 +14,7 @@ CREATE_USER_REQUIRED_FIELDS = ['username', 'email', 'password', 'password2', 'fi
 
 @app.route('/users')
 @login_required
-@admin_required
+@roles_required(['admin'])
 def users_mgmt():
     # Render the admin home page with user information
     return render_template('user/users_mgmt.html', users=get_users())
@@ -21,7 +22,7 @@ def users_mgmt():
 
 @app.route('/users/create', methods=['GET', 'POST'])
 @login_required
-@admin_required
+@roles_required(['admin'])
 def user_create():
     if request.method == 'POST':
         form_data = request.form.to_dict()
