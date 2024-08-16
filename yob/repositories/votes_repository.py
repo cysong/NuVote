@@ -82,6 +82,30 @@ def get_daily_votes_by_competition(competition_id):
         daily_votes = cursor.fetchall()
     return daily_votes
 
+def get_daily_valid_votes_by_competitor_and_competition(competition_id):
+    """
+    Retrieve the daily number of valid votes for each competitor in a specific competition.
+    """
+    with Cursor(dictionary=True) as cursor:
+        cursor.execute("""
+            SELECT 
+                DATE(v.voted_at) AS vote_date,
+                v.competitor_id,
+                c.name AS competitor_name,
+                COUNT(*) AS valid_votes
+            FROM 
+                votes v
+                JOIN competitors c ON v.competitor_id = c.competitor_id
+            WHERE 
+                c.competition_id = %s AND v.status = 'valid'
+            GROUP BY 
+                DATE(v.voted_at), v.competitor_id
+            ORDER BY 
+                vote_date, v.competitor_id
+        """, (competition_id,))
+        daily_valid_votes_by_competitor = cursor.fetchall()
+    return daily_valid_votes_by_competitor
+
 
 def get_votes_by_competitor_id(competitor_id):
     """
@@ -144,7 +168,8 @@ def get_votes_group_by_ip_for_competition(competition_id):
             SELECT 
                 v.voted_ip,
                 COUNT(*) AS total_votes,
-                SUM(CASE WHEN v.status = 'valid' THEN 1 ELSE 0 END) AS valid_votes
+                SUM(CASE WHEN v.status = 'valid' THEN 1 ELSE 0 END) AS valid_votes,
+                count(distinct v.competitor_id) as distinct_competitors
             FROM 
                 votes v, competitors c
             WHERE 

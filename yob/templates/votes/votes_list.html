@@ -9,9 +9,12 @@
         <a class="btn btn-outline-secondary" href="{{url_for('votes_scrutineering', competition_id=competition.competition_id)}}"><i class="bi bi-arrow-left"></i>Back</a>
     </div>
 
-    <div class="mb-3">
+    <div class="mb-3 d-flex justify-conent-start align-items-baseline">
         <h1>{{competition.name}}</h1>
-    </div>
+        <span class="badge bg-primary status-badge ms-2">
+          {{ competition.status }}
+        </span>
+      </div>
 
     <!-- Filter Row -->
     <div class="row mb-3">
@@ -33,7 +36,7 @@
             </div>
         </div>
         <div class="col-md-2 d-flex align-items-center justify-content-end">
-            <button class="btn btn-primary" onclick="abandonVoteByIds()">Disable Selected</button>
+            <button class="btn btn-primary" onclick="abandonVoteByIds()" {{'disabled' if competition.status=='approved' or ''}}>Disable Selected</button>
         </div>
     </div>
 
@@ -59,7 +62,7 @@
 
 <script>
     let timer;
-    let competition_id = {{competition.competition_id}}
+    let competition = {{competition | tojson }}
     let url_abandon_by_id="{{ url_for('abandon_vote', competition_id=competition.competition_id, vote_id=1)}}"
     let url_abandon_by_ip="{{ url_for('abandon_vote_batch_by_ip', competition_id=competition.competition_id, ip='')}}"
 
@@ -110,8 +113,8 @@
                 <td style="text-align: center;">${formatDateToNZTime(vote.voted_at)}</td>
                 <td style="text-align: center;">${vote.status}</td>
                 <td>
-                    <button onclick="abandonVote(${vote.vote_id})" class="btn btn-link text-danger text-decoration-none" ${vote.status === 'invalid' ? 'disabled' : ''}>Disable</button>
-                    <button onclick="abandonVotesByIp('${vote.voted_ip}')" class="btn btn-link text-danger text-decoration-none" ${vote.status === 'invalid' ? 'disabled' : ''}>Disable All by IP</button>
+                    <button onclick="abandonVote(${vote.vote_id})" class="btn btn-link text-danger text-decoration-none" ${vote.status === 'invalid' || competition.status == 'approved' ? 'disabled' : ''}>Disable</button>
+                    <button onclick="abandonVotesByIp('${vote.voted_ip}')" class="btn btn-link text-danger text-decoration-none" ${vote.status === 'invalid' || competition.status == 'approved'? 'disabled' : ''}>Disable All by IP</button>
                 </td>
             `;
             tbody.appendChild(row);
