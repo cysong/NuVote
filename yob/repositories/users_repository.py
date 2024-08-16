@@ -213,7 +213,7 @@ def get_latest_voted_users():
     with Cursor() as cursor:
         cursor.execute(
             '''SELECT u.* 
-            FROM users u, votes v where u.user_id = v.voted_by
+            FROM users u, votes v where u.user_id = v.voted_by and u.status='active'
             ORDER BY v.voted_at desc limit 10'''
         )
         users = cursor.fetchall()
