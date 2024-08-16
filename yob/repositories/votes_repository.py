@@ -168,7 +168,8 @@ def get_votes_group_by_ip_for_competition(competition_id):
             SELECT 
                 v.voted_ip,
                 COUNT(*) AS total_votes,
-                SUM(CASE WHEN v.status = 'valid' THEN 1 ELSE 0 END) AS valid_votes
+                SUM(CASE WHEN v.status = 'valid' THEN 1 ELSE 0 END) AS valid_votes,
+                count(distinct v.competitor_id) as distinct_competitors
             FROM 
                 votes v, competitors c
             WHERE 

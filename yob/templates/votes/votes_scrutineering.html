@@ -27,6 +27,7 @@
     <thead>
       <tr>
         <th scope="col">IP Address</th>
+        <th scope="col">Distinct Competitors</th>
         <th scope="col">Total Votes</th>
         <th scope="col">Valid Votes</th>
       </tr>
@@ -39,6 +40,7 @@
             onclick="enter_from_menu()">{{ vote.voted_ip }}</a`
           >
         </td>
+        <td>{{ vote.distinct_competitors }}</td>
         <td>{{ vote.total_votes }}</td>
         <td>{{ vote.valid_votes }}</td>
       </tr>
