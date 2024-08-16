@@ -1,9 +1,9 @@
 -- -----------------------------------------------------
 -- Schema yob (Year Of Bird)
 -- -----------------------------------------------------
-DROP SCHEMA IF EXISTS voting;
-CREATE SCHEMA voting;
-USE voting;
+# DROP SCHEMA IF EXISTS voting;
+# CREATE SCHEMA voting;
+# USE voting;
 
 -- -----------------------------------------------------
 -- Table users
