@@ -132,6 +132,7 @@
       })
       .catch(error => {
         showErrorMessage('Error fetching data:', error);
+        console.error(error);
       });
     }
 
@@ -140,15 +141,18 @@
         .then(response => response.json())
         .then(data => {
             const labels = data[0].cumulative_votes.map(vote => vote.date);
+            const numCompetitors = Math.max(data.length, 8);
+            const colors = generateColorScheme(numCompetitors); // Generate a color scheme
 
-            const datasets = data.map(competitor => ({
+            const datasets = data.map((competitor,index) => ({
                 label: competitor.competitor_name,
                 data: competitor.cumulative_votes.map(vote => vote.cumulative_votes),
                 fill: false,
-                pointRadius: 0,
+                pointRadius: 1,
                 borderWidth: 1,
-                borderColor: getRandomColor(),
-                tension: 0
+                borderColor: colors[index],
+                backgroundColor: colors[index],
+                tension: 0.1
             }));
 
             const ctx = document.getElementById('competitorsLineChart').getContext('2d');
@@ -203,6 +207,7 @@
         })
         .catch(error => {
             showErrorMessage('Error fetching data:', error);
+            console.error(error);
         });
     }
 
@@ -214,6 +219,19 @@
         }
         return color;
     }
+
+    function generateColorScheme(numColors) {
+      const colors = [];
+      const saturation = 70; // Saturation percentage (e.g., 70%)
+      const lightness = 50; // Lightness percentage (e.g., 50%)
+
+      for (let i = 0; i < numColors; i++) {
+          const hue = Math.round((360 / numColors) * i); // Calculate the hue value
+          colors.push(`hsl(${hue}, ${saturation}%, ${lightness}%)`);
+      }
+      return colors;
+  }
+
 
 </script>
 
