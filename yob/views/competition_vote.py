@@ -12,7 +12,6 @@ from yob.utility import get_current_datetime
 
 
 @app.route('/competition/vote/<int:competition_id>', methods=['GET'])
-@login_required
 def competition_vote(competition_id):
     """The page view of vote for a competition"""
     competition = get_competition_by_id(competition_id)
