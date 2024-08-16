@@ -14,7 +14,7 @@ CREATE_USER_REQUIRED_FIELDS = ['username', 'email', 'password', 'password2', 'fi
 
 @app.route('/users')
 @login_required
-@roles_required('admin')
+@roles_required('admin', 'scrutineer')
 def users_mgmt():
     # Render the admin home page with user information
     return render_template('user/users_mgmt.html', users=get_users())
