@@ -1,4 +1,7 @@
 # Define app name
+from unittest.mock import DEFAULT
+
+
 APP_NAME = 'Nu Voting System'
 SLOGAN = 'Your vote is your voice'
 # Default role assigned to new users upon registration.
@@ -25,3 +28,6 @@ DEFAULT_COMPETITION_STATUS = 'in_plan'
 DEFAULT_ANNOUNCEMENT_STATUS = 'active'
 PERMITTED_VOTE_ROLES = ['voter']
 MAX_TICKETS_PER_COMPETITION = 1
+
+DEFAULT_DATE_FORMAT = '%d/%m/%Y'
+DEFAULT_DATETIME_FORMAT = '%d/%m/%Y %I:%M:%S %p'
