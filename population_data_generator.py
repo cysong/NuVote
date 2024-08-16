@@ -144,5 +144,5 @@ def generate_votes_for_all_competitions(legal_votes_count=50, illegal_votes_coun
 
 
 if __name__ == "__main__":
-    generate_votes_for_competition(1)
-    # generate_votes_for_all_competitions(80, 20)
+    # generate_votes_for_competition(1)
+    generate_votes_for_all_competitions()

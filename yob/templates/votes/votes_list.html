@@ -1,25 +1,26 @@
-{% extends 'layout.html' %}
+{% extends 'layout.html' %} 
 
-{% block title %}Votes List{% endblock %}
+{% block title %}Votes List{% endblock %} 
 
 {% block content %}
 <div class="">
-
     <div class="mb-2">
-        <a class="btn btn-outline-secondary" href="{{url_for('votes_scrutineering', competition_id=competition.competition_id)}}"><i class="bi bi-arrow-left"></i>Back</a>
+        <a
+            class="btn btn-outline-secondary"
+            href="{{url_for('votes_scrutineering', competition_id=competition.competition_id)}}"
+            ><i class="bi bi-arrow-left"></i>Back</a
+        >
     </div>
 
     <div class="mb-3 d-flex justify-conent-start align-items-baseline">
         <h1>{{competition.name}}</h1>
-        <span class="badge bg-primary status-badge ms-2">
-          {{ competition.status }}
-        </span>
-      </div>
+        <span class="badge bg-primary status-badge ms-2"> {{ competition.status }} </span>
+    </div>
 
     <!-- Filter Row -->
     <div class="row mb-3">
         <div class="col-md-4">
-            <input type="text" class="form-control" id="ip-filter" placeholder="Vote Ip" value="{{ip}}">
+            <input type="text" class="form-control" id="ip-filter" placeholder="Vote Ip" value="{{ip}}" />
         </div>
         <div class="col-md-4">
             <select class="form-select" id="competitor-filter">
@@ -31,12 +32,16 @@
         </div>
         <div class="col-md-2 d-flex align-items-center">
             <div class="form-check form-switch">
-                <input class="form-check-input" type="checkbox" id="status-filter" checked>
+                <input class="form-check-input" type="checkbox" id="status-filter" checked />
                 <label class="form-check-label" for="status-filter">Valid</label>
             </div>
         </div>
         <div class="col-md-2 d-flex align-items-center justify-content-end">
-            <button class="btn btn-success" onclick="abandonVoteByIds()" {{'disabled' if competition.status=='approved' or ''}}>Disable Selected</button>
+            {% if competition.status != 'approved' %}
+            <button class="btn btn-success" id="disable-selected-btn" onclick="abandonVoteByIds()">
+                Disable Selected
+            </button>
+            {% endif %}
         </div>
     </div>
 
@@ -44,20 +49,68 @@
     <table class="table table-hover table-striped">
         <thead class="thead-light">
             <tr>
-                <th style="width:40px;"><input type="checkbox" style="cursor: pointer;" id="select-all"></th>
+                {% if competition.status != 'approved' %}
+                <th style="width: 40px"><input type="checkbox" style="cursor: pointer" id="select-all" /></th>
+                {% endif %}
                 <th>Vote IP</th>
                 <th>Competitor</th>
                 <th>Voter Username</th>
                 <th>Voter Fullname</th>
-                <th style="width:210px;">Vote Time</th>
-                <th style="width:80px;">Status</th>
-                <th style="width:260px;">Actions</th>
+                <th style="width: 210px">Vote Time</th>
+                <th style="width: 80px">Status</th>
+                {% if competition.status != 'approved' %}
+                <th style="width: 260px">Actions</th>
+                {% endif %}
             </tr>
         </thead>
         <tbody id="votes-table-body">
             <!-- Table rows will be rendered here asynchronously -->
         </tbody>
     </table>
+
+    <!-- Modal for Abandon by ID -->
+    <div
+        class="modal fade"
+        id="confirmAbandonByIdModal"
+        tabindex="-1"
+        aria-labelledby="confirmAbandonByIdLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="confirmAbandonByIdLabel">Confirm Disable</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">Are you sure you want to set this vote as valid?</div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-danger" onclick="confirmAbandonById()">Confirm</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for Abandon by IP -->
+    <div
+        class="modal fade"
+        id="confirmAbandonByIpModal"
+        tabindex="-1"
+        aria-labelledby="confirmAbandonByIpLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="confirmAbandonByIpLabel">Confirm Disable By Ip</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">Are you sure you want to disable all votes from this IP?</div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-danger" onclick="confirmAbandonByIp()">Confirm</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <script>
@@ -65,6 +118,8 @@
     let competition = {{competition | tojson }}
     let url_abandon_by_id="{{ url_for('abandon_vote', competition_id=competition.competition_id, vote_id=1)}}"
     let url_abandon_by_ip="{{ url_for('abandon_vote_batch_by_ip', competition_id=competition.competition_id, ip='')}}"
+    let selectedVoteId = null;
+    let selectedVoteIp = null;
 
     document.addEventListener('DOMContentLoaded', function() {
         // Call the fetchVotes method to load the votes based on the current filters
@@ -77,7 +132,30 @@
     });
 
     document.getElementById('competitor-filter').addEventListener('change', fetchVotes);
-    document.getElementById('status-filter').addEventListener('change', fetchVotes);
+
+
+    const disableButton = document.getElementById('disable-selected-btn');
+    const selectAll = document.getElementById('select-all');
+
+    const statusFilter = document.getElementById('status-filter');
+    statusFilter.addEventListener('change', fetchVotes);
+    if(competition.status != 'approved') {
+      statusFilter.addEventListener('change', toggleDisableButton);
+      // Check initial state of the checkbox
+      toggleDisableButton();
+    }
+
+      function toggleDisableButton() {
+          if (statusFilter.checked) {
+              disableButton.removeAttribute('disabled');
+              selectAll.removeAttribute('disabled');
+          } else {
+              disableButton.setAttribute('disabled', 'true');
+              selectAll.setAttribute('disabled', 'true');
+          }
+      }
+
+
 
     function fetchVotes() {
         const ip = document.getElementById('ip-filter').value;
@@ -89,7 +167,9 @@
             .then(data => {
                 if (data.success) {
                     renderVotesTable(data.votes);
+                    // Enable the select all checkbox and register actions listener after rendering the table
                     enableSelectAll();
+                    registerActionsListener();
                 } else {
                     showErrorMessage(data.message);
                 }
@@ -102,8 +182,11 @@
         tbody.innerHTML = '';
         votes.forEach(vote => {
             const row = document.createElement('tr');
-            row.innerHTML = `
-                <td style="text-align: center;"><input type="checkbox" style="cursor: pointer;" value="${vote.vote_id}"></td>
+            html = ''
+            if (competition.status != 'approved') {
+                html = `<td style="text-align: center;"><input type="checkbox" style="cursor: pointer;" value="${vote.vote_id}" ${vote.status=='invalid'?'disabled':'' }></td>`
+            }
+            html += `
                 <td style="text-align: center;">${vote.voted_ip}</td>
                 <td>${vote.competitor_name}</td>
                 <td>
@@ -112,16 +195,57 @@
                 <td>${vote.voted_by_first_name} ${vote.voted_by_last_name}</td>
                 <td style="text-align: center;">${formatDateToNZTime(vote.voted_at)}</td>
                 <td style="text-align: center;">${vote.status}</td>
-                <td>
-                    <button onclick="abandonVote(${vote.vote_id})" class="btn btn-link text-danger text-decoration-none" ${vote.status === 'invalid' || competition.status == 'approved' ? 'disabled' : ''}>Disable</button>
-                    <button onclick="abandonVotesByIp('${vote.voted_ip}')" class="btn btn-link text-danger text-decoration-none" ${vote.status === 'invalid' || competition.status == 'approved'? 'disabled' : ''}>Disable All by IP</button>
-                </td>
             `;
+            if(competition.status != 'approved') {
+                html += `<td>
+                    <button class="btn btn-link text-danger text-decoration-none" ${vote.status=='invalid' ? 'disabled' : ''} data-bs-toggle="modal" data-bs-target="#confirmAbandonByIdModal"
+        data-vote-id="${ vote.vote_id }">Disable</button>
+                    <button class="btn btn-link text-danger text-decoration-none" ${vote.status=='invalid'? 'disabled' : ''} data-bs-toggle="modal" data-bs-target="#confirmAbandonByIpModal"
+        data-vote-ip="${ vote.voted_ip }">Disable All by IP</button>
+                </td>`
+            }
+            row.innerHTML = html;
             tbody.appendChild(row);
         });
     }
 
-    function abandonVote(voteId) {
+    function registerActionsListener() {
+        // When the "Abandon by ID" modal is about to be shown
+        const abandonByIdModal = document.getElementById('confirmAbandonByIdModal');
+        abandonByIdModal.addEventListener('show.bs.modal', function(event) {
+            // Button that triggered the modal
+            const button = event.relatedTarget;
+            // Extract vote ID from data-* attribute
+            selectedVoteId = button.getAttribute('data-vote-id');
+        });
+
+        // When the "Abandon by IP" modal is about to be shown
+        const abandonByIpModal = document.getElementById('confirmAbandonByIpModal');
+        abandonByIpModal.addEventListener('show.bs.modal', function(event) {
+            // Button that triggered the modal
+            const button = event.relatedTarget;
+            // Extract vote IP from data-* attribute
+            selectedVoteIp = button.getAttribute('data-vote-ip');
+        });
+    }
+
+    function confirmAbandonById() {
+        // Call the existing disable function for abandon by ID
+        abandonById(selectedVoteId);
+        // Close the modal
+        const modal = bootstrap.Modal.getInstance(document.getElementById('confirmAbandonByIdModal'));
+        modal.hide();
+    }
+
+    function confirmAbandonByIp() {
+        // Call the existing disable function for abandon by IP
+        abandonByIp(selectedVoteIp);
+        // Close the modal
+        const modal = bootstrap.Modal.getInstance(document.getElementById('confirmAbandonByIpModal'));
+        modal.hide();
+    }
+
+    function abandonById(voteId) {
         fetch(url_abandon_by_id.slice(0, -1) + `${voteId}`)
             .then(response => response.json())
             .then(data => {
@@ -134,7 +258,7 @@
             });
     }
 
-    function abandonVotesByIp(ip) {
+    function abandonByIp(ip) {
         fetch(url_abandon_by_ip + `${ip}`)
             .then(response => response.json())
             .then(data => {
@@ -150,13 +274,13 @@
     function abandonVoteByIds() {
         // Get all selected rows
         const selectedRows = document.querySelectorAll('.table tbody input[type="checkbox"]:checked');
-        
+
         // Extract vote IDs from the selected rows
         let voteIds = Array.from(selectedRows).map(row => row.value);
 
         // If no votes are selected, return early
         if (voteIds.length === 0) {
-            showErrorMessage("Please select at least one vote to abandon.");
+            showErrorMessage("Please select at least one vote to disable.");
             return;
         }
 
@@ -193,6 +317,9 @@
     function enableSelectAll() {
         const selectAllCheckbox = document.getElementById('select-all');
         const rowCheckboxes = document.querySelectorAll('.table tbody input[type="checkbox"]');
+        if( !selectAllCheckbox){
+          return
+        }
 
         // Uncheck "Select All" checkbox if reload data
         if(selectAllCheckbox.checked) {
@@ -215,14 +342,13 @@
             });
         });
     }
-
 </script>
 <style>
-.table thead th {
-    text-align: center;
-}
-.table td {
-    vertical-align: middle;
-}
+    .table thead th {
+        text-align: center;
+    }
+    .table td {
+        vertical-align: middle;
+    }
 </style>
 {% endblock %}

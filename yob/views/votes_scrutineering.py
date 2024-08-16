@@ -157,24 +157,24 @@ def abandon_vote_batch(competition_id):
     vote_ids = request.form.getlist('vote_ids')
     vote_ids = request.get_json().get('vote_ids', [])
     if not vote_ids or len(vote_ids) == 0:
-        return jsonify(success=False, message="Please select at least one vote to abandon."), 400
+        return jsonify(success=False, message="Please select at least one vote to disable."), 400
     competition = get_competition_by_id(competition_id)
     if not competition or competition['status'] in ['in_plan', 'approved']:
         return jsonify(success=False, message="Cannot abandon votes for this competition."), 403
 
     updated_count = abandon_votes_by_ids(vote_ids)
     if updated_count:
-        return jsonify(success=True, message=f'You have successfully abandoned {updated_count} votes')
-    return jsonify(success=False, message="Votes not found or already abandoned."), 404
+        return jsonify(success=True, message=f'You have successfully disabled {updated_count} votes')
+    return jsonify(success=False, message="Votes not found or already disabled."), 404
 
 @app.route('/competition/<int:competition_id>/votes/abandonbyip/<string:ip>')
 @roles_required('admin', 'scrutineer')
 def abandon_vote_batch_by_ip(competition_id, ip):
     competition = get_competition_by_id(competition_id)
     if not competition or competition['status'] in ['in_plan', 'approved']:
-        return jsonify(success=False, message="Cannot abandon votes for this competition."), 403
+        return jsonify(success=False, message="Cannot disable votes for this competition."), 403
 
     updated_count = abandon_votes_by_ip(ip)
     if updated_count:
-        return jsonify(success=True, message=f'You have successfully abandoned {updated_count} votes from IP {ip}')
-    return jsonify(success=False, message="Votes not found or already abandoned."), 404
+        return jsonify(success=True, message=f'You have successfully disabled {updated_count} votes from IP {ip}')
+    return jsonify(success=False, message="Votes not found or already disabled."), 404
