@@ -43,8 +43,8 @@
                 <!-- Action Buttons -->
                 {% if can_edit %}
                 <div class="text-end">
-                    <a href="{{ url_for('competitor_edit', competitor_id=competitor.competitor_id) }}" class="btn btn-link">Edit</a>
-                    <button class="btn btn-link text-danger" data-bs-toggle="modal" data-bs-target="#deleteModal" data-competitor-id="{{ competitor.competitor_id }}">Delete</button>
+                    <a href="{{ url_for('competitor_edit', competitor_id=competitor.competitor_id) }}" class="btn btn-link text-decoration-none">Edit</a>
+                    <button class="btn btn-link text-danger text-decoration-none" data-bs-toggle="modal" data-bs-target="#deleteModal" data-competitor-id="{{ competitor.competitor_id }}">Delete</button>
                 </div>
                 {% endif %}
             </div>
