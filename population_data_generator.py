@@ -79,6 +79,7 @@ def random_weights(length):
 
 
 def generate_votes_for_competition(competition_id, legal_votes_count=50, illegal_votes_count=30):
+    """ Generate votes for a competition, legal and illegal votes"""
     competition = get_competition_by_id(competition_id)
     if not competition:
         print(f'competition with id {competition_id} not found')
@@ -102,7 +103,7 @@ def generate_votes_for_competition(competition_id, legal_votes_count=50, illegal
     for i in range(legal_votes_count):
         user_id = user_ids[i]['user_id']
         competitor = random.choices(competitors, weights=weights)[0]
-        ip = IP_TEMPLATE.format(competition_id, i//256, i % 256)
+        ip = IP_TEMPLATE.format(competition_id, 1, i % 256)
         created_at = random_date(competition['start_date'], competition['end_date'])
         vote = {
             'competition_id': competition_id,
@@ -117,7 +118,7 @@ def generate_votes_for_competition(competition_id, legal_votes_count=50, illegal
     # Pick 3 competitors to cheat 
     competitors_cheating = random.choices(competitors, weights=weights, k=3)
     weights_chating = random_weights(3)
-    ip = IP_TEMPLATE.format(competition_id, 0, 1)
+    ips = [IP_TEMPLATE.format(competition_id, 1, random.randint(0, 255)) for _ in range(3)]
     for i in range(illegal_votes_count):
         user_id = user_ids[legal_votes_count + i]['user_id']
         competitor = random.choices(competitors_cheating, weights=weights_chating)[0]
@@ -126,7 +127,7 @@ def generate_votes_for_competition(competition_id, legal_votes_count=50, illegal
             'competition_id': competition_id,
             'competitor_id': competitor['competitor_id'],
             'voted_by': user_id,
-            'voted_ip': ip,
+            'voted_ip': random.choice(ips),
             'created_at': created_at
         }
         votes.append(vote)
@@ -136,6 +137,7 @@ def generate_votes_for_competition(competition_id, legal_votes_count=50, illegal
     print(f'generated {legal_votes_count} legal and {illegal_votes_count} illegal votes for competition {competition_id}')
 
 def generate_votes_for_all_competitions(legal_votes_count=50, illegal_votes_count=30):
+    """Generate all votes for all competitions, legal and illegal votes"""
     competitions = get_all_competitions()
     for competition in competitions:
         generate_votes_for_competition(competition['competition_id'], legal_votes_count, illegal_votes_count)
