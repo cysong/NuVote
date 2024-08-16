@@ -1,10 +1,11 @@
 from flask import render_template, abort, jsonify
 
 from yob import app
+from yob.config import DEFAULT_DATE_FORMAT
 from yob.login_manage import roles_required
 from yob.repositories.competition_repository import get_competition_by_id
 from yob.repositories.competitors_repository import get_competitors_by_competition_id, get_competitors_with_votes_percentage
-from yob.repositories.votes_repository import abandon_vote_by_id, abandon_votes_by_ids, abandon_votes_by_ip, get_daily_votes_by_competition, get_votes_by_filters, get_votes_group_by_ip_for_competition
+from yob.repositories.votes_repository import abandon_vote_by_id, abandon_votes_by_ids, abandon_votes_by_ip, get_daily_valid_votes_by_competitor_and_competition, get_daily_votes_by_competition, get_votes_by_filters, get_votes_group_by_ip_for_competition
 from yob.utility import get_current_datetime
 from flask import request
 from datetime import timedelta
@@ -58,6 +59,60 @@ def daily_votes(competition_id):
     }
     return jsonify(response)
 
+@app.route('/competition/<int:competition_id>/votesbycompetitors', methods=['GET'])
+@roles_required('admin', 'scrutineer')
+def daily_votes_of_competitors(competition_id):
+    # Fetch the competition to ensure it exists
+    competition = get_competition_by_id(competition_id)
+    if not competition:
+        abort(404, f'Competition with id {competition_id} not found')
+
+    # Fetch the daily valid votes for each competitor
+    daily_valid_votes = get_daily_valid_votes_by_competitor_and_competition(competition_id)
+
+    start_date  = competition['start_date'].date()
+    end_date = competition['end_date'].date()
+    if daily_valid_votes and len(daily_valid_votes) > 0:
+        start_date = min(daily_valid_votes[0]['vote_date'], start_date)
+        end_date = max(daily_valid_votes[-1]['vote_date'], end_date)
+
+    # Create a date range from start_date to end_date
+    date_range = [start_date + timedelta(days=i) for i in range((end_date - start_date).days + 1)]
+
+    # Initialize a dictionary to hold cumulative vote counts for each competitor
+    cumulative_votes = {}
+    competitors = get_competitors_by_competition_id(competition_id)
+    # Initialize cumulative votes with zero for each date and competitor
+    for competitor in competitors:
+        cumulative_votes[competitor['competitor_id']] = {
+            'name': competitor['name'],
+            'daily_votes': {date.strftime(DEFAULT_DATE_FORMAT): 0 for date in date_range}
+        }
+
+    # Accumulate votes for each competitor over the date range
+    for vote in daily_valid_votes:
+        vote_date_str = vote['vote_date'].strftime(DEFAULT_DATE_FORMAT)
+        competitor_id = vote['competitor_id']
+        cumulative_votes[competitor_id]['daily_votes'][vote_date_str] += vote['valid_votes']
+
+    # Convert the dictionary into a list for JSON serialization
+    response_data = []
+    for competitor_id, data in cumulative_votes.items():
+        cum_sum = 0
+        votes_data = []
+        for date in date_range:
+            date_str = date.strftime(DEFAULT_DATE_FORMAT)
+            cum_sum += data['daily_votes'][date_str]
+            votes_data.append({'date': date_str, 'cumulative_votes': cum_sum})
+        
+        response_data.append({
+            'competitor_id': competitor_id,
+            'competitor_name': data['name'],
+            'cumulative_votes': votes_data
+        })
+
+    # Return the response as JSON
+    return jsonify(response_data)
 
 @app.route('/competition/<int:competition_id>/votes')
 @roles_required('admin', 'scrutineer')

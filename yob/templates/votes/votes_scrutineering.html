@@ -18,6 +18,8 @@
 
   <canvas id="dailyVotesChart" style="width:100%;height:500px;" ></canvas>
 
+  <canvas class="mt-4" id="competitorsLineChart" style="width: 100%; height: 500px;"></canvas>
+
   <div class="mt-4">
     <h2>Votes by Ip</h2>
   </div>
@@ -55,9 +57,10 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <script>
-  document.addEventListener("DOMContentLoaded", generateChart);
+  document.addEventListener("DOMContentLoaded", generateDailyVotesChart);
+  document.addEventListener("DOMContentLoaded", generateCompetitorsVotesChart);
 
-  function generateChart() {
+  function generateDailyVotesChart() {
     fetch('{{ url_for("daily_votes", competition_id=competition.competition_id) }}')
       .then(response => response.json())
       .then(data => {
@@ -91,11 +94,23 @@
                       responsive: true,
                       scales: {
                           x: {
-                              stacked: true
+                              stacked: true,
+                              title: {
+                                display: false,
+                                text: 'Date'
+                            },
+                            ticks: {
+                                autoSkip: true,
+                                maxTicksLimit: 10
+                            }
                           },
                           y: {
                               stacked: true,
-                              beginAtZero: true
+                              beginAtZero: true,
+                              title: {
+                                display: true,
+                                text: 'Incremental Votes'
+                            }
                           }
                       },
                       plugins: {
@@ -110,13 +125,90 @@
                   }
               });
           } else {
-              console.error(data.message);
+              showErrorMessage(data.message);
           }
       })
       .catch(error => {
-          console.error('Error fetching data:', error);
+        showErrorMessage('Error fetching data:', error);
       });
-  }
+    }
+
+    function generateCompetitorsVotesChart() {
+      fetch('{{ url_for("daily_votes_of_competitors", competition_id=competition.competition_id) }}')
+        .then(response => response.json())
+        .then(data => {
+            const labels = data[0].cumulative_votes.map(vote => vote.date);
+
+            const datasets = data.map(competitor => ({
+                label: competitor.competitor_name,
+                data: competitor.cumulative_votes.map(vote => vote.cumulative_votes),
+                fill: false,
+                pointRadius: 0,
+                borderWidth: 1,
+                borderColor: getRandomColor(),
+                tension: 0
+            }));
+
+            const ctx = document.getElementById('competitorsLineChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: datasets
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Valid Votes By Competitor',
+                            font: {
+                                size: 24
+                            }
+                        },
+                        legend: {
+                            position: 'right'
+                        },
+                        tooltip: {
+                            mode: 'index',
+                            intersect: false,
+                        }
+                    },
+                    scales: {
+                        x: {
+                            title: {
+                                display: false,
+                                text: 'Date'
+                            },
+                            ticks: {
+                                autoSkip: true,
+                                maxTicksLimit: 10
+                            }
+                        },
+                        y: {
+                            title: {
+                                display: true,
+                                text: 'Cumulative Votes'
+                            }
+                        }
+                    }
+                }
+            });
+        })
+        .catch(error => {
+            showErrorMessage('Error fetching data:', error);
+        });
+    }
+
+    function getRandomColor() {
+        const letters = '0123456789ABCDEF';
+        let color = '#';
+        for (let i = 0; i < 6; i++) {
+            color += letters[Math.floor(Math.random() * 16)];
+        }
+        return color;
+    }
+
 </script>
 
 {% endblock %}
