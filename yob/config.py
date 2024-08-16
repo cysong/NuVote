@@ -28,7 +28,10 @@ DEFAULT_COMPETITION_STATUS = 'draft'
 DEFAULT_ANNOUNCEMENT_STATUS = 'active'
 PERMITTED_VOTE_ROLES = ['voter']
 MAX_TICKETS_PER_COMPETITION = 1
+# Maximum number of latest voted users to display on the home page
 MAX_LATEST_VOTE_USERS = 15
+# Maximum number of latest competitions to display on the home page
+MAX_LATEST_COMPETITIONS = 10
 
 DEFAULT_DATE_FORMAT = '%d/%m/%Y'
 DEFAULT_DATETIME_FORMAT = '%d/%m/%Y %I:%M:%S %p'

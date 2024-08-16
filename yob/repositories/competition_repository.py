@@ -1,3 +1,4 @@
+from yob.config import MAX_LATEST_COMPETITIONS
 from yob.database import Cursor
 
 
@@ -118,8 +119,9 @@ def get_latest_competitions():
         cursor.execute("""
             SELECT *
             FROM competitions
+            WHERE status != 'draft'
             ORDER BY start_date DESC
-            LIMIT 5
-        """)
+            LIMIT %s
+        """, (MAX_LATEST_COMPETITIONS,))
         recent_competitions = cursor.fetchall()
     return recent_competitions
