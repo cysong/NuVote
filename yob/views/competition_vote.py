@@ -28,7 +28,7 @@ def competition_vote(competition_id):
             message = "You have voted!"
         elif g.user['role'] not in PERMITTED_VOTE_ROLES:
             can_vote = False
-            message = "Your role are not permited to vote!"
+            message = "Your role are not permitted to vote!"
     return render_template('competitions/competition_vote.html', competition=competition, competitors=competitors, can_vote=can_vote, has_voted=has_voted, message=message, CURR_TIME=datetime.now())
 
 
