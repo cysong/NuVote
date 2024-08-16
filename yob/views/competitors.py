@@ -1,22 +1,29 @@
-from flask import render_template, g, request, jsonify, abort, redirect, url_for, flash
 import os
 from datetime import datetime
-from yob import app, config
 
-from yob.repositories.competitors_repository import get_competitor_by_id, get_competitors_by_competition_id, update_competitor, create_competitor, delete_competitor
+from flask import render_template, g, request, jsonify, abort, redirect, url_for, flash
+
+from yob import app, config
+from yob.login_manage import roles_required
 from yob.repositories.competition_repository import get_competition_by_id
+from yob.repositories.competitors_repository import get_competitor_by_id, get_competitors_by_competition_id, \
+    update_competitor, create_competitor, delete_competitor
 from yob.views.profile import allowed_file, get_hashed_filename, read_file_extension
 
+
 @app.route('/competition/<int:competition_id>/competitors')
+@roles_required('admin')
 def competitors_manage(competition_id):
     competition = get_competition_by_id(competition_id);
     if not competition:
         abort(404, description=f"Competition with id {competition_id} not found!")
     competitors = get_competitors_by_competition_id(competition_id);
-    return render_template('competitors/competitors_mgmt.html', competition=competition, competitors=competitors, can_edit=can_edit(competition))
+    return render_template('competitors/competitors_mgmt.html', competition=competition, competitors=competitors,
+                           can_edit=can_edit(competition))
 
 
 @app.route('/competitor/edit/<int:competitor_id>', methods=['GET', 'POST'])
+@roles_required('admin')
 def competitor_edit(competitor_id):
     competitor = get_competitor_by_id(competitor_id)
     if not competitor:
@@ -42,7 +49,7 @@ def competitor_edit(competitor_id):
         if not name or not description or not author:
             flash('All fields are required.', 'danger')
             return render_template('competitors/competitor_edit.html', competitor=competitor)
-        
+
         if image and image.filename != '':
             if allowed_file(image.filename):
                 # Hash file with md5 to generate unieq filename, avoding filename conflict
@@ -62,20 +69,22 @@ def competitor_edit(competitor_id):
         competitor['name'] = name
         competitor['description'] = description
         competitor['author'] = author
-        
+
         # Save competitor to the database
         update_competitor(competitor)
         flash('Competitor saved successfully.', 'success')
         return redirect(url_for('competitors_manage', competition_id=competitor['competition_id']))
-    
+
     return render_template('competitors/competitor_edit.html', competitor=competitor)
 
+
 @app.route('/competition/<int:competition_id>/competitor/new', methods=['GET', 'POST'])
+@roles_required('admin')
 def competitor_new(competition_id):
     competition = get_competition_by_id(competition_id);
     if not competition:
         abort(404, description=f"Competition with id {competition_id} not found!")
-    competitor={'competition_id': competition_id}
+    competitor = {'competition_id': competition_id}
     now = datetime.now()
     if competition['status'] in ('finished', 'approved'):
         flash('You cannot create a competitor for an approved competition.', 'danger')
@@ -94,7 +103,7 @@ def competitor_new(competition_id):
         if not name or not description or not author or not image:
             flash('All fields are required.', 'danger')
             return render_template('competitor_edit.html', competitor=competitor)
-        
+
         if image and allowed_file(image.filename):
             # Hash file with md5 to generate unieq filename, avoding filename conflict
             filename = get_hashed_filename(image, read_file_extension(image.filename))
@@ -116,14 +125,16 @@ def competitor_new(competition_id):
         competitor['author'] = author
         competitor['create_by'] = g.user['user_id']
         competitor['status'] = 'attending'
-        
+
         # Save competitor to the database
         create_competitor(competitor)
         flash('Competitor saved successfully.', 'success')
         return redirect(url_for('competitors_manage', competition_id=competition_id))
     return render_template('competitors/competitor_edit.html', competitor=competitor)
 
+
 @app.route('/competitor/delete/<int:competitor_id>', methods=['DELETE'])
+@roles_required('admin')
 def competitor_delete(competitor_id):
     competitor = get_competitor_by_id(competitor_id)
     if not competitor:
@@ -149,7 +160,6 @@ def competitor_view(competitor_id):
     if not competitor:
         abort(404, description=f"Competitor with id {competitor_id} not found!")
     return render_template('competitors/competitor_view.html', competitor=competitor)
-
 
 
 def can_edit(competition):

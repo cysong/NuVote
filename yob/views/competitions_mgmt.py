@@ -92,7 +92,7 @@ def competition_edit(competition_id):
 
 @app.route('/competition/delete/<int:competition_id>', methods=['POST'])
 @login_required
-@roles_required('admin', 'scrutineer')
+@roles_required('admin')
 def competition_delete(competition_id):
     if delete_competition(competition_id):
         flash("Competition deleted successfully", "success")
@@ -103,7 +103,7 @@ def competition_delete(competition_id):
 
 @app.route('/competition/approve/<int:competition_id>', methods=['POST'])
 @login_required
-@roles_required('admin')
+@roles_required('admin', 'scrutineer')
 def competition_approve(competition_id):
     if update_competition_status(competition_id, 'approved'):
         flash("Competition approved successfully", "success")
