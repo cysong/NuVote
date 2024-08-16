@@ -813,43 +813,43 @@ VALUES
                                          INTERVAL FLOOR(RAND() * 59) DAY +
                                          INTERVAL FLOOR(RAND() * 24) HOUR +
                                          INTERVAL FLOOR(RAND() * 60) MINUTE),
-    (1, 11, 66, 'valid', '192.168.1.66', '2021-08-01' +
+    (1, 1, 66, 'valid', '192.168.1.66', '2021-08-01' +
                                          INTERVAL FLOOR(RAND() * 59) DAY +
                                          INTERVAL FLOOR(RAND() * 24) HOUR +
                                          INTERVAL FLOOR(RAND() * 60) MINUTE),
-    (1, 12, 67, 'valid', '192.168.1.67', '2021-08-01' +
+    (1, 2, 67, 'valid', '192.168.1.67', '2021-08-01' +
                                          INTERVAL FLOOR(RAND() * 59) DAY +
                                          INTERVAL FLOOR(RAND() * 24) HOUR +
                                          INTERVAL FLOOR(RAND() * 60) MINUTE),
-    (1, 13, 68, 'valid', '192.168.1.68', '2021-08-01' +
+    (1, 3, 68, 'valid', '192.168.1.68', '2021-08-01' +
                                          INTERVAL FLOOR(RAND() * 59) DAY +
                                          INTERVAL FLOOR(RAND() * 24) HOUR +
                                          INTERVAL FLOOR(RAND() * 60) MINUTE),
-    (1, 14, 69, 'valid', '192.168.1.69', '2021-08-01' +
+    (1, 4, 69, 'valid', '192.168.1.69', '2021-08-01' +
                                          INTERVAL FLOOR(RAND() * 59) DAY +
                                          INTERVAL FLOOR(RAND() * 24) HOUR +
                                          INTERVAL FLOOR(RAND() * 60) MINUTE),
-    (1, 15, 70, 'valid', '192.168.1.70', '2021-08-01' +
+    (1, 5, 70, 'valid', '192.168.1.70', '2021-08-01' +
                                          INTERVAL FLOOR(RAND() * 59) DAY +
                                          INTERVAL FLOOR(RAND() * 24) HOUR +
                                          INTERVAL FLOOR(RAND() * 60) MINUTE),
-    (1, 16, 71, 'valid', '192.168.1.71', '2021-08-01' +
+    (1, 6, 71, 'valid', '192.168.1.71', '2021-08-01' +
                                          INTERVAL FLOOR(RAND() * 59) DAY +
                                          INTERVAL FLOOR(RAND() * 24) HOUR +
                                          INTERVAL FLOOR(RAND() * 60) MINUTE),
-    (1, 17, 72, 'valid', '192.168.1.72', '2021-08-01' +
+    (1, 7, 72, 'valid', '192.168.1.72', '2021-08-01' +
                                          INTERVAL FLOOR(RAND() * 59) DAY +
                                          INTERVAL FLOOR(RAND() * 24) HOUR +
                                          INTERVAL FLOOR(RAND() * 60) MINUTE),
-    (1, 18, 73, 'valid', '192.168.1.73', '2021-08-01' +
+    (1, 8, 73, 'valid', '192.168.1.73', '2021-08-01' +
                                          INTERVAL FLOOR(RAND() * 59) DAY +
                                          INTERVAL FLOOR(RAND() * 24) HOUR +
                                          INTERVAL FLOOR(RAND() * 60) MINUTE),
-    (1, 19, 74, 'valid', '192.168.1.74', '2021-08-01' +
+    (1, 9, 74, 'valid', '192.168.1.74', '2021-08-01' +
                                          INTERVAL FLOOR(RAND() * 59) DAY +
                                          INTERVAL FLOOR(RAND() * 24) HOUR +
                                          INTERVAL FLOOR(RAND() * 60) MINUTE),
-    (1, 20, 75, 'valid', '192.168.1.75', '2021-08-01' +
+    (1, 10, 75, 'valid', '192.168.1.75', '2021-08-01' +
                                          INTERVAL FLOOR(RAND() * 59) DAY +
                                          INTERVAL FLOOR(RAND() * 24) HOUR +
                                          INTERVAL FLOOR(RAND() * 60) MINUTE);
@@ -1114,15 +1114,27 @@ VALUES (3, 21, 11, 'valid', '192.168.2.1', '2023-08-01' +
                                             INTERVAL FLOOR(RAND() * 60) MINUTE),
 
 -- Votes for Competitor 29
-       (3, 29, 91, 'valid', '192.168.2.25', '2023-08-01' +
+       (3, 29, 85, 'invalid', '192.168.2.25', '2023-08-01' +
                                             INTERVAL FLOOR(RAND() * 59) DAY +
                                             INTERVAL FLOOR(RAND() * 24) HOUR +
                                             INTERVAL FLOOR(RAND() * 60) MINUTE),
-       (3, 29, 92, 'valid', '192.168.2.26', '2023-08-01' +
+       (3, 29, 86, 'invalid', '192.168.2.25', '2023-08-01' +
                                             INTERVAL FLOOR(RAND() * 59) DAY +
                                             INTERVAL FLOOR(RAND() * 24) HOUR +
                                             INTERVAL FLOOR(RAND() * 60) MINUTE),
-       (3, 29, 93, 'valid', '192.168.2.27', '2023-08-01' +
+       (3, 29, 87, 'invalid', '192.168.2.25', '2023-08-01' +
+                                            INTERVAL FLOOR(RAND() * 59) DAY +
+                                            INTERVAL FLOOR(RAND() * 24) HOUR +
+                                            INTERVAL FLOOR(RAND() * 60) MINUTE),
+       (3, 29, 91, 'invalid', '192.168.2.25', '2023-08-01' +
+                                            INTERVAL FLOOR(RAND() * 59) DAY +
+                                            INTERVAL FLOOR(RAND() * 24) HOUR +
+                                            INTERVAL FLOOR(RAND() * 60) MINUTE),
+       (3, 29, 92, 'invalid', '192.168.2.25', '2023-08-01' +
+                                            INTERVAL FLOOR(RAND() * 59) DAY +
+                                            INTERVAL FLOOR(RAND() * 24) HOUR +
+                                            INTERVAL FLOOR(RAND() * 60) MINUTE),
+       (3, 29, 93, 'invalid', '192.168.2.25', '2023-08-01' +
                                             INTERVAL FLOOR(RAND() * 59) DAY +
                                             INTERVAL FLOOR(RAND() * 24) HOUR +
                                             INTERVAL FLOOR(RAND() * 60) MINUTE),
@@ -1227,46 +1239,46 @@ VALUES (4, 31, 11, 'valid', '192.168.3.1', '2024-08-15' +
        (4, 36, 65, 'valid', '192.168.4.45', '2024-09-01' +
                                             INTERVAL FLOOR(RAND() * 24) HOUR +
                                             INTERVAL FLOOR(RAND() * 60) MINUTE),
-       (4, 36, 66, 'valid', '192.168.4.46', '2024-09-02' +
+       (4, 36, 66, 'valid', '192.168.4.45', '2024-09-02' +
                                             INTERVAL FLOOR(RAND() * 24) HOUR +
                                             INTERVAL FLOOR(RAND() * 60) MINUTE),
-       (4, 36, 67, 'valid', '192.168.4.47', '2024-09-03' +
+       (4, 36, 67, 'valid', '192.168.4.45', '2024-09-03' +
                                             INTERVAL FLOOR(RAND() * 24) HOUR +
                                             INTERVAL FLOOR(RAND() * 60) MINUTE),
-       (4, 36, 68, 'valid', '192.168.4.48', '2024-09-04' +
+       (4, 36, 68, 'valid', '192.168.4.45', '2024-09-04' +
                                             INTERVAL FLOOR(RAND() * 24) HOUR +
                                             INTERVAL FLOOR(RAND() * 60) MINUTE),
-       (4, 36, 69, 'valid', '192.168.4.49', '2024-09-05' +
+       (4, 36, 69, 'valid', '192.168.4.45', '2024-09-05' +
                                             INTERVAL FLOOR(RAND() * 24) HOUR +
                                             INTERVAL FLOOR(RAND() * 60) MINUTE),
-       (4, 36, 70, 'valid', '192.168.4.50', '2024-09-06' +
+       (4, 36, 70, 'valid', '192.168.4.45', '2024-09-06' +
                                             INTERVAL FLOOR(RAND() * 24) HOUR +
                                             INTERVAL FLOOR(RAND() * 60) MINUTE),
        (4, 36, 71, 'valid', '192.168.4.51', '2024-09-07' +
                                             INTERVAL FLOOR(RAND() * 24) HOUR +
                                             INTERVAL FLOOR(RAND() * 60) MINUTE),
-       (4, 36, 72, 'valid', '192.168.4.52', '2024-09-08' +
+       (4, 36, 72, 'valid', '192.168.4.51', '2024-09-08' +
                                             INTERVAL FLOOR(RAND() * 24) HOUR +
                                             INTERVAL FLOOR(RAND() * 60) MINUTE),
-       (4, 36, 73, 'valid', '192.168.4.53', '2024-09-09' +
+       (4, 36, 73, 'valid', '192.168.4.51', '2024-09-09' +
                                             INTERVAL FLOOR(RAND() * 24) HOUR +
                                             INTERVAL FLOOR(RAND() * 60) MINUTE),
-       (4, 36, 74, 'valid', '192.168.4.54', '2024-09-10' +
+       (4, 36, 74, 'valid', '192.168.4.51', '2024-09-10' +
                                             INTERVAL FLOOR(RAND() * 24) HOUR +
                                             INTERVAL FLOOR(RAND() * 60) MINUTE),
-       (4, 36, 75, 'valid', '192.168.4.55', '2024-09-11' +
+       (4, 36, 75, 'valid', '192.168.4.51', '2024-09-11' +
                                             INTERVAL FLOOR(RAND() * 24) HOUR +
                                             INTERVAL FLOOR(RAND() * 60) MINUTE),
-       (4, 36, 76, 'valid', '192.168.4.56', '2024-09-12' +
+       (4, 36, 76, 'valid', '192.168.4.51', '2024-09-12' +
                                             INTERVAL FLOOR(RAND() * 24) HOUR +
                                             INTERVAL FLOOR(RAND() * 60) MINUTE),
-       (4, 36, 77, 'valid', '192.168.4.57', '2024-09-13' +
+       (4, 36, 77, 'valid', '192.168.4.51', '2024-09-13' +
                                             INTERVAL FLOOR(RAND() * 24) HOUR +
                                             INTERVAL FLOOR(RAND() * 60) MINUTE),
-       (4, 36, 78, 'valid', '192.168.4.58', '2024-09-14' +
+       (4, 36, 78, 'valid', '192.168.4.51', '2024-09-14' +
                                             INTERVAL FLOOR(RAND() * 24) HOUR +
                                             INTERVAL FLOOR(RAND() * 60) MINUTE),
-       (4, 36, 79, 'valid', '192.168.4.59', '2024-09-15' +
+       (4, 36, 79, 'valid', '192.168.4.51', '2024-09-15' +
                                             INTERVAL FLOOR(RAND() * 24) HOUR +
                                             INTERVAL FLOOR(RAND() * 60) MINUTE),
        (4, 36, 80, 'valid', '192.168.4.60', '2024-09-16' +
