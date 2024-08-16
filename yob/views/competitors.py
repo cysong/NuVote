@@ -12,7 +12,7 @@ from yob.views.profile import allowed_file, get_hashed_filename, read_file_exten
 
 
 @app.route('/competition/<int:competition_id>/competitors')
-@roles_required('admin')
+@roles_required('admin', 'scrutineer')
 def competitors_manage(competition_id):
     competition = get_competition_by_id(competition_id);
     if not competition:
