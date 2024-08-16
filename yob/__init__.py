@@ -7,7 +7,7 @@ import locale
 
 import yob.config as config
 from yob.utility import get_locale_from_request
-from yob.config import DEFAULT_PROFILE_IMAGES_FOLDER, DEFAULT_COMPETITOR_IMAGES_FOLDER, \
+from yob.config import DEFAULT_DATE_FORMAT, DEFAULT_DATETIME_FORMAT, DEFAULT_PROFILE_IMAGES_FOLDER, DEFAULT_COMPETITOR_IMAGES_FOLDER, \
     DEFAULT_COMPETITION_IMAGES_FOLDER
 from yob.login_manage import LoginManager
 from .repositories.users_repository import get_user_by_id
@@ -80,12 +80,12 @@ def format_relative_time(time_diff):
 
 @app.template_filter('datetime_format')
 def datetime_format(value):
-    return value.strftime('%d/%m/%Y %I:%M:%S %p')
+    return value.strftime(DEFAULT_DATETIME_FORMAT)
 
 
 @app.template_filter('dateformat')
 def date_format(value):
-    return value.strftime('%d/%m/%Y')
+    return value.strftime(DEFAULT_DATE_FORMAT)
 
 
 def format_by_locate(value, format='%x'):

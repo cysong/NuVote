@@ -49,7 +49,7 @@ def daily_votes(competition_id):
 
     # Convert the dictionary back to a sorted list
     complete_daily_votes = [
-        {'vote_date': date.strftime('%d/%m/%Y'), 'valid_votes': values['valid_votes'], 'invalid_votes': values['invalid_votes']}
+        {'vote_date': date.strftime(DEFAULT_DATE_FORMAT), 'valid_votes': values['valid_votes'], 'invalid_votes': values['invalid_votes']}
         for date, values in sorted(date_range.items())
     ]
 
