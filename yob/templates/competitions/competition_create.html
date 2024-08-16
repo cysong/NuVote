@@ -4,6 +4,10 @@
 
 {% block content %}
 <div>
+    <div class="mb-2">
+        <a class="btn btn-outline-secondary" href="{{url_for('competitions_mgmt')}}"><i class="bi bi-arrow-left"></i>Back</a>
+    </div>
+    
     <form class="row g-3 needs-validation"
           action="{{ url_for('competition_create') }}"
           enctype="multipart/form-data"
