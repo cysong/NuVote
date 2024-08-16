@@ -69,11 +69,11 @@ body {
     height: 100%;
   }
 
-.announcement, .competition-card {
+.announcement, .competition-card, .voted-user-container {
     transition: box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out;
 }
 
-.announcement:hover, .competition-card:hover {
+.announcement:hover, .competition-card:hover, .voted-user-container:hover {
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
     transform: translateY(-5px);
 }
