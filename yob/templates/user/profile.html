@@ -102,14 +102,7 @@
                                 Location must contain only characters and numbers! Max length is 50.
                             </div>
                         </div>
-                        {% if user.role == 'voter' %}
-                        <div class="form-floating mb-3">
-                            <select class="form-select" id="role" aria-label="Role" name="role" readonly>
-                                <option value="voter">Voter</option>
-                            </select>
-                            <label for="role">Role</label>
-                        </div>
-                        {% else %}
+                        {% if user.role == 'admin' %}
                         <div class="form-floating mb-3">
                             <select class="form-select" id="role" aria-label="Role" name="role">
                                 {% for s in ['scrutineer', 'admin'] %}
@@ -117,6 +110,12 @@
                                 </option>
                                 {% endfor %}
                             </select>
+                            <label for="role">Role</label>
+                        </div>
+                        {% else %}
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" name="role" id="role"
+                                   placeholder="Role" value="{{ user.role }}" readonly>
                             <label for="role">Role</label>
                         </div>
                         {% endif %}

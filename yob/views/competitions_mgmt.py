@@ -20,6 +20,8 @@ from yob.views.profile import allowed_file, get_hashed_filename, read_file_exten
 def competitions_mgmt():
     # Render the admin home page with user information
     competitions = get_all_competitions()
+    if g.user['role'] == 'scrutineer':
+        competitions = [c for c in competitions if c['status'] != 'draft']
     competitions.reverse()
     return render_template('competitions/competitions_mgmt.html', competitions=competitions)
 

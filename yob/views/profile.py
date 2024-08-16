@@ -23,7 +23,7 @@ def profile(user_id):
         last_name = request.form['last_name']
         location = request.form['location']
         description = request.form['description']
-        editable = user['user_id'] == g.user['user_id'] or g.user['role'] == 'admin'
+        editable = user['user_id'] == g.user['user_id'] or g.user['role'] in ['admin', 'scrutineer']
 
         user['first_name'] = first_name
         user['last_name'] = last_name
@@ -41,7 +41,7 @@ def profile(user_id):
                 return render_template('user/profile.html', user=user, editable=editable)
 
             user['email'] = email
-        if g.user['role'] == 'admin':
+        if g.user['role'] in ['admin', 'scrutineer']:
             user['role'] = request.form['role']
             user['status'] = request.form['status']
         users_repository.update_user(user)

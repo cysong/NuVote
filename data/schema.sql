@@ -1,9 +1,9 @@
 -- -----------------------------------------------------
 -- Schema yob (Year Of Bird)
 -- -----------------------------------------------------
-DROP SCHEMA IF EXISTS voting;
-CREATE SCHEMA voting;
-USE voting;
+# DROP SCHEMA IF EXISTS voting;
+# CREATE SCHEMA voting;
+# USE voting;
 
 -- -----------------------------------------------------
 -- Table users
@@ -30,15 +30,15 @@ CREATE TABLE IF NOT EXISTS users
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS competitions
 (
-    competition_id INT                                                  NOT NULL AUTO_INCREMENT,
-    name           VARCHAR(255)                                         NOT NULL,
-    description    text                                                 NOT NULL,
-    image          VARCHAR(255)                                         NOT NULL,
-    start_date     datetime                                             NOT NULL,
-    end_date       datetime                                             NOT NULL,
-    status         ENUM ('finished', 'on_going', 'in_plan', 'approved') NOT NULL,
-    create_by      INT                                                  NOT NULL,
-    created_at     TIMESTAMP                                            NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    competition_id INT                                                         NOT NULL AUTO_INCREMENT,
+    name           VARCHAR(255)                                                NOT NULL,
+    description    text                                                        NOT NULL,
+    image          VARCHAR(255)                                                NOT NULL,
+    start_date     datetime                                                    NOT NULL,
+    end_date       datetime                                                    NOT NULL,
+    status         ENUM ('draft', 'in_plan','on_going', 'finished','approved') NOT NULL,
+    create_by      INT                                                         NOT NULL,
+    created_at     TIMESTAMP                                                   NOT NULL DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (`competition_id`),
     FOREIGN KEY (`create_by`) REFERENCES `users` (`user_id`)
 );
