@@ -50,15 +50,16 @@
                         <span class="fs-3 text-success vote-count">{{ competitor.vote_count }}</span>
                         <span class="fs-6 text-muted ms-1">votes</span>
                     </div>
-                    <div>
+                    <div class="competitor-vote-container">
                         {% if competitor.has_voted %}
-                            <span class="text-success">Voted</span>
+                            <span class="text-success vote-status">Voted</span>
                         {% elif has_voted %}
                             <span></span>
                         {% elif not can_vote %}
                             <span></span>
                         {% else %}
-                            <a href="#" class="btn btn-link vote-btn" data-id="{{ competitor.competitor_id }}">Vote</a>
+                            <span class="text-success vote-status" style="display:none">Voted</span>
+                            <a href="#" class="btn btn-link vote-btn text-decoration-none" data-id="{{ competitor.competitor_id }}">Vote</a>
                         {% endif %}
                     </div>
                 </div>
@@ -112,16 +113,37 @@
                 })
                 .then(response => response.json())
                 .then(data => {
+                    voteModal.hide()
                     if (data.success) {
-                        // showSuccessMessage('You have voted successfully!')
-                        window.location.reload();
+                        showSuccessMessage('You have voted successfully!')
+                        // window.location.reload();
+                        refreshVoteStatus()
                     } else {
-                        voteModal.hide()
                         showErrorMessage(data.message || 'Vote failed, please try again later.');
                     }
                 });
             }
         });
+
+        // refresh vote status
+        function refreshVoteStatus() {
+            const competitors = document.querySelectorAll('.competitor-card');
+            competitors.forEach(competitor => {
+                const competitorId = competitor.getAttribute('data-competitor-id');
+                const voteStatus = competitor.querySelector('.vote-status');
+                const voteBtn = competitor.querySelector('.vote-btn');
+
+                if (competitorId === selectedCompetitorId) {
+                    voteStatus.style.display = 'inline';
+                    voteBtn.style.display = 'none';
+                } else {
+                    voteBtn.style.display = 'none';
+                }
+            });
+        }
+
+
+
     });
 </script>
 
