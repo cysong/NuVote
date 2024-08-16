@@ -1,6 +1,6 @@
 from flask_hashing import Hashing
 
-from yob.config import DEFAULT_USER_STATUS, DEFAULT_PROFILE_IMAGE, DEFAULT_PASSWORD_SALT
+from yob.config import DEFAULT_USER_STATUS, DEFAULT_PROFILE_IMAGE, DEFAULT_PASSWORD_SALT, MAX_LATEST_VOTE_USERS
 from yob.database import Cursor
 from yob.utility import get_current_datetime
 
@@ -214,7 +214,7 @@ def get_latest_voted_users():
         cursor.execute(
             '''SELECT u.* 
             FROM users u, votes v where u.user_id = v.voted_by and u.status='active'
-            ORDER BY v.voted_at desc limit 10'''
+            ORDER BY v.voted_at desc limit %s''', (MAX_LATEST_VOTE_USERS,)
         )
         users = cursor.fetchall()
     return users

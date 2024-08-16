@@ -24,18 +24,22 @@
     </div>
     {% endif %}
 
-    <div class="voted-user-container rounded mb-3">
-        <div class="latest-voted-text fs-4 text-muted me-3">
-            Recent Voted
-        </div>
-        <div class="users-container">
-            {% for user in users %}
-            <div class="user-item" title="{{ user.username }}">
-                <a href="{{url_for('profile', user_id=user.user_id)}}">
-                    <img class="profile-large user-profile" src="{{ user.profile_image }}" alt="{{ user.username }}">
-                </a>
+    <div class="voted-user-container shadow-sm rounded mb-3">
+        <div class="card border-0 shadow-sm">
+            <div class="card-body position-relative">
+                <h5 class="card-title">
+                    Recent Voted Users
+                </h5>
+                <div class="users-container">
+                    {% for user in users %}
+                    <div class="user-item" title="{{ user.username }}">
+                        <a href="{{url_for('profile', user_id=user.user_id)}}">
+                            <img class="profile-large user-profile" src="{{ user.profile_image }}" alt="{{ user.username }}">
+                        </a>
+                        </div>
+                    {% endfor %}
                 </div>
-            {% endfor %}
+            </div>
         </div>
     </div>
 
@@ -80,12 +84,12 @@
 <style>
 
 
-    .announcement {
+    .announcement, voted-user-container {
         /* cursor: pointer; */
         padding: 0px;
     }
 
-    .announcement .card {
+    .announcement .card,.voted-user-container .card {
         background-color: #d8e9da;
         border-radius: 8px;
     }
@@ -111,33 +115,13 @@
         position: relative;
     }
 
-    .voted-user-container {
-        display: flex;
-        align-items: center;
-        width: 100%;
-        overflow: hidden; 
-        padding: 16px;
-        padding-right: 0px;
-        /* background-color: #d8e9da; */
-        transition: transform 0.3s ease-in-out;
-    }
-
-    .voted-user-container:hover {
-        /* box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); */
-        transform: translateY(-5px);
-    }
-
-    .latest-voted-text {
-        white-space: nowrap;
-        flex-shrink: 0;
-    }
-
     .users-container {
         display: flex;
         align-items: center;
         gap: 10px;
         overflow: hidden;
-        flex-wrap: nowrap;
+        flex-wrap: wrap;
+        max-height: 128px;  /* only show first line of users*/
     }
 
     .user-item {
