@@ -41,11 +41,12 @@
     <table class="table table-hover table-striped">
         <thead class="thead-light">
             <tr>
-                <th style="width:60px;"><input type="checkbox" id="select-all"></th>
-                <th>Competitor</th>
-                <th>Voter Name</th>
-                <th style="width:210px;">Vote Time</th>
+                <th style="width:40px;"><input type="checkbox" style="cursor: pointer;" id="select-all"></th>
                 <th>Vote IP</th>
+                <th>Competitor</th>
+                <th>Voter Username</th>
+                <th>Voter Fullname</th>
+                <th style="width:210px;">Vote Time</th>
                 <th style="width:80px;">Status</th>
                 <th style="width:260px;">Actions</th>
             </tr>
@@ -99,17 +100,18 @@
         votes.forEach(vote => {
             const row = document.createElement('tr');
             row.innerHTML = `
-                <td style="text-align: center;"><input type="checkbox" value="${vote.vote_id}"></td>
+                <td style="text-align: center;"><input type="checkbox" style="cursor: pointer;" value="${vote.vote_id}"></td>
+                <td style="text-align: center;">${vote.voted_ip}</td>
                 <td>${vote.competitor_name}</td>
                 <td>
                     <a href="${profile_url + vote.voted_by}" class="text-decoration-none">${vote.voted_by_username}</a>
                 </td>
+                <td>${vote.voted_by_first_name} ${vote.voted_by_last_name}</td>
                 <td style="text-align: center;">${formatDateToNZTime(vote.voted_at)}</td>
-                <td style="text-align: center;">${vote.voted_ip}</td>
                 <td style="text-align: center;">${vote.status}</td>
                 <td>
-                    <button onclick="abandonVote(${vote.vote_id})" class="btn btn-link text-danger" ${vote.status === 'invalid' ? 'disabled' : ''}>Disable</button>
-                    <button onclick="abandonVotesByIp('${vote.voted_ip}')" class="btn btn-link text-danger" ${vote.status === 'invalid' ? 'disabled' : ''}>Disable All by IP</button>
+                    <button onclick="abandonVote(${vote.vote_id})" class="btn btn-link text-danger text-decoration-none" ${vote.status === 'invalid' ? 'disabled' : ''}>Disable</button>
+                    <button onclick="abandonVotesByIp('${vote.voted_ip}')" class="btn btn-link text-danger text-decoration-none" ${vote.status === 'invalid' ? 'disabled' : ''}>Disable All by IP</button>
                 </td>
             `;
             tbody.appendChild(row);

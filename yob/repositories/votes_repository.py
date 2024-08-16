@@ -202,6 +202,8 @@ def get_votes_by_filters(competition_id, ip=None, status='valid', competitor_id=
             v.competitor_id,
             v.voted_by,
             u.username AS voted_by_username,
+            u.first_name as voted_by_first_name,
+            u.last_name as voted_by_last_name,
             v.status,
             v.voted_ip,
             v.voted_at,
