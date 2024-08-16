@@ -43,7 +43,7 @@
         </div>
 
         <!-- Submit Button -->
-        <button type="submit" class="btn btn-primary" {% if view %}disabled{% endif %}>Save</button>
+        <button type="submit" class="btn btn-success" {% if view %}disabled{% endif %}>Save</button>
         <a href="{{ url_for('competitors_manage', competition_id=competitor.competition_id) }}" class="btn btn-secondary">Cancel</a>
     </form>
 </div>
