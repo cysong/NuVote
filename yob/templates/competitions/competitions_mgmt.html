@@ -5,9 +5,11 @@
 {% block content %}
 <div>
     <!-- Competitions Section -->
+    {% if role == 'admin' %}
      <div class="mb-3 d-flex justify-content-end">
         <a href="{{ url_for('competition_create') }}" class="btn btn-outline-success" role="button">Create a Competition</a>
     </div>
+    {% endif %}
     <div class="competitions">
         <div>
             {% for competition in competitions %}
@@ -21,6 +23,7 @@
                         </div>
                         <div class="text-end position-absolute bottom-0 end-0 m-3 d-flex">
                             {% if competition.status == 'in_plan' %}
+                            {% if role == 'admin' %}
                             <a href="{{ url_for('competition_edit', competition_id=competition.competition_id) }}"
                                class="link-light text-decoration-none me-3">Edit</a>
                             <a href="{{ url_for('competitors_manage', competition_id=competition.competition_id) }}"
@@ -36,6 +39,7 @@
                                     <span class="delete-text">Delete</span>
                                 </button>
                             </form>
+                            {% endif %}
                             {% elif competition.status == 'on_going' %}
                                 <a href="{{ url_for('votes_scrutineering', competition_id=competition.competition_id) }}"
                                 class="link-light text-decoration-none me-3">View Votes</a>
