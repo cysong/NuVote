@@ -37,7 +37,7 @@
                             <h5 class="fw-bold text-secondary">
                                 {{ competitor.name }}
                             </h5>
-                            <span class="fw-bold {% if loop.first %}text-warning{% else %}text-success{% endif %}">
+                            <span class="fw-bold {% if loop.first %}text-warning{% else %}text-success{% endif %}" title="Votes percent of current competitor">
                                 {{ competitor.vote_count }} votes
                             </span>
                         </div>
