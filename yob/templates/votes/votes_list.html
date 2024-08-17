@@ -38,7 +38,7 @@
         </div>
         <div class="col-md-2 d-flex align-items-center justify-content-end">
             {% if competition.status != 'approved' %}
-            <button class="btn btn-success" id="disable-selected-btn" onclick="abandonVoteByIds()">
+            <button class="btn btn-success" id="disable-selected-btn" onclick="confirmAbandonSelected()">
                 Disable Selected
             </button>
             {% endif %}
@@ -111,6 +111,30 @@
             </div>
         </div>
     </div>
+
+   <!-- Modal for Abandon Selected -->
+    <div
+        class="modal fade"
+        id="confirmAbandonSelectedModal"
+        tabindex="-1"
+        aria-labelledby="confirmAbandonSelectedLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="confirmAbandonSelectedLabel">Confirm Disable By Ip</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">Are you sure you want to disable all selected votes?</div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-danger" onclick="abandonSelected()">Confirm</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
 </div>
 
 <script>
@@ -271,13 +295,26 @@
             });
     }
 
-    function abandonVoteByIds() {
+    function getSelectedVoteIds() {
         // Get all selected rows
         const selectedRows = document.querySelectorAll('.table tbody input[type="checkbox"]:checked');
-
         // Extract vote IDs from the selected rows
-        let voteIds = Array.from(selectedRows).map(row => row.value);
+        return Array.from(selectedRows).map(row => row.value);
+    }
+    function confirmAbandonSelected() {
+        voteIds = getSelectedVoteIds();
+        // If no votes are selected, return early
+        if (voteIds.length === 0) {
+            showErrorMessage("Please select at least one vote to disable.");
+            return;
+        }
+        // Show the confirmation modal
+        const modal = new bootstrap.Modal(document.getElementById('confirmAbandonSelectedModal'));
+        modal.show();
+    }
 
+    function abandonSelected() {
+        voteIds = getSelectedVoteIds();
         // If no votes are selected, return early
         if (voteIds.length === 0) {
             showErrorMessage("Please select at least one vote to disable.");
@@ -312,6 +349,10 @@
         .catch(error => {
             showErrorMessage("An unexpected error occurred.");
         });
+        // Close the modal
+        const modal = bootstrap.Modal.getInstance(document.getElementById('confirmAbandonSelectedModal'));
+        modal.hide();
+
     }
 
     function enableSelectAll() {
