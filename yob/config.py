@@ -2,8 +2,8 @@
 from unittest.mock import DEFAULT
 
 
-APP_NAME = 'Nu Voting System'
-SLOGAN = 'Your vote is your voice'
+APP_NAME = 'Bird of the Year'
+SLOGAN = 'Vote for the wings of Aotearoa!'
 # Default role assigned to new users upon registration.
 DEFAULT_SECRET_KEY = '16ef49d7e56c50b0de84898da482e8a2'
 # IMPORTANT: Change 'ExampleSaltValue' to whatever salt value you'll use in
