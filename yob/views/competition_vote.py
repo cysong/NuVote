@@ -77,11 +77,13 @@ def vote():
 def can_be_voted(competition):
     """If a competition can be voted and alert message depends on status and start and end date"""
     now = get_current_datetime()
-    message = "This competition can not vote right now!"
-    if not competition:
+    message = "This competition is not available yet."
+    if not competition or competition['status'] in ('draft', 'in_plan'):
         return False, message
     if competition['start_date'] > now:
-        return False, "This competition has not started!"
-    if competition['status'] in ('finished', 'approved') or competition['end_date'] < now:
-        return False, "This competition has finished!"
+        return False, "This competition hasn't started yet!"
+    if competition['status'] == 'approved':
+        return False, "This competition is over, and the results have been published!"
+    if competition['status'] == 'finished' or competition['end_date'] < now:
+        return False, "This competition is over, and the final results will be announced soon!"
     return True, ""
