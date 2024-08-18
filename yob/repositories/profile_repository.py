@@ -11,6 +11,7 @@ class UserProfile:
 
 
 def update_profile_by_user_id(user_id, profile: UserProfile):
+    '''Update user profile in the database'''
     # Extract form data
     first_name = profile.first_name
     last_name = profile.last_name
