@@ -11,20 +11,30 @@
 </head>
 <body>
     <div class="scroll-container">
+
+        <!-- Navbar -->
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container-fluid">
+                <!-- Brand Logo -->
                 <a class="navbar-brand" href="/"><img src="{{ url_for('static', filename='images/bird_of_the_year.png') }}" alt="Logo" width="300"></a>
+                <!-- Slogan -->
                 <span class="navbar-text slogan">{{ SLOGAN }}</span>
+
+                <!-- Navbar Toggler -->
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
+
+                <!-- Profile image and dropdown menus -->
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ms-auto">
                         {% if CURRENT_USER %}
                             <li class="nav-item dropdown">
+                                <!-- Profile image -->
                                 <a class="nav-link" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     <img src="{{ CURRENT_USER.profile_image }}" alt="{{ CURRENT_USER.username }}" class="profile-small">
                                 </a>
+                                <!-- Dropdown menu -->
                                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                                     <li><a class="dropdown-item" href="{{url_for('profile', user_id=CURRENT_USER.user_id)}}" onclick="enter_from_menu()">Edit Profile</a></li>
                                     <li><a class="dropdown-item" href="{{url_for('password', user_id=CURRENT_USER.user_id)}}" onclick="enter_from_menu()">Change Password</a></li>
@@ -38,9 +48,11 @@
                                 </ul>
                             </li>
                         {% else %}
+                            <!-- Login -->
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ url_for('login') }}" onclick="enter_from_menu()">Login</a>
                             </li>
+                            <!-- Register -->
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ url_for('register') }}" onclick="enter_from_menu()">Register</a>
                             </li>
@@ -49,6 +61,8 @@
                 </div>
             </div>
         </nav>
+
+        <!-- Alert messages -->
         <div class="container mt-4">
             <div id="alert-container">
                 {% with messages = get_flashed_messages(with_categories=true) %}
@@ -66,6 +80,8 @@
                 {% block content %}
                 {% endblock %}
             </div>
+
+            <!-- Footer -->
             <div class="text-center mb-2 mt-5 text-muted">
                 Copyright &copy; 2024 S2 &mdash; Group Nu <img src="{{ url_for('static', filename='images/NuVote.png') }}" alt="NuVote" width="90">
             </div>
