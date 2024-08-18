@@ -12,6 +12,7 @@ from yob.utility import are_fields_present
 
 @app.route('/announcement/list')
 def announcement_list():
+    '''Render the announcements list page'''
     announcements = get_all_announcements()
     announcements.reverse()
     return render_template('announcements/announcement_list.html', announcements=announcements)
@@ -21,6 +22,7 @@ def announcement_list():
 @login_required
 @roles_required('admin', 'scrutineer')
 def announcement_create():
+    '''Render the announcement create page'''
     if request.method == 'POST':
         if are_fields_present(request, ['title', 'content', 'end_at']):
             announcement = Announcement(request.form['title'], request.form['content'], request.form['end_at'],
@@ -35,6 +37,7 @@ def announcement_create():
 @login_required
 @roles_required('admin', 'scrutineer')
 def announcement_edit(announcement_id):
+    '''Render the announcement edit page'''
     return render_template('announcements/announcement_edit.html')
 
 
@@ -42,6 +45,7 @@ def announcement_edit(announcement_id):
 @login_required
 @roles_required('admin', 'scrutineer')
 def announcement_delete(announcement_id):
+    '''Delete the announcement'''
     announcements_repository.delete_announcement(announcement_id)
     return redirect(url_for('announcements_mgmt'))
 
