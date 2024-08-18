@@ -5,15 +5,17 @@
 {% block content %}
 
 <div class="mb-2 d-flex justify-content-end">
-    <a href="{{ url_for('announcement_create') }}" class="btn btn-outline-success" role="button">Create an Announcement</a>
+    <a href="{{ url_for('announcement_create') }}" class="btn btn-outline-success" role="button">Create an
+        Announcement</a>
 </div>
 
 {% for announcement in announcements %}
 <div class="announcement rounded shadow-sm position-relative mb-2">
     <div class="card border-1 shadow-sm">
         <div class="card-body position-relative">
-            <h5 class="card-title">{{ announcement.title }}</h5>
-            <p class="card-text announcement-content">{{ announcement.content }}</p>
+            <h5 class="card-title  px-3">{{ announcement.title }}</h5>
+            <p class="card-text announcement-content  px-4">{{ announcement.content }}</p>
+            <p class="card-text announcement-content text-end px-4">Announced at: {{ announcement.created_at | datetime_format}} - End at: {{ announcement.end_at | datetime_format}}</p>
             <a href="{{ url_for('announcement_view', announcement_id=announcement.announcement_id) }}"
                class=""></a>
             <div class="text-end position-absolute bottom-0 end-0 m-3">

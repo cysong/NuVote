@@ -5,21 +5,23 @@
 {% block content %}
 <div>
     <!-- Latest Announcement Section -->
-     {% if CURRENT_USER %}
+    {% if CURRENT_USER %}
     <div class="announcement rounded shadow-sm position-relative mb-3">
         {% if announcement %}
-            <div class="card border-0 shadow-sm">
-                <div class="card-body position-relative">
-                    <h5 class="card-title">{{ announcement.title }}</h5>
-                    <p class="card-text announcement-content">{{ announcement.content }}</p>
-<!--                    <a href="{{ url_for('announcement_view', announcement_id=announcement.announcement_id) }}" class="stretched-link"></a>-->
-                    <div class="text-end position-absolute bottom-0 end-0 m-3">
-                        <a href="{{ url_for('announcement_list') }}" class="link-primary text-decoration-none">View All Announcements</a>
-                    </div>
+        <div class="card border-0 shadow-sm">
+            <div class="card-body position-relative">
+                <h5 class="card-title">{{ announcement.title }}</h5>
+                <p class="card-text announcement-content">{{ announcement.content }}</p>
+                <p class="card-text announcement-content px-1">Announced at: {{ announcement.created_at | datetime_format}}</p>
+                <!--                    <a href="{{ url_for('announcement_view', announcement_id=announcement.announcement_id) }}" class="stretched-link"></a>-->
+                <div class="text-end position-absolute bottom-0 end-0 m-3">
+                    <a href="{{ url_for('announcement_list') }}" class="link-primary text-decoration-none">View All
+                        Announcements</a>
                 </div>
             </div>
+        </div>
         {% else %}
-            <p>No active announcements at the moment.</p>
+        <p>No active announcements at the moment.</p>
         {% endif %}
     </div>
     {% endif %}
@@ -34,9 +36,10 @@
                     {% for user in users %}
                     <div class="user-item" title="{{ user.username }}">
                         <a href="{{url_for('profile', user_id=user.user_id)}}">
-                            <img class="profile-large user-profile" src="{{ user.profile_image }}" alt="{{ user.username }}">
+                            <img class="profile-large user-profile" src="{{ user.profile_image }}"
+                                 alt="{{ user.username }}">
                         </a>
-                        </div>
+                    </div>
                     {% endfor %}
                 </div>
             </div>
@@ -47,35 +50,40 @@
     <div class="competitions">
         <div>
             {% for competition in competitions %}
-                <div class="competition-card mb-3">
-                    <div class="card h-100 border-0 shadow-sm text-white position-relative" style="background: url('{{ competition.image or '/static/images/default_competition.png' }}') no-repeat center center / cover;">
-                        <div class="card-body d-flex flex-column justify-content-between p-4 bg-opacity-50 position-relative">
-                            <div>
-                                <h5 class="card-title">{{ competition.name }}</h5>
-                                <p class="card-text">
-                                    {% if competition.status == 'approved' %}
-                                        Results verifed
-                                    {% elif competition.start_date > CURR_TIME %}
-                                        Voting starts in {{ (competition.start_date - CURR_TIME) | format_relative_time }}
-                                    {% elif competition.end_date >= CURR_TIME %}
-                                        Voting ends in {{ (competition.end_date - CURR_TIME) | format_relative_time }} - Cast your vote now!
-                                    {% else %}
-                                        Awaiting Results Verification
-                                    {% endif %}
-                                </p>
-                            </div>
-                            <div class="text-end position-absolute bottom-0 end-0 m-3">
-                                <a href="{{ url_for('competition_view', competition_id=competition.competition_id) }}" class="link-light text-decoration-none me-3">Details</a>
-                                <!-- <a href="{{ url_for('competition_vote', competition_id=competition.competition_id) }}" class="link-light text-decoration-none">Vote</a> -->
-                            </div>
-                            {% if competition.status == 'approved' %}
-                                <a href="{{ url_for('competition_result', competition_id=competition.competition_id) }}" class="stretched-link"></a>
-                            {% else %}
-                                <a href="{{ url_for('competition_vote', competition_id=competition.competition_id) }}" class="stretched-link"></a>
-                            {% endif %}
+            <div class="competition-card mb-3">
+                <div class="card h-100 border-0 shadow-sm text-white position-relative"
+                     style="background: url('{{ competition.image or '/static/images/default_competition.png' }}') no-repeat center center / cover;">
+                    <div class="card-body d-flex flex-column justify-content-between p-4 bg-opacity-50 position-relative">
+                        <div>
+                            <h5 class="card-title">{{ competition.name }}</h5>
+                            <p class="card-text">
+                                {% if competition.status == 'approved' %}
+                                Results verifed
+                                {% elif competition.start_date > CURR_TIME %}
+                                Voting starts in {{ (competition.start_date - CURR_TIME) | format_relative_time }}
+                                {% elif competition.end_date >= CURR_TIME %}
+                                Voting ends in {{ (competition.end_date - CURR_TIME) | format_relative_time }} - Cast
+                                your vote now!
+                                {% else %}
+                                Awaiting Results Verification
+                                {% endif %}
+                            </p>
                         </div>
+                        <div class="text-end position-absolute bottom-0 end-0 m-3">
+                            <a href="{{ url_for('competition_view', competition_id=competition.competition_id) }}"
+                               class="link-light text-decoration-none me-3">Details</a>
+                            <!-- <a href="{{ url_for('competition_vote', competition_id=competition.competition_id) }}" class="link-light text-decoration-none">Vote</a> -->
+                        </div>
+                        {% if competition.status == 'approved' %}
+                        <a href="{{ url_for('competition_result', competition_id=competition.competition_id) }}"
+                           class="stretched-link"></a>
+                        {% else %}
+                        <a href="{{ url_for('competition_vote', competition_id=competition.competition_id) }}"
+                           class="stretched-link"></a>
+                        {% endif %}
                     </div>
                 </div>
+            </div>
             {% endfor %}
         </div>
     </div>
