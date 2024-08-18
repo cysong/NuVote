@@ -9,6 +9,8 @@
     <div class="row justify-content-center">
         <div class="col-md-8 col-lg-6">
             <form action="{{ url_for('user_create') }}" class="needs-validation" method="POST" novalidate>
+                
+                <!--Username-->
                 <div class="form-floating mb-3">
                     <input type="text" class="form-control" name="username" id="username" placeholder="Username"
                            value="{{ form_data['username'] }}" pattern="[A-Za-z0-9_-]{3,50}" required>
@@ -21,6 +23,7 @@
                     </div>
                 </div>
 
+                <!--Email-->
                 <div class="form-floating mb-3">
                     <input type="email" class="form-control" name="email" id="email" placeholder="Email"
                            value="{{ form_data['email'] }}" required>
@@ -33,6 +36,7 @@
                     </div>
                 </div>
 
+                <!--Role-->
                 <div class="form-floating mb-3">
                     <select class="form-select" id="role" aria-label="Role" name="role">
                         <option value="scrutineer" selected>Scrutineer</option>
@@ -41,6 +45,7 @@
                     <label for="role">Role</label>
                 </div>
 
+                <!--Fist name-->
                 <div class="form-floating mb-3">
                     <input type="text" class="form-control" name="first_name" id="first_name" placeholder="First name"
                            value="{{ form_data['first_name'] }}" pattern="[A-Za-z0-9 ]{0,50}">
@@ -50,6 +55,7 @@
                     </div>
                 </div>
 
+                <!--Last name-->
                 <div class="form-floating mb-3">
                     <input type="text" class="form-control" name="last_name" id="last_name" placeholder="Last name"
                            value="{{ form_data['last_name'] }}" pattern="[A-Za-z0-9 ]{0,50}">
@@ -59,6 +65,7 @@
                     </div>
                 </div>
 
+                <!--Location-->
                 <div class="form-floating mb-3">
                     <input type="text" class="form-control" name="location" id="location" placeholder="Location"
                            value="{{ form_data['location'] }}" pattern="[A-Za-z0-9 ]{0,50}">
@@ -68,6 +75,7 @@
                     </div>
                 </div>
 
+                <!--Password-->
                 <div class="form-floating mb-3">
                     <input type="password" class="form-control" name="password" id="password" placeholder="Password"
                            pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"
@@ -83,6 +91,7 @@
                     </small>
                 </div>
 
+                <!--Confirm Password-->
                 <div class="form-floating mb-3">
                     <input type="password" class="form-control" name="password2" id="password2"
                            placeholder="Confirm Password" required>
@@ -92,6 +101,7 @@
                     </div>
                 </div>
 
+                <!--Create User-->
                 <div class="d-grid gap-2 mt-4">
                     <button class="btn btn-success" type="submit">Create User</button>
                 </div>
