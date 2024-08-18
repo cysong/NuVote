@@ -17,20 +17,23 @@ def competition_vote(competition_id):
     competition = get_competition_by_id(competition_id)
     # if competition not found, raise an error
     if not competition:
-        raise ValueError(f"competition with id {competition_id} not found")
-    competitors = get_competitors_and_votes(competition_id, g.user['user_id'])
-    my_votes = get_votes_by_competition_and_user(competition_id, g.user['user_id'])
+        abort(404, description=f"competition with id {competition_id} not found")
+    competitors = get_competitors_and_votes(competition_id, g.user['user_id'] if g.user else 0)
     (can_vote, message) = can_be_voted(competition)
-    has_voted = my_votes and len(my_votes) >= MAX_TICKETS_PER_COMPETITION
-    if can_vote:
-        # if user has voted, can not vote again
-        if has_voted:
-            can_vote = False
-            message = "You have voted!"
-        # if user's role is not permitted to vote, can not vote
-        elif g.user['role'] not in PERMITTED_VOTE_ROLES:
-            can_vote = False
-            message = "Your role are not permitted to vote!"
+    if g.user:
+        my_votes = get_votes_by_competition_and_user(competition_id, g.user['user_id'])
+        has_voted = my_votes and len(my_votes) >= MAX_TICKETS_PER_COMPETITION
+        if can_vote:
+            # if user has voted, can not vote again
+            if has_voted:
+                can_vote = False
+                message = "You have voted!"
+            # if user's role is not permitted to vote, can not vote
+            elif g.user['role'] not in PERMITTED_VOTE_ROLES:
+                can_vote = False
+                message = "Your role are not permitted to vote!"
+    else:
+        has_voted = False
     return render_template('competitions/competition_vote.html', competition=competition, competitors=competitors, can_vote=can_vote, has_voted=has_voted, message=message, CURR_TIME=datetime.now())
 
 

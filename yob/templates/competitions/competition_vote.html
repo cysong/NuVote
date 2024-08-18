@@ -93,6 +93,7 @@
 </div>
 
 <script>
+    const CURRENT_USER = {{CURRENT_USER | tojson}}
     document.addEventListener('DOMContentLoaded', function() {
         let selectedCompetitorId = null;
         const voteButtons = document.querySelectorAll('.vote-btn');
@@ -103,8 +104,12 @@
             button.addEventListener('click', function(event) {
                 event.preventDefault();
                 event.stopPropagation(); // Prevent triggering the card click event
-                selectedCompetitorId = this.dataset.id;
-                voteModal.show();
+                if (CURRENT_USER){
+                    selectedCompetitorId = this.dataset.id;
+                    voteModal.show();
+                }else{
+                    window.location.href="{{url_for('login')}}"
+                }
             });
         });
 
