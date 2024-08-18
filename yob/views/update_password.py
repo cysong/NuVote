@@ -12,7 +12,7 @@ from yob.repositories.users_repository import update_user_password_by_id, is_use
 @login_required
 @owner_required
 def password(user_id):
-    # Handle password update
+    '''Handle password update'''
     if request.method == 'POST':
         old_password = request.form.get('old_password')
         new_password = request.form.get('new_password')
