@@ -1,15 +1,18 @@
 {% extends 'layout.html' %}
 
-{% block title %}Competitions Mgmt{% endblock %}
+{% block title %}Competitions Management{% endblock %}
 
 {% block content %}
+<!-- Competitions Section -->
 <div>
-    <!-- Competitions Section -->
+    <!--Create Competition Button-->
     {% if role == 'admin' %}
      <div class="mb-3 d-flex justify-content-end">
         <a href="{{ url_for('competition_create') }}" class="btn btn-outline-success btn-lg" role="button">Create a Competition</a>
     </div>
     {% endif %}
+
+    <!-- Display Competitions List-->
     <div class="competitions">
         <div>
             {% for competition in competitions %}
