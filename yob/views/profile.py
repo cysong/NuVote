@@ -103,8 +103,10 @@ def calculate_md5_hash(file):
 
 
 def read_file_extension(filename):
+    '''Read file extension'''
     return filename.rsplit('.', 2)[1].lower()
 
 
 def get_hashed_filename(file, extension):
+    '''Generate hashed filename'''
     return calculate_md5_hash(file) + '.' + extension
