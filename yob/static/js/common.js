@@ -16,7 +16,7 @@ function showMessage(message, type) {
         setTimeout(() => {
             alert.remove();
         }, 150);
-    }, 3000);
+    }, 5000);
 }
 
 function showSuccessMessage(message) {
