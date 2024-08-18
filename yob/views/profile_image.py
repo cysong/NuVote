@@ -16,7 +16,7 @@ from yob.utility import random_string
 @login_required
 @owner_required
 def profile_image(user_id):
-    # Handle profile image updates
+    '''Handle profile image updates'''
     if request.method == 'POST':
         if request.form.get('action', '') == 'delete':
             # Delete existing image
@@ -24,6 +24,8 @@ def profile_image(user_id):
             handle_profile_image_update(user_id)
             flash("Profile Image deleted successfully", "success")
             return redirect(url_for('profile', user_id=user_id))
+        
+        # Handle image upload
         else:
             if 'image' not in request.files:
                 flash('No image uploaded', 'danger')
@@ -48,6 +50,7 @@ def profile_image(user_id):
 
 
 def save_profile_image(file):
+    '''Save the profile image to the specified directory'''
     dir_path = os.path.dirname(os.path.realpath(__file__))
     # Open the image file
     image = Image.open(file)
@@ -64,13 +67,16 @@ def save_profile_image(file):
 
 
 def delete_profile_image(user_id):
+    '''Delete the profile image of the specified user'''
     user = get_user_by_id(user_id)
     # Skip deleting default profile image
     if user['profile_image'] == DEFAULT_PROFILE_IMAGE:
         return
     try:
         file_path = os.path.join(app.root_path, user['profile_image'])
+        # Delete the image file
         if os.path.exists(file_path):
             os.remove(file_path)
+    # Handle exceptions
     except Exception as e:
         flash(f"An error occurred while trying to delete the image: {str(e)}", "danger")
