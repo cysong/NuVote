@@ -143,10 +143,14 @@
                 const competitorId = competitor.getAttribute('data-competitor-id');
                 const voteStatus = competitor.querySelector('.vote-status');
                 const voteBtn = competitor.querySelector('.vote-btn');
+                const voteCount = competitor.querySelector('.vote-count')
 
                 if (competitorId === selectedCompetitorId) {
                     voteStatus.style.display = 'inline';
                     voteBtn.style.display = 'none';
+                    
+                    let currentCount = parseInt(voteCount.textContent);
+                    voteCount.textContent = currentCount + 1;
                 } else {
                     voteBtn.style.display = 'none';
                 }
