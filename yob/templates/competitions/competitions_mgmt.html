@@ -48,7 +48,7 @@
                                 class="link-light text-decoration-none me-3">View Votes</a>
                                 <form action="{{ url_for('competition_approve', competition_id=competition.competition_id) }}"
                                     method="POST" class="">
-                                    <button type="button" class="btn btn-outline-danger btn-sm approve-btn"
+                                    <button type="button" class="btn btn-outline-success btn-sm approve-btn"
                                             data-bs-toggle="modal"
                                             data-bs-target="#confirmApproveModal"
                                             data-item-id="{{ competition.competition_id }}"
