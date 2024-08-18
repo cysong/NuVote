@@ -4,11 +4,12 @@
 
 {% block content %}
 <div>
-
+    <!-- Back Button -->
     <div class="mb-2">
         <a class="btn btn-outline-secondary" href="{{url_for('competitions_mgmt')}}"><i class="bi bi-arrow-left"></i>Back</a>
     </div>
 
+    <!-- Competition Image -->
     <div class="text-center mb-3 rounded shadow-sm d-flex align-items-center justify-content-center"
          style="height:200px;overflow: hidden;">
         <img src="{{ competition['image'] }}" alt="Competition Image" id="competition-image"
@@ -23,6 +24,7 @@
           action="{{ url_for('competition_edit', competition_id=competition['competition_id']) }}"
           method="POST" novalidate>
 
+        <!-- Competition Name -->
         <div class="form-floating mb-3">
             <input type="text" class="form-control" id="name" name="name" value="{{ competition['name'] }}"
                    placeholder="Competition Name" required>
@@ -30,6 +32,7 @@
         </div>
         <input type="hidden" name="image" value="{{ competition['image'] }}">
 
+        <!-- Competition Description -->
         <div class="form-floating mb-3">
             <textarea type="text" class="form-control" id="description" name="description"
                       value="{{ competition['description'] }}"
@@ -37,18 +40,21 @@
             <label class="ms-2" for="description">Competition Description</label>
         </div>
 
+        <!-- Competition Start Date -->
         <div class="form-floating mb-3">
             <input type="datetime-local" class="form-control" id="start_date" name="start_date"
                    value="{{ competition['start_date'] }}" placeholder="Competition Start Date" required>
             <label class="ms-2" for="start_date">Competition Start Date</label>
         </div>
 
+        <!-- Competition End Date -->
         <div class="form-floating mb-3">
             <input type="datetime-local" class="form-control" id="end_date" name="end_date"
                    value="{{ competition['end_date'] }}" placeholder="Competition End Date" required>
             <label class="ms-2" for="end_date">Competition End Date</label>
         </div>
 
+        <!-- Competition Status -->
         <div class="form-floating mb-3">
             <select class="form-select" id="status" aria-label="Competition Status" name="status">
                 {% for s in ['draft', 'in_plan', 'on_going' ,'finished', 'approved'] %}
@@ -59,6 +65,7 @@
             <label for="status">Competition Status</label>
         </div>
 
+        <!--Button to Save Competition-->
         <div class="d-grid mt-4 col-md-8 col-lg-6 mx-auto">
             <button type="submit" class="btn btn-success">Save</button>
         </div>
