@@ -10,7 +10,7 @@ from yob.utility import get_current_datetime
 # Route for home page (supports both GET request)
 @app.route('/')
 def index():
-    # Show the index/home page
+    '''Show the index/home page'''
     latest_announcement = get_latest_active_announcement()
     competitions = get_latest_competitions()
     refined = [c for c in competitions if c['status'] != 'draft']
