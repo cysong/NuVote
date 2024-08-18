@@ -18,7 +18,7 @@ from yob.views.profile import allowed_file, get_hashed_filename, read_file_exten
 @login_required
 @roles_required('admin', 'scrutineer')
 def competitions_mgmt():
-    # Render the admin home page with user information
+    '''Render the admin home page with user information'''
     competitions = get_all_competitions()
     if g.user['role'] == 'scrutineer':
         competitions = [c for c in competitions if c['status'] != 'draft']
@@ -30,6 +30,7 @@ def competitions_mgmt():
 @login_required
 @roles_required('admin')
 def competition_create():
+    '''Render the competition create page'''
     if request.method == 'POST':
         if are_fields_present(request, ['name', 'description', 'start_date', 'end_date']):
             name = request.form['name']
@@ -66,6 +67,7 @@ def competition_create():
 @login_required
 @roles_required('admin')
 def competition_manage():
+    '''Render the competition management page'''
     return render_template('competitions/competition_mgmt.html')
 
 
@@ -73,6 +75,7 @@ def competition_manage():
 @login_required
 @roles_required('admin')
 def competition_edit(competition_id):
+    '''Render the competition edit page'''
     if request.method == 'POST':
         # verify form
         if are_fields_present(request, ['name', 'description', 'image', 'start_date', 'end_date', 'status']):
@@ -96,6 +99,7 @@ def competition_edit(competition_id):
 @login_required
 @roles_required('admin')
 def competition_delete(competition_id):
+    '''Delete the competition'''
     if delete_competition(competition_id):
         flash("Competition deleted successfully", "success")
         return redirect(url_for('competitions_mgmt'))
@@ -107,6 +111,7 @@ def competition_delete(competition_id):
 @login_required
 @roles_required('admin', 'scrutineer')
 def competition_approve(competition_id):
+    '''Approve the competition'''
     if update_competition_status(competition_id, 'approved'):
         flash("Competition approved successfully", "success")
         return redirect(url_for('competitions_mgmt'))
@@ -125,6 +130,7 @@ def delete_competition_image():
 
 
 def verify_competition(name, description, start_date, end_date):
+    '''Verify the competition form'''
     # Convert string to datetime
     start_date_dt = datetime.fromisoformat(start_date)
     end_date_dt = datetime.fromisoformat(end_date)
