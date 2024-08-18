@@ -21,6 +21,7 @@ class User:
 
 
 def get_users():
+    '''Retrieve all users'''
     with Cursor() as cursor:
         cursor.execute(
             '''SELECT u.user_id, u.username, u.email, u.first_name AS firstname, u.last_name AS last_name, 
@@ -34,6 +35,8 @@ def get_users():
 
 
 def get_user_by_id(user_id):
+    '''Retrieve user information based on user_id'''
+
     # We need all the user info for the user, so we can display it on the profile page
     with Cursor() as cursor:
         cursor.execute(
@@ -46,6 +49,8 @@ def get_user_by_id(user_id):
 
 
 def get_user_by_username(username):
+    '''Retrieve user information based on username'''
+
     # We need all the account info for the user, so we can display it on the profile page
     with Cursor() as cursor:
         cursor.execute(
@@ -59,6 +64,8 @@ def get_user_by_username(username):
 
 
 def get_password_by_username(username):
+    '''Retrieve user information based on username'''
+
     # We need all the account info for the user, so we can display it on the profile page
     with Cursor() as cursor:
         cursor.execute(
@@ -70,6 +77,8 @@ def get_password_by_username(username):
 
 
 def get_user_by_email(email):
+    '''Retrieve user information based on email'''
+
     # We need all the account info for the user, so we can display it on the profile page
     with Cursor() as cursor:
         cursor.execute(
@@ -82,6 +91,7 @@ def get_user_by_email(email):
 
 
 def handle_default_profile(user):
+    '''Handle default profile image'''
     if user is None:
         return None
     # Set default Profile Image
@@ -93,6 +103,7 @@ def handle_default_profile(user):
 
 
 def create_user(user: User):
+    '''Create a new user'''
     with Cursor() as cursor:
         cursor.execute(
             'INSERT INTO users ('
@@ -123,12 +134,14 @@ def create_user(user: User):
 
 
 def update_user_password_by_id(user_id, password):
+    '''Update user password based on user_id'''
     hashed_password = hashing.hash_value(password, PASSWORD_SALT)
     with Cursor() as cursor:
         cursor.execute('UPDATE users SET password_hash = %s WHERE user_id = %s', (hashed_password, user_id))
 
 
 def is_user_password_valid_by_id(user_id, password):
+    '''Check if user password is valid based on user_id'''
     with Cursor() as cursor:
         cursor.execute('SELECT password_hash FROM users WHERE user_id = %s', (user_id,))
         user = cursor.fetchone()
@@ -136,6 +149,7 @@ def is_user_password_valid_by_id(user_id, password):
 
 
 def is_user_password_valid_by_username(username, password):
+    '''Check if user password is valid based on username'''
     with Cursor() as cursor:
         cursor.execute('SELECT password_hash FROM users WHERE username = %s', (username,))
         user = cursor.fetchone()
@@ -143,12 +157,14 @@ def is_user_password_valid_by_username(username, password):
 
 
 def update_user_status(user_id, status):
+    '''Update user status'''
     with Cursor() as cursor:
         cursor.execute('UPDATE users SET status = %s WHERE user_id = %s', (status, user_id))
     return get_user_by_id(user_id)
 
 
 def update_user_role(user_id, role):
+    '''Update user role'''
     with Cursor() as cursor:
         cursor.execute('UPDATE users SET role = %s WHERE user_id = %s', (role, user_id))
     return get_user_by_id(user_id)
