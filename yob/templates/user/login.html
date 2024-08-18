@@ -10,6 +10,8 @@
                 <div class="card-body">
                     <h3 class="card-title text-center mb-4">Login</h3>
                     <form action="{{ url_for('login') }}" class="needs-validation" method="POST" novalidate>
+
+                        <!--Username-->
                         <div class="form-floating mb-3">
                             <input type="text" class="form-control" name="username" id="username"
                                    pattern="[A-Za-z0-9]{1,50}"
@@ -20,6 +22,8 @@
                                 Username must contain only characters and numbers! Max length is 50
                             </div>
                         </div>
+
+                        <!--Password-->
                         <div class="form-floating mb-3">
                             <input type="password" class="form-control" name="password" id="password"
                                    placeholder="Password" value="Vote@2024"
@@ -29,6 +33,8 @@
                                 Password is required
                             </div>
                         </div>
+
+                        <!--Sign in and Register Buttons-->
                         <div class="d-grid gap-2 col-md-8 col-lg-6 mx-auto">
                             <button class="btn btn-success" type="submit">Sign in</button>
                             <a class="btn btn-outline-success" href="{{ url_for('register') }}"
