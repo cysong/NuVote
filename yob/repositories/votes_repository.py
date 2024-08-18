@@ -220,6 +220,7 @@ def get_votes_by_competition_and_user(competition_id, user_id):
     return votes
 
 def get_votes_by_filters(competition_id, ip=None, status='valid', competitor_id=None):
+    '''Retrieve votes based on competition_id, ip, status, and competitor_id'''
     query = """
         SELECT 
             v.vote_id,
@@ -256,17 +257,20 @@ def get_votes_by_filters(competition_id, ip=None, status='valid', competitor_id=
     return votes
 
 def abandon_vote_by_id(vote_id):
+    '''Set the status of a vote to invalid'''
     with Cursor() as cursor:
         cursor.execute("UPDATE votes SET status = 'invalid' WHERE vote_id = %s AND status = 'valid'", (vote_id,))
         return cursor.rowcount
 
 def abandon_votes_by_ids(vote_ids):
+    '''Set the status of multiple votes to invalid'''
     placeholders = ', '.join(['%s'] * len(vote_ids))
     with Cursor() as cursor:
         cursor.execute(f"UPDATE votes SET status = 'invalid' WHERE vote_id IN ({placeholders}) AND status = 'valid'", vote_ids)
         return cursor.rowcount
 
 def abandon_votes_by_ip(ip):
+    '''Set the status of all votes from an IP address to invalid'''
     with Cursor() as cursor:
         cursor.execute("UPDATE votes SET status = 'invalid' WHERE voted_ip = %s AND status = 'valid'", (ip,))
         return cursor.rowcount
