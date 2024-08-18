@@ -71,6 +71,14 @@ h2, h5 {
     cursor: pointer;
 }
 
+@media (max-width: 450px) {
+    /* Responsive styles for small devices */
+    .winner-image-container {
+        width: 130px;
+        height: 130px;
+    }
+}
+
 .winner-image {
     width: 100%;
     height: 100%;
@@ -83,7 +91,7 @@ h2, h5 {
 /* Winner display background */
 .winner-display {
     background-image: url('/static/images/winner.png');
-    background-size: cover;
+    background-size: 100% auto;
     background-position: center;
     background-repeat: no-repeat;
     padding: 100px;
