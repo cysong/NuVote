@@ -10,7 +10,7 @@
         <div class="card-body position-relative">
             <h5 class="card-title px-3">{{ announcement.title }}</h5>
             <p class="card-text announcement-content px-4">{{ announcement.content }}</p>
-            <p class="card-text announcement-content text-end px-4">Announced at: {{ announcement.created_at | datetime_format}} - End at: {{ announcement.end_at | datetime_format}}</p>
+            <p class="card-text announcement-content px-4">Announced at: {{ announcement.created_at | datetime_format}} - End at: {{ announcement.end_at | datetime_format}}</p>
         </div>
     </div>
 </div>
