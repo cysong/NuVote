@@ -14,10 +14,11 @@ from yob.views.profile import allowed_file, get_hashed_filename, read_file_exten
 @app.route('/competition/<int:competition_id>/competitors')
 @roles_required('admin', 'scrutineer')
 def competitors_manage(competition_id):
-    competition = get_competition_by_id(competition_id);
+    '''Display all competitors of a competition'''
+    competition = get_competition_by_id(competition_id)
     if not competition:
         abort(404, description=f"Competition with id {competition_id} not found!")
-    competitors = get_competitors_by_competition_id(competition_id);
+    competitors = get_competitors_by_competition_id(competition_id)
     return render_template('competitors/competitors_mgmt.html', competition=competition, competitors=competitors,
                            can_edit=can_edit(competition))
 
@@ -25,12 +26,19 @@ def competitors_manage(competition_id):
 @app.route('/competitor/edit/<int:competitor_id>', methods=['GET', 'POST'])
 @roles_required('admin')
 def competitor_edit(competitor_id):
+    '''Edit a competitor'''
+
+    # Check if competitor exists
     competitor = get_competitor_by_id(competitor_id)
     if not competitor:
         abort(404, description=f"Competitor with id {competitor_id} not found!")
+
+    # Check if competition exists
     competition = get_competition_by_id(competitor['competition_id']);
     if not competition:
         abort(404, description=f"Competition with id {competitor['competition_id']} not found!")
+
+    # Check if the competition is ongoing or approved
     now = datetime.now()
     if competition['status'] in ('finished', 'approved'):
         flash('You cannot edit a competitor in an approved competition.', 'danger')
@@ -81,10 +89,15 @@ def competitor_edit(competitor_id):
 @app.route('/competition/<int:competition_id>/competitor/new', methods=['GET', 'POST'])
 @roles_required('admin')
 def competitor_new(competition_id):
+    '''Create a new competitor'''
+
+    # Check if competition exists
     competition = get_competition_by_id(competition_id);
     if not competition:
         abort(404, description=f"Competition with id {competition_id} not found!")
     competitor = {'competition_id': competition_id}
+
+    # Check if the competition is finished or approved
     now = datetime.now()
     if competition['status'] in ('finished', 'approved'):
         flash('You cannot create a competitor for an approved competition.', 'danger')
@@ -136,12 +149,19 @@ def competitor_new(competition_id):
 @app.route('/competitor/delete/<int:competitor_id>', methods=['DELETE'])
 @roles_required('admin')
 def competitor_delete(competitor_id):
+    '''Delete a competitor'''
+
+    # Check if competitor exists
     competitor = get_competitor_by_id(competitor_id)
     if not competitor:
         abort(404, description=f"Competitor with id {competitor_id} not found!")
-    competition = get_competition_by_id(competitor['competition_id']);
+
+    # Check if competition exists
+    competition = get_competition_by_id(competitor['competition_id'])
     if not competition:
         abort(404, description=f"Competition with id {competitor['competition_id']} not found!")
+
+    # Check if the competition is finished or approved
     now = datetime.now()
     if competition['status'] in ('finished', 'approved'):
         return jsonify({'success': False, 'message': 'You cannot delete a competitor of an finished competition.'})
@@ -156,6 +176,7 @@ def competitor_delete(competitor_id):
 
 @app.route('/competitor/view/<int:competitor_id>')
 def competitor_view(competitor_id):
+    '''View a competitor'''
     competitor = get_competitor_by_id(competitor_id)
     if not competitor:
         abort(404, description=f"Competitor with id {competitor_id} not found!")
