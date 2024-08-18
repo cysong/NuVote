@@ -16,7 +16,7 @@ CREATE_USER_REQUIRED_FIELDS = ['username', 'email', 'password', 'password2', 'fi
 @login_required
 @roles_required('admin', 'scrutineer')
 def users_mgmt():
-    # Render the admin home page with user information
+    '''Render the admin home page with user information'''
     return render_template('user/users_mgmt.html', users=get_users())
 
 
@@ -24,6 +24,7 @@ def users_mgmt():
 @login_required
 @roles_required('admin')
 def user_create():
+    '''Create a new scrutineer account or admin account'''
     if request.method == 'POST':
         form_data = request.form.to_dict()
 
@@ -82,6 +83,7 @@ def user_create():
 
 
 def render_user_create(form_data):
+    '''Render the user create page with the submitted form data'''
     submitted_form = {}
     if form_data is not None:
         submitted_form = {field: form_data[field] if field in form_data and form_data[field] else '' for field in
