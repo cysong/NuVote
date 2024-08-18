@@ -57,7 +57,7 @@
                      style="background: url('{{ competition.image or '/static/images/default_competition.png' }}') no-repeat center center / cover;">
                     <div class="card-body d-flex flex-column justify-content-between p-4 bg-opacity-50 position-relative">
                         <div>
-                            <h5 class="card-title">{{ competition.name }}</h5>
+                            <h5 class="card-title"><b>{{ competition.name }}</b></h5>
                             <p class="card-text">
                                 {% if competition.status == 'approved' %}
                                 Results verifed
@@ -73,7 +73,7 @@
                         </div>
                         <div class="text-end position-absolute bottom-0 end-0 m-3">
                             <a href="{{ url_for('competition_view', competition_id=competition.competition_id) }}"
-                               class="link-light text-decoration-none me-3">Details</a>
+                               class="btn btn-light btn-sm opacity-75 text-decoration-none me-3">Details</a>
                             <!-- <a href="{{ url_for('competition_vote', competition_id=competition.competition_id) }}" class="link-light text-decoration-none">Vote</a> -->
                         </div>
                         {% if competition.status == 'approved' %}
