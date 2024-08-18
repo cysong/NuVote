@@ -4,14 +4,15 @@
 
 {% block content %}
 <div class="">
+    <!--Back Button-->
     <div class="mb-2">
         <a
             class="btn btn-outline-secondary"
-            href="{{url_for('votes_scrutineering', competition_id=competition.competition_id)}}"
-            ><i class="bi bi-arrow-left"></i>Back</a
-        >
+            href="{{url_for('votes_scrutineering', competition_id=competition.competition_id)}}">
+            <i class="bi bi-arrow-left"></i>Back</a>
     </div>
 
+    <!-- Competition Name and Status -->
     <div class="mb-3 d-flex justify-conent-start align-items-baseline">
         <h1>{{competition.name}}</h1>
         <span class="badge bg-primary status-badge ms-2"> {{ competition.status }} </span>
