@@ -10,6 +10,8 @@
         {% if announcement %}
         <div class="card border-0 shadow-sm">
             <div class="card-body position-relative">
+                <h5><b>Newest Announcement</b></h5>
+                <p></p>
                 <h5 class="card-title">{{ announcement.title }}</h5>
                 <p class="card-text announcement-content">{{ announcement.content }}</p>
                 <p class="card-text announcement-content px-1">Announced at: {{ announcement.created_at | datetime_format}}</p>
@@ -30,7 +32,7 @@
         <div class="card border-0 shadow-sm">
             <div class="card-body position-relative">
                 <h5 class="card-title">
-                    Recent Voted Users
+                    <b>Recent Voted Users</b>
                 </h5>
                 <div class="users-container">
                     {% for user in users %}
