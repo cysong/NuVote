@@ -10,9 +10,13 @@ LOGIN_REQUIRED_FIELDS = ['username', 'password']
 # Route for login page (supports both GET and POST requests)
 @app.route('/login', methods=['GET', 'POST'])
 def login():
+    '''Login page'''
+
+    # Redirect to index if user is already logged in
     if 'loggedin' in session and session['loggedin']:
         return redirect(url_for('index'))
-
+    
+    # Handle POST request
     if request.method == 'POST':
         username = ''
         if are_fields_present(request, LOGIN_REQUIRED_FIELDS):
@@ -36,6 +40,7 @@ def login():
 
 
 def login_user(user):
+    '''Login the user'''
     session['loggedin'] = True
     session['user_id'] = user['user_id']
     session['username'] = user['username']
@@ -47,6 +52,7 @@ def login_user(user):
 # Route for logout page
 @app.route('/logout')
 def logout():
+    '''Logout the user'''
     app.login_manager.logout_user()
     # Remove session data to log the user out
     session.pop('loggedin', None)
