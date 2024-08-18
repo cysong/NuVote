@@ -14,6 +14,9 @@ REGISTER_REQUIRED_FIELDS = ['username', 'email', 'password', 'password2', 'first
 # Route for registration page (supports both GET and POST requests)
 @app.route('/register', methods=['GET', 'POST'])
 def register():
+    '''Handle user registration'''
+
+    # Redirect to index if user is already logged in
     if 'loggedin' in session and session['loggedin']:
         return redirect(url_for('index'))
 
@@ -95,6 +98,7 @@ def check_email():
 
 
 def render_register(form_data):
+    '''Render the registration page'''
     submitted_form = {}
     if form_data is not None:
         submitted_form = {field: form_data[field] if field in form_data and form_data[field] else '' for field in
