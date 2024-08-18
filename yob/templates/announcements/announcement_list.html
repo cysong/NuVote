@@ -4,6 +4,15 @@
 
 {% block content %}
 
+<!-- Back button -->
+<div class="mb-2">
+    <button class="btn btn-outline-secondary" onclick="goBack()"><i class="bi bi-arrow-left"></i>Back</button>
+</div>
+
+<!-- Announcement display -->
+<h1 class="text-center"><span style="color: #495057; font-family: 'Arial Black', Arial;">Announcements</span></h1>
+<br>
+
 {% for announcement in announcements %}
 <div class="announcement rounded shadow-sm position-relative mb-2">
     <div class="card border-1 shadow-sm">
