@@ -13,11 +13,12 @@
                 <input type="text" id="searchInput" class="form-control form-control-lg shadow-sm"
                 placeholder="Search for users...">
                 {% if role == 'admin' %}
-                <a href="{{ url_for('user_create') }}" class="btn btn-success ms-5 flex-shrink-0 flex-grow-0" role="button">Create user</a>
+                <a href="{{ url_for('user_create') }}" class="btn btn-success btn-lg ms-5 flex-shrink-0 flex-grow-0" role="button">Create user</a>
                 {% endif %}
         </div>
     </div>
 
+    <br>
     <div class="table-responsive mb-5 user-table">
         <table class="table table-bordered table-striped table-hover align-middle table-custom">
             <thead class="table-custom-head">
