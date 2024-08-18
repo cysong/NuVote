@@ -5,16 +5,20 @@
 {% block content %}
 
 <div class="">
+    <!-- Back button -->
     <div class="mb-2">
         <a class="btn btn-outline-secondary" href="{{url_for('competitions_mgmt')}}"><i class="bi bi-arrow-left"></i>Back</a>
     </div>
     
+    <!-- Competition Title and Status Badge -->
     <div class="title-container mb-3">
         <h1>{{competition.name}}</h1>
         <span class="badge bg-primary status-badge m-2" data-bs-toggle="tooltip" data-bs-placement="top" title="">
             {{ competition.status }}
         </span>
     </div>
+
+    <!--Add Competitor Button-->
     <div class="d-flex justify-content-end mb-3">
         <button type="button" class="btn btn-outline-success"
             {% if not can_edit %} disabled {% endif %}
@@ -22,6 +26,7 @@
             Add a Competitor
         </button>
     </div>
+
     <!-- Competitors List -->
     <div class="list-group">
         {% for competitor in competitors %}
