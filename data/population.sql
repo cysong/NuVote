@@ -1329,4 +1329,4 @@ VALUES ('Upcoming Maintenance', 'The platform will undergo maintenance on August
         '2024-08-10', 'active', 1),
        ('New Features Released', 'Check out the new features including enhanced profile management.', '2024-08-15',
         'active', 2),
-       ('Autumn Art Fair Reminder', 'Don’t forget to participate in the Autumn Art Fair.', '2024-09-15', 'active', 3);
+       ('Autumn Art Fair Reminder', 'We are excited to remind you that the highly anticipated Autumn Art Fair is just around the corner! Mark your calendars and prepare to immerse yourself in a vibrant showcase of creativity and talent. Stay tuned for further details, and do not miss out on this wonderful opportunity to experience a wide range of artistic expressions. We look forward to seeing you there!', '2024-09-15', 'active', 3);
