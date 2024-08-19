@@ -98,10 +98,13 @@ Before you begin, ensure you have the following installed on your system:
 - `static/`: Static files (e.g., CSS, JavaScript, images)
 - `templates/`: HTML templates for rendering pages
 - `yob/`: Application logic and utility functions
-- `test`: Test functions
+- `tests`: Test functions
 - `config.py`: Configuration settings for the application
 - `connect.py`: Database settings for the application
 - `requirements.txt`: Python dependencies
+
+## Testing
+
 
 ## Contributing
 
