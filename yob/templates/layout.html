@@ -31,7 +31,7 @@
                         {% if CURRENT_USER %}
                             <li class="nav-item dropdown">
                                 <!-- Profile image -->
-                                <a class="nav-link" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <a class="nav-link" href="#" id="navbarDropdown" role="button" title="{{ CURRENT_USER.username}} (role: {{CURRENT_USER.role}})"data-bs-toggle="dropdown" aria-expanded="false">
                                     <img src="{{ CURRENT_USER.profile_image }}" alt="{{ CURRENT_USER.username }}" class="profile-small">
                                 </a>
                                 <!-- Dropdown menu -->
