@@ -3,7 +3,7 @@ import { randomId } from "../utils";
 const BASE_URL = "https://comp639nu.pythonanywhere.com";
 const DEFAULT_PASSWORD = "Vote@2024";
 
-describe("Login & out", () => {
+describe("Register", () => {
     it("Register new user", () => {
         const id = randomId("bird");
         register(id, id + "@example.com");
