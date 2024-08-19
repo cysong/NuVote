@@ -111,7 +111,7 @@
                             </div>
                         </div>
 
-                        {% if CURRENT_USER.role in ['admin', 'scrutineer'] %}
+                        {% if CURRENT_USER.role in ['admin', 'scrutineer'] and CURRENT_USER.user_id!=user.user_id %}
 
                         <!--Role-->
                         {% if user.role in ['admin', 'scrutineer'] %}

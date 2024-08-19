@@ -44,7 +44,8 @@ def profile(user_id):
             user['location'] = location
             user['description'] = description
 
-        if g.user['role'] in ['admin', 'scrutineer']:
+        # Only admin and scrutineer can change role and status, and can not change himself role and status
+        if g.user['role'] in ['admin', 'scrutineer'] and user['user_id'] != g.user['user_id']:
             # Role for voter can not be changed
             if user['role'] != 'voter':
                 user['role'] = request.form['role']
