@@ -221,6 +221,7 @@ def get_votes_by_competition_and_user(competition_id, user_id):
 
 def get_votes_by_filters(competition_id, ip=None, status='valid', competitor_id=None):
     '''Retrieve votes based on competition_id, ip, status, and competitor_id'''
+    # CONVERT_TZ: jsonify force convert time to GMT no matter what time zone is
     query = """
         SELECT 
             v.vote_id,
@@ -232,7 +233,7 @@ def get_votes_by_filters(competition_id, ip=None, status='valid', competitor_id=
             u.last_name as voted_by_last_name,
             v.status,
             v.voted_ip,
-            v.voted_at,
+            CONVERT_TZ(v.voted_at, @@session.time_zone, '+00:00') voted_at,
             c.name AS competitor_name
         FROM 
             votes v
