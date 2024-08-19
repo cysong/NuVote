@@ -29,9 +29,9 @@ body {
 
   
   .slogan {
+    align-self: end;
     font-size: 1.1rem;
     color: #78290f;
-    margin-left: 15px;
     font-style: italic;
   }
  
