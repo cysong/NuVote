@@ -73,7 +73,7 @@ def vote():
         'competitor_id': competitor_id,
         'voted_by': g.user['user_id'],
         'competition_id': competition['competition_id'],
-        'voted_ip': request.remote_addr,
+        'voted_ip': get_real_ip(),
         'status': DEFAULT_VOTE_STATUS
     }
 
@@ -97,3 +97,17 @@ def can_be_voted(competition):
     if competition['status'] == 'finished' or competition['end_date'] < now:
         return False, "This competition is over, and the final results will be announced soon!"
     return True, ""
+
+
+def get_real_ip():
+    """Get real ip, especially when server behiend a proxy"""
+    # If X-Forwarded-For is not available, check the X-Real-IP header
+    if request.headers.get('X-Real-IP'):
+        ip = request.headers.get('X-Real-IP')
+    # First, try to get the real IP address from the X-Forwarded-For header
+    elif request.headers.getlist("X-Forwarded-For"):
+        ip = request.headers.getlist("X-Forwarded-For")[0]
+    # As a last resort, use the remote address directly from the request
+    else:
+        ip = request.remote_addr
+    return ip
