@@ -53,7 +53,13 @@ def profile(user_id):
         users_repository.update_user(user)
         flash('Profile updated successfully!', 'success')
 
-    editable = user['user_id'] == g.user['user_id'] or g.user['role'] == 'admin'
+    editable = user['user_id'] == g.user['user_id'] or g.user['role'] == 'admin' or g.user['role'] == 'scrutineer'
+    # scrutineer can not manage other scrutineers
+    if user['role'] == 'scrutineer' and g.user['role'] == 'scrutineer' and user['user_id'] != g.user['user_id']:
+        editable = False
+    # scrutineer can not manage admin user
+    if user['role'] == 'admin' and g.user['role'] == 'scrutineer':
+        editable = False
     return render_template('user/profile.html', user=user, editable=editable)
 
 
