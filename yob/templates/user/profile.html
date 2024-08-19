@@ -63,7 +63,8 @@
                                 Username must contain only characters and numbers! Length between 3 and 50.
                             </div>
                         </div>
-
+                        
+                        {% if CURRENT_USER.user_id == user.user_id or CURRENT_USER.role in ['admin', 'scrutineer'] %}
                         <!--Email-->
                         <div class="form-floating mb-3">
                             <input type="email" class="form-control" name="email" id="email" placeholder="Email"
@@ -110,6 +111,8 @@
                             </div>
                         </div>
 
+                        {% if CURRENT_USER.role in ['admin', 'scrutineer'] %}
+
                         <!--Role-->
                         {% if user.role == 'admin' %}
                         <div class="form-floating mb-3">
@@ -130,7 +133,6 @@
                         {% endif %}
 
                         <!--Status-->
-                        {% if role == 'admin' or role == 'scrutineer' %}
                         <div class="form-floating mb-3">
                             <select class="form-select" id="status" aria-label="Status" name="status">
                                 {% for s in ['active', 'inactive'] %}
@@ -141,13 +143,7 @@
                             </select>
                             <label for="status">Status</label>
                         </div>
-                        {% else %}
-                        <div class="form-floating mb-3">
-                            <select class="form-select" id="status" aria-label="Status" name="status" readonly>
-                                <option value="{{ user.status }}">{{ user.status.capitalize() }}</option>
-                            </select>
-                            <label for="status">Status</label>
-                        </div>
+                        {% endif %}
                         {% endif %}
 
                         <!--Description-->
@@ -165,7 +161,7 @@
                         <!--Button to Update Profile-->
                         <div class="d-grid">
                             <button type="submit" class="btn btn-success" {% if not editable and user.role !='admin' %}
-                                    readonly {% endif %}>
+                                    disabled {% endif %}>
                                 Update Profile
                             </button>
                         </div>
