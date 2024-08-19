@@ -39,7 +39,7 @@
                             <button class="btn btn-link text-decoration-none" id="deleteProfileImageButton"
                                     onclick="confirmDeleteProfileImage()"
                                     {% if user.profile_image== DEFAULT_PROFILE_IMAGE %}
-                                    readonly
+                                    disabled
                                     {% endif %}
                             >Delete Image
                             </button>
