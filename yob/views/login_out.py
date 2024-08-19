@@ -26,13 +26,18 @@ def login():
             # Check if the user exist
             user = get_user_by_username(username)
             if user:
+                if user['status'] == 'inactive':
+                    flash('User account is inactive!', 'danger')
+                    return render_template('user/login.html', username=username)
                 # Check if the password is correct
                 if is_user_password_valid_by_username(username, user_password):
                     app.login_manager.login_user(user)
                     login_user(user)
                     return redirect(url_for('index'))
 
-        flash('Invalid username or password!', 'danger')
+            flash('Invalid username or password!', 'danger')
+            return render_template('user/login.html', username=username)
+        flash('Username and password are required!', 'danger')
         return render_template('user/login.html', username=username)
 
     # Show the login form with message (if any)
