@@ -195,7 +195,7 @@ def update_user(user):
     with Cursor() as cursor:
         cursor.execute("""
             UPDATE users
-            SET email = %s, first_name = %s, last_name = %s, location = %s, description = %s
+            SET email = %s, first_name = %s, last_name = %s, location = %s, description = %s, status = %s, role = %s
             WHERE user_id = %s
         """, (
             user['email'],
@@ -203,6 +203,8 @@ def update_user(user):
             user['last_name'],
             user['location'],
             user['description'],
+            user['status'],
+            user['role'],
             user['user_id']
         ))
         affected_rows = cursor.rowcount

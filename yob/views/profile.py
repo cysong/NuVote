@@ -25,10 +25,6 @@ def profile(user_id):
         description = request.form['description']
         editable = user['user_id'] == g.user['user_id'] or g.user['role'] in ['admin', 'scrutineer']
 
-        user['first_name'] = first_name
-        user['last_name'] = last_name
-        user['location'] = location
-        user['description'] = description
         # Validate email format
         if email != user['email']:
             if not re.match(config.EMAIL_REGEX, email):
@@ -41,8 +37,17 @@ def profile(user_id):
                 return render_template('user/profile.html', user=user, editable=editable)
 
             user['email'] = email
+        # User can only modify self infomations
+        if g.user['user_id'] == user['user_id']:
+            user['first_name'] = first_name
+            user['last_name'] = last_name
+            user['location'] = location
+            user['description'] = description
+
         if g.user['role'] in ['admin', 'scrutineer']:
-            user['role'] = request.form['role']
+            # Role for voter can not be changed
+            if user['role'] != 'voter':
+                user['role'] = request.form['role']
             user['status'] = request.form['status']
         users_repository.update_user(user)
         flash('Profile updated successfully!', 'success')
