@@ -38,7 +38,8 @@ def competition_create():
             start_date = request.form['start_date']
             end_date = request.form['end_date']
 
-            verify_competition(name, description, start_date, end_date)
+            if not verify_competition(name, description, start_date, end_date):
+                return redirect(url_for('competition_create'))
 
             if 'image' not in request.files:
                 return jsonify(success=False, error='No file part')
@@ -85,27 +86,8 @@ def competition_edit(competition_id):
             end_date = request.form['end_date']
             status = request.form['status']
 
-            
-            start_date_dt = datetime.fromisoformat(start_date)
-            end_date_dt = datetime.fromisoformat(end_date)
-            now = datetime.now()
-
-            # Server-side validation
-            if len(name) == 0:
-                flash('name is required.', 'danger')
-                return render_template('competitions/competition_edit.html', competition=request.form)
-            if len(description) == 0:
-                flash('description is required.', 'danger')
-                return render_template('competitions/competition_edit.html', competition=request.form)
-
-            if start_date_dt < now:
-                flash('Start date cannot be in the past.', 'danger')
-                return render_template('competitions/competition_edit.html', competition=request.form)
-
-            if end_date_dt <= start_date_dt:
-                flash('End date cannot be equal to or earlier than the start date.', 'danger')
-                return render_template('competitions/competition_edit.html', competition=request.form)
-
+            if not verify_competition(name, description, start_date, end_date):
+                return redirect(url_for('competition_create'))
             competition = Competition(name, description, request.form['image'], start_date, end_date,
                                       status, g.user['user_id'])
             update_competition(competition_id, competition)
@@ -159,15 +141,14 @@ def verify_competition(name, description, start_date, end_date):
     # Server-side validation
     if len(name) == 0:
         flash('name is required.', 'danger')
-        return redirect(url_for('competition_create'))
+        return False
     if len(description) == 0:
         flash('description is required.', 'danger')
-        return redirect(url_for('competition_create'))
-
+        return False
     if start_date_dt < now:
         flash('Start date cannot be in the past.', 'danger')
-        return redirect(url_for('competition_create'))
-
+        return False
     if end_date_dt <= start_date_dt:
         flash('End date cannot be equal to or earlier than the start date.', 'danger')
-        return redirect(url_for('competition_create'))
+        return False
+    return True
