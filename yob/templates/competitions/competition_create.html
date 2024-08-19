@@ -8,7 +8,7 @@
     <div class="mb-2">
         <a class="btn btn-outline-secondary" href="{{url_for('competitions_mgmt')}}"><i class="bi bi-arrow-left"></i>Back</a>
     </div>
-    
+
     <form class="row g-3 needs-validation"
           action="{{ url_for('competition_create') }}"
           enctype="multipart/form-data"
@@ -24,7 +24,7 @@
         <!-- Competition Description -->
         <div class="form-floating mb-3">
             <textarea type="text" class="form-control" id="competition-description" name="description"
-                   placeholder="Competition Description" required style="height: 100px;"></textarea>
+                      placeholder="Competition Description" required style="height: 100px;"></textarea>
             <label class="ms-2" for="competition-description">Competition Description</label>
             <div class="invalid-feedback">Competition Description is required</div>
         </div>
@@ -50,7 +50,9 @@
             <input type="datetime-local" class="form-control" id="end_date" name="end_date"
                    placeholder="Competition End Date" required>
             <label class="ms-2" for="end_date">Competition End Date</label>
-            <div class="invalid-feedback">Competition Start Date is required and it cannot be equal to or earlier than the start date</div>
+            <div class="invalid-feedback">Competition Start Date is required and it cannot be equal to or earlier than
+                the start date
+            </div>
         </div>
 
         <!--Button to Create Competition-->
@@ -58,16 +60,22 @@
             <button type="submit" class="btn btn-success">Create</button>
         </div>
     </form>
-</div>
+</div>x
 <script>
     // Function to set current time as default for start_date
     function setDefaultStartDate() {
+        // Create a new date object
         const now = new Date();
-        const formattedDate = now.toISOString().slice(0, 16);
+
+        // Get the Auckland timezone offset
+        const formattedDate = now.toLocaleString("sv-SE", { timeZone: "Pacific/Auckland" }).slice(0, 16);
+
+        // Set the start_date value and minimum values for start_date and end_date fields
         document.getElementById('start_date').value = formattedDate;
         document.getElementById('start_date').min = formattedDate;
         document.getElementById('end_date').min = formattedDate;
     }
+
 
 
     // Validate the form before submission
