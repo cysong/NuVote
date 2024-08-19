@@ -14,7 +14,7 @@
 
             <div class="card">
                 <div class="card-body">
-                    <h1 class="fs-4 card-title fw-bold mb-4">{{ 'Edit' if editable and user_id == user.user_id else
+                    <h1 class="fs-4 card-title fw-bold mb-4">{{ 'Edit' if editable else
                         'View' }} Profile</h1>
                     <div class="text-center my-3">
 
@@ -160,10 +160,11 @@
 
                         <!--Button to Update Profile-->
                         <div class="d-grid">
-                            <button type="submit" class="btn btn-success" {% if not editable and user.role !='admin' %}
-                                    disabled {% endif %}>
+                            {% if editable %}
+                            <button type="submit" class="btn btn-success">
                                 Update Profile
                             </button>
+                            {% endif %}
                         </div>
                     </form>
                 </div>
