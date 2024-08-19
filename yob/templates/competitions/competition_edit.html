@@ -34,9 +34,8 @@
 
         <!-- Competition Description -->
         <div class="form-floating mb-3">
-            <textarea type="text" class="form-control" id="description" name="description"
-                      value="{{ competition['description'] }}"
-                      placeholder="Competition Description" required style="height: 100px;"></textarea>
+            <textarea class="form-control" id="description" name="description" rows="5"
+                      placeholder="Competition Description" required style="min-height:100px;">{{ competition['description'] }}</textarea>
             <label class="ms-2" for="description">Competition Description</label>
         </div>
 
