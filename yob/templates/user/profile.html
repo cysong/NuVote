@@ -114,7 +114,7 @@
                         {% if CURRENT_USER.role in ['admin', 'scrutineer'] %}
 
                         <!--Role-->
-                        {% if user.role == 'admin' %}
+                        {% if user.role in ['admin', 'scrutineer'] %}
                         <div class="form-floating mb-3">
                             <select class="form-select" id="role" aria-label="Role" name="role">
                                 {% for s in ['scrutineer', 'admin'] %}
