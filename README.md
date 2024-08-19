@@ -105,6 +105,37 @@ Before you begin, ensure you have the following installed on your system:
 
 ## Testing
 
+This project uses [Cypress](https://www.cypress.io/) for end-to-end (E2E) testing, providing a robust and reliable solution for testing. Cypress stands out from other testing frameworks with its ability to perform tests directly in the browser, offering real-time reloading, automatic waiting, and an interactive GUI, making it easier to debug and develop tests.
+
+### Setup
+
+1. **Install Node.js**  
+   Ensure you have [Node.js](https://nodejs.org/) installed, as Cypress requires it to run.
+
+2. **Install Dependencies**  
+   Navigate to the `tests/e2e` directory and run the following command to install all required dependencies:
+```bash
+   npm install
+```
+### Running Tests
+You can run Cypress tests in two different modes:
+
+#### Interactive Mode
+Open Cypress in interactive mode to visually see the tests running in the browser:
+```bash
+npm run open
+```
+#### Headless Mode
+Run all tests in headless mode without opening the GUI, useful for CI/CD pipelines:
+```bash
+npm run test
+```
+This command will execute all the E2E tests in the terminal and generate a test report.
+
+### Additional Information
+- Test Files: All test cases are located in the `tests/e2e/cypress/e2e` directory. The test files are written in JavaScript.
+- Configuration: Cypress configuration settings are managed in the `cypress.config.js` file.
+- Test Reports: Test results, including screenshots and videos (in headless mode), are stored in the `tests/e2e/cypress/reports directory.
 
 ## Contributing
 
