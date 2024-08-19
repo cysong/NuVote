@@ -37,7 +37,7 @@ def profile(user_id):
 
             exist_user = users_repository.get_user_by_email(email)
             if exist_user and exist_user['user_id'] != user_id:
-                flash("This email has been registered.", 'danger')
+                flash("This email already exists.", 'danger')
                 return render_template('user/profile.html', user=user, editable=editable)
 
             user['email'] = email
