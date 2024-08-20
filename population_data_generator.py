@@ -84,9 +84,9 @@ def generate_votes_for_competition(competition_id, legal_votes_count=50, illegal
     if not competition:
         print(f'competition with id {competition_id} not found')
         return
-    # if competition['status'] == 'approved':
-    #     print(f'competition with id {competition_id} has been approved')
-    #     return
+    if competition['status'] in ('draft', 'in_plan'):
+        print(f'competition with id {competition_id} is {competition["status"]}, ignore')
+        return
     if not (competition['start_date'] and competition['end_date']):
         print(f'competition with id {competition_id} has no start and end dates')
         return

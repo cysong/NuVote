@@ -714,644 +714,329 @@ VALUES ('Golden Cap', 'A vibrant mushroom with a golden cap that stands out in a
 -- -----------------------------------------------------
 -- Insert votes
 -- -----------------------------------------------------
-INSERT INTO votes (competition_id, competitor_id, voted_by, status, voted_ip, voted_at)
-VALUES
-    -- Votes for competition 1
-    (1, 4, 18, 'valid', '192.168.1.18', '2021-08-01' +
-                                        INTERVAL FLOOR(RAND() * 59) DAY +
-                                        INTERVAL FLOOR(RAND() * 24) HOUR +
-                                        INTERVAL FLOOR(RAND() * 60) MINUTE),
-    (1, 5, 19, 'valid', '192.168.1.19', '2021-08-01' +
-                                        INTERVAL FLOOR(RAND() * 59) DAY +
-                                        INTERVAL FLOOR(RAND() * 24) HOUR +
-                                        INTERVAL FLOOR(RAND() * 60) MINUTE),
-    (1, 6, 20, 'valid', '192.168.1.20', '2021-08-01' +
-                                        INTERVAL FLOOR(RAND() * 59) DAY +
-                                        INTERVAL FLOOR(RAND() * 24) HOUR +
-                                        INTERVAL FLOOR(RAND() * 60) MINUTE),
-    (1, 7, 21, 'valid', '192.168.1.21', '2021-08-01' +
-                                        INTERVAL FLOOR(RAND() * 59) DAY +
-                                        INTERVAL FLOOR(RAND() * 24) HOUR +
-                                        INTERVAL FLOOR(RAND() * 60) MINUTE),
-    (1, 8, 22, 'valid', '192.168.1.22', '2021-08-01' +
-                                        INTERVAL FLOOR(RAND() * 59) DAY +
-                                        INTERVAL FLOOR(RAND() * 24) HOUR +
-                                        INTERVAL FLOOR(RAND() * 60) MINUTE),
-    (1, 9, 23, 'valid', '192.168.1.23', '2021-08-01' +
-                                        INTERVAL FLOOR(RAND() * 59) DAY +
-                                        INTERVAL FLOOR(RAND() * 24) HOUR +
-                                        INTERVAL FLOOR(RAND() * 60) MINUTE),
-    (1, 10, 24, 'valid', '192.168.1.24', '2021-08-01' +
-                                         INTERVAL FLOOR(RAND() * 59) DAY +
-                                         INTERVAL FLOOR(RAND() * 24) HOUR +
-                                         INTERVAL FLOOR(RAND() * 60) MINUTE),
-    (1, 1, 25, 'valid', '192.168.1.25', '2021-08-01' +
-                                        INTERVAL FLOOR(RAND() * 59) DAY +
-                                        INTERVAL FLOOR(RAND() * 24) HOUR +
-                                        INTERVAL FLOOR(RAND() * 60) MINUTE),
-    (1, 2, 26, 'valid', '192.168.1.26', '2021-08-01' +
-                                        INTERVAL FLOOR(RAND() * 59) DAY +
-                                        INTERVAL FLOOR(RAND() * 24) HOUR +
-                                        INTERVAL FLOOR(RAND() * 60) MINUTE),
-    (1, 3, 27, 'valid', '192.168.1.27', '2021-08-01' +
-                                        INTERVAL FLOOR(RAND() * 59) DAY +
-                                        INTERVAL FLOOR(RAND() * 24) HOUR +
-                                        INTERVAL FLOOR(RAND() * 60) MINUTE),
-    (1, 4, 28, 'valid', '192.168.1.28', '2021-08-01' +
-                                        INTERVAL FLOOR(RAND() * 59) DAY +
-                                        INTERVAL FLOOR(RAND() * 24) HOUR +
-                                        INTERVAL FLOOR(RAND() * 60) MINUTE),
-    (1, 5, 29, 'valid', '192.168.1.29', '2021-08-01' +
-                                        INTERVAL FLOOR(RAND() * 59) DAY +
-                                        INTERVAL FLOOR(RAND() * 24) HOUR +
-                                        INTERVAL FLOOR(RAND() * 60) MINUTE),
-    (1, 6, 30, 'valid', '192.168.1.30', '2021-08-01' +
-                                        INTERVAL FLOOR(RAND() * 59) DAY +
-                                        INTERVAL FLOOR(RAND() * 24) HOUR +
-                                        INTERVAL FLOOR(RAND() * 60) MINUTE),
-    (1, 7, 31, 'valid', '192.168.1.31', '2021-08-01' +
-                                        INTERVAL FLOOR(RAND() * 59) DAY +
-                                        INTERVAL FLOOR(RAND() * 24) HOUR +
-                                        INTERVAL FLOOR(RAND() * 60) MINUTE),
-    (1, 8, 32, 'valid', '192.168.1.32', '2021-08-01' +
-                                        INTERVAL FLOOR(RAND() * 59) DAY +
-                                        INTERVAL FLOOR(RAND() * 24) HOUR +
-                                        INTERVAL FLOOR(RAND() * 60) MINUTE),
-    (1, 9, 33, 'valid', '192.168.1.33', '2021-08-01' +
-                                        INTERVAL FLOOR(RAND() * 59) DAY +
-                                        INTERVAL FLOOR(RAND() * 24) HOUR +
-                                        INTERVAL FLOOR(RAND() * 60) MINUTE),
-    (1, 10, 34, 'valid', '192.168.1.34', '2021-08-01' +
-                                         INTERVAL FLOOR(RAND() * 59) DAY +
-                                         INTERVAL FLOOR(RAND() * 24) HOUR +
-                                         INTERVAL FLOOR(RAND() * 60) MINUTE),
-    (1, 1, 51, 'valid', '192.168.1.51', '2021-08-01' +
-                                        INTERVAL FLOOR(RAND() * 59) DAY +
-                                        INTERVAL FLOOR(RAND() * 24) HOUR +
-                                        INTERVAL FLOOR(RAND() * 60) MINUTE),
-    (1, 2, 52, 'valid', '192.168.1.52', '2021-08-01' +
-                                        INTERVAL FLOOR(RAND() * 59) DAY +
-                                        INTERVAL FLOOR(RAND() * 24) HOUR +
-                                        INTERVAL FLOOR(RAND() * 60) MINUTE),
-    (1, 3, 53, 'valid', '192.168.1.53', '2021-08-01' +
-                                        INTERVAL FLOOR(RAND() * 59) DAY +
-                                        INTERVAL FLOOR(RAND() * 24) HOUR +
-                                        INTERVAL FLOOR(RAND() * 60) MINUTE),
-    (1, 4, 54, 'valid', '192.168.1.54', '2021-08-01' +
-                                        INTERVAL FLOOR(RAND() * 59) DAY +
-                                        INTERVAL FLOOR(RAND() * 24) HOUR +
-                                        INTERVAL FLOOR(RAND() * 60) MINUTE),
-    (1, 5, 55, 'valid', '192.168.1.55', '2021-08-01' +
-                                        INTERVAL FLOOR(RAND() * 59) DAY +
-                                        INTERVAL FLOOR(RAND() * 24) HOUR +
-                                        INTERVAL FLOOR(RAND() * 60) MINUTE),
-    (1, 1, 56, 'valid', '192.168.1.56', '2021-08-01' +
-                                        INTERVAL FLOOR(RAND() * 59) DAY +
-                                        INTERVAL FLOOR(RAND() * 24) HOUR +
-                                        INTERVAL FLOOR(RAND() * 60) MINUTE),
-    (1, 2, 57, 'valid', '192.168.1.57', '2021-08-01' +
-                                        INTERVAL FLOOR(RAND() * 59) DAY +
-                                        INTERVAL FLOOR(RAND() * 24) HOUR +
-                                        INTERVAL FLOOR(RAND() * 60) MINUTE),
-    (1, 3, 58, 'valid', '192.168.1.58', '2021-08-01' +
-                                        INTERVAL FLOOR(RAND() * 59) DAY +
-                                        INTERVAL FLOOR(RAND() * 24) HOUR +
-                                        INTERVAL FLOOR(RAND() * 60) MINUTE),
-    (1, 4, 59, 'valid', '192.168.1.59', '2021-08-01' +
-                                        INTERVAL FLOOR(RAND() * 59) DAY +
-                                        INTERVAL FLOOR(RAND() * 24) HOUR +
-                                        INTERVAL FLOOR(RAND() * 60) MINUTE),
-    (1, 5, 60, 'valid', '192.168.1.60', '2021-08-01' +
-                                        INTERVAL FLOOR(RAND() * 59) DAY +
-                                        INTERVAL FLOOR(RAND() * 24) HOUR +
-                                        INTERVAL FLOOR(RAND() * 60) MINUTE),
-    (1, 6, 61, 'valid', '192.168.1.61', '2021-08-01' +
-                                        INTERVAL FLOOR(RAND() * 59) DAY +
-                                        INTERVAL FLOOR(RAND() * 24) HOUR +
-                                        INTERVAL FLOOR(RAND() * 60) MINUTE),
-    (1, 7, 62, 'valid', '192.168.1.62', '2021-08-01' +
-                                        INTERVAL FLOOR(RAND() * 59) DAY +
-                                        INTERVAL FLOOR(RAND() * 24) HOUR +
-                                        INTERVAL FLOOR(RAND() * 60) MINUTE),
-    (1, 8, 63, 'valid', '192.168.1.63', '2021-08-01' +
-                                        INTERVAL FLOOR(RAND() * 59) DAY +
-                                        INTERVAL FLOOR(RAND() * 24) HOUR +
-                                        INTERVAL FLOOR(RAND() * 60) MINUTE),
-    (1, 9, 64, 'valid', '192.168.1.64', '2021-08-01' +
-                                        INTERVAL FLOOR(RAND() * 59) DAY +
-                                        INTERVAL FLOOR(RAND() * 24) HOUR +
-                                        INTERVAL FLOOR(RAND() * 60) MINUTE),
-    (1, 10, 65, 'valid', '192.168.1.65', '2021-08-01' +
-                                         INTERVAL FLOOR(RAND() * 59) DAY +
-                                         INTERVAL FLOOR(RAND() * 24) HOUR +
-                                         INTERVAL FLOOR(RAND() * 60) MINUTE),
-    (1, 1, 66, 'valid', '192.168.1.66', '2021-08-01' +
-                                         INTERVAL FLOOR(RAND() * 59) DAY +
-                                         INTERVAL FLOOR(RAND() * 24) HOUR +
-                                         INTERVAL FLOOR(RAND() * 60) MINUTE),
-    (1, 2, 67, 'valid', '192.168.1.67', '2021-08-01' +
-                                         INTERVAL FLOOR(RAND() * 59) DAY +
-                                         INTERVAL FLOOR(RAND() * 24) HOUR +
-                                         INTERVAL FLOOR(RAND() * 60) MINUTE),
-    (1, 3, 68, 'valid', '192.168.1.68', '2021-08-01' +
-                                         INTERVAL FLOOR(RAND() * 59) DAY +
-                                         INTERVAL FLOOR(RAND() * 24) HOUR +
-                                         INTERVAL FLOOR(RAND() * 60) MINUTE),
-    (1, 4, 69, 'valid', '192.168.1.69', '2021-08-01' +
-                                         INTERVAL FLOOR(RAND() * 59) DAY +
-                                         INTERVAL FLOOR(RAND() * 24) HOUR +
-                                         INTERVAL FLOOR(RAND() * 60) MINUTE),
-    (1, 5, 70, 'valid', '192.168.1.70', '2021-08-01' +
-                                         INTERVAL FLOOR(RAND() * 59) DAY +
-                                         INTERVAL FLOOR(RAND() * 24) HOUR +
-                                         INTERVAL FLOOR(RAND() * 60) MINUTE),
-    (1, 6, 71, 'valid', '192.168.1.71', '2021-08-01' +
-                                         INTERVAL FLOOR(RAND() * 59) DAY +
-                                         INTERVAL FLOOR(RAND() * 24) HOUR +
-                                         INTERVAL FLOOR(RAND() * 60) MINUTE),
-    (1, 7, 72, 'valid', '192.168.1.72', '2021-08-01' +
-                                         INTERVAL FLOOR(RAND() * 59) DAY +
-                                         INTERVAL FLOOR(RAND() * 24) HOUR +
-                                         INTERVAL FLOOR(RAND() * 60) MINUTE),
-    (1, 8, 73, 'valid', '192.168.1.73', '2021-08-01' +
-                                         INTERVAL FLOOR(RAND() * 59) DAY +
-                                         INTERVAL FLOOR(RAND() * 24) HOUR +
-                                         INTERVAL FLOOR(RAND() * 60) MINUTE),
-    (1, 9, 74, 'valid', '192.168.1.74', '2021-08-01' +
-                                         INTERVAL FLOOR(RAND() * 59) DAY +
-                                         INTERVAL FLOOR(RAND() * 24) HOUR +
-                                         INTERVAL FLOOR(RAND() * 60) MINUTE),
-    (1, 10, 75, 'valid', '192.168.1.75', '2021-08-01' +
-                                         INTERVAL FLOOR(RAND() * 59) DAY +
-                                         INTERVAL FLOOR(RAND() * 24) HOUR +
-                                         INTERVAL FLOOR(RAND() * 60) MINUTE);
-
--- Votes for competition 2
--- Votes for competition 2, competitor 11
-INSERT INTO votes (competition_id, competitor_id, voted_by, status, voted_ip, voted_at)
-VALUES (2, 11, 11, 'valid', '192.168.1.11', '2022-08-01' +
-                                            INTERVAL FLOOR(RAND() * 59) DAY +
-                                            INTERVAL FLOOR(RAND() * 24) HOUR +
-                                            INTERVAL FLOOR(RAND() * 60) MINUTE)
-        ,
-       (2, 11, 12, 'valid', '192.168.1.12', '2022-08-01' +
-                                            INTERVAL FLOOR(RAND() * 59) DAY +
-                                            INTERVAL FLOOR(RAND() * 24) HOUR +
-                                            INTERVAL FLOOR(RAND() * 60) MINUTE)
-        ,
-
--- Votes for competition 2, competitor 12
-       (2, 12, 21, 'valid', '192.168.1.21', '2022-08-01' +
-                                            INTERVAL FLOOR(RAND() * 59) DAY +
-                                            INTERVAL FLOOR(RAND() * 24) HOUR +
-                                            INTERVAL FLOOR(RAND() * 60) MINUTE)
-        ,
-       (2, 12, 22, 'valid', '192.168.1.22', '2022-08-01' +
-                                            INTERVAL FLOOR(RAND() * 59) DAY +
-                                            INTERVAL FLOOR(RAND() * 24) HOUR +
-                                            INTERVAL FLOOR(RAND() * 60) MINUTE)
-        ,
-       (2, 12, 23, 'valid', '192.168.1.23', '2022-08-01' +
-                                            INTERVAL FLOOR(RAND() * 59) DAY +
-                                            INTERVAL FLOOR(RAND() * 24) HOUR +
-                                            INTERVAL FLOOR(RAND() * 60) MINUTE)
-        ,
-
--- Votes for competition 2, competitor 13
-       (2, 13, 31, 'valid', '192.168.1.31', '2022-08-01' +
-                                            INTERVAL FLOOR(RAND() * 59) DAY +
-                                            INTERVAL FLOOR(RAND() * 24) HOUR +
-                                            INTERVAL FLOOR(RAND() * 60) MINUTE)
-        ,
-       (2, 13, 32, 'valid', '192.168.1.32', '2022-08-01' +
-                                            INTERVAL FLOOR(RAND() * 59) DAY +
-                                            INTERVAL FLOOR(RAND() * 24) HOUR +
-                                            INTERVAL FLOOR(RAND() * 60) MINUTE)
-        ,
-       (2, 13, 33, 'valid', '192.168.1.33', '2022-08-01' +
-                                            INTERVAL FLOOR(RAND() * 59) DAY +
-                                            INTERVAL FLOOR(RAND() * 24) HOUR +
-                                            INTERVAL FLOOR(RAND() * 60) MINUTE)
-        ,
-
--- Votes for competition 2, competitor 14
-       (2, 14, 41, 'valid', '192.168.1.41', '2022-08-01' +
-                                            INTERVAL FLOOR(RAND() * 59) DAY +
-                                            INTERVAL FLOOR(RAND() * 24) HOUR +
-                                            INTERVAL FLOOR(RAND() * 60) MINUTE)
-        ,
-       (2, 14, 42, 'valid', '192.168.1.42', '2022-08-01' +
-                                            INTERVAL FLOOR(RAND() * 59) DAY +
-                                            INTERVAL FLOOR(RAND() * 24) HOUR +
-                                            INTERVAL FLOOR(RAND() * 60) MINUTE)
-        ,
-       (2, 14, 43, 'valid', '192.168.1.43', '2022-08-01' +
-                                            INTERVAL FLOOR(RAND() * 59) DAY +
-                                            INTERVAL FLOOR(RAND() * 24) HOUR +
-                                            INTERVAL FLOOR(RAND() * 60) MINUTE)
-        ,
-
--- Votes for competition 2, competitor 15
-       (2, 15, 51, 'valid', '192.168.1.51', '2022-08-01' +
-                                            INTERVAL FLOOR(RAND() * 59) DAY +
-                                            INTERVAL FLOOR(RAND() * 24) HOUR +
-                                            INTERVAL FLOOR(RAND() * 60) MINUTE)
-        ,
-       (2, 15, 52, 'valid', '192.168.1.52', '2022-08-01' +
-                                            INTERVAL FLOOR(RAND() * 59) DAY +
-                                            INTERVAL FLOOR(RAND() * 24) HOUR +
-                                            INTERVAL FLOOR(RAND() * 60) MINUTE)
-        ,
-       (2, 15, 53, 'valid', '192.168.1.53', '2022-08-01' +
-                                            INTERVAL FLOOR(RAND() * 59) DAY +
-                                            INTERVAL FLOOR(RAND() * 24) HOUR +
-                                            INTERVAL FLOOR(RAND() * 60) MINUTE)
-        ,
-       (2, 15, 54, 'valid', '192.168.1.54', '2022-08-01' +
-                                            INTERVAL FLOOR(RAND() * 59) DAY +
-                                            INTERVAL FLOOR(RAND() * 24) HOUR +
-                                            INTERVAL FLOOR(RAND() * 60) MINUTE)
-        ,
-
--- Votes for competition 2, competitor 16
-       (2, 16, 61, 'valid', '192.168.1.61', '2022-08-01' +
-                                            INTERVAL FLOOR(RAND() * 59) DAY +
-                                            INTERVAL FLOOR(RAND() * 24) HOUR +
-                                            INTERVAL FLOOR(RAND() * 60) MINUTE)
-        ,
-       (2, 16, 62, 'valid', '192.168.1.62', '2022-08-01' +
-                                            INTERVAL FLOOR(RAND() * 59) DAY +
-                                            INTERVAL FLOOR(RAND() * 24) HOUR +
-                                            INTERVAL FLOOR(RAND() * 60) MINUTE)
-        ,
-
--- Votes for competition 2, competitor 17
-       (2, 17, 71, 'valid', '192.168.1.71', '2022-08-01' +
-                                            INTERVAL FLOOR(RAND() * 59) DAY +
-                                            INTERVAL FLOOR(RAND() * 24) HOUR +
-                                            INTERVAL FLOOR(RAND() * 60) MINUTE)
-        ,
-       (2, 17, 72, 'valid', '192.168.1.72', '2022-08-01' +
-                                            INTERVAL FLOOR(RAND() * 59) DAY +
-                                            INTERVAL FLOOR(RAND() * 24) HOUR +
-                                            INTERVAL FLOOR(RAND() * 60) MINUTE)
-        ,
-
--- Votes for competition 2, competitor 18
-       (2, 18, 81, 'valid', '192.168.1.81', '2022-08-01' +
-                                            INTERVAL FLOOR(RAND() * 59) DAY +
-                                            INTERVAL FLOOR(RAND() * 24) HOUR +
-                                            INTERVAL FLOOR(RAND() * 60) MINUTE)
-        ,
-       (2, 18, 82, 'valid', '192.168.1.82', '2022-08-01' +
-                                            INTERVAL FLOOR(RAND() * 59) DAY +
-                                            INTERVAL FLOOR(RAND() * 24) HOUR +
-                                            INTERVAL FLOOR(RAND() * 60) MINUTE)
-        ,
-
--- Votes for competition 2, competitor 19
-       (2, 19, 91, 'valid', '192.168.1.91', '2022-08-01' +
-                                            INTERVAL FLOOR(RAND() * 59) DAY +
-                                            INTERVAL FLOOR(RAND() * 24) HOUR +
-                                            INTERVAL FLOOR(RAND() * 60) MINUTE)
-        ,
-       (2, 19, 92, 'valid', '192.168.1.92',
-        '2022-08-01' + INTERVAL FLOOR(RAND() * 59) DAY + INTERVAL FLOOR(RAND() * 24) HOUR +
-        INTERVAL FLOOR(RAND() * 60) MINUTE)
-        ,
-
--- Votes for competition 2, competitor 20
-       (2, 20, 101, 'valid', '192.168.1.101',
-        '2022-08-01' + INTERVAL FLOOR(RAND() * 59) DAY + INTERVAL FLOOR(RAND() * 24) HOUR +
-        INTERVAL FLOOR(RAND() * 60) MINUTE)
-        ,
-       (2, 20, 102, 'valid', '192.168.1.102',
-        '2022-08-01' + INTERVAL FLOOR(RAND() * 59) DAY + INTERVAL FLOOR(RAND() * 24) HOUR +
-        INTERVAL FLOOR(RAND() * 60) MINUTE);
-
-
--- Votes for competition 3
-INSERT INTO votes (competition_id, competitor_id, voted_by, status, voted_ip, voted_at)
-VALUES (3, 21, 11, 'valid', '192.168.2.1', '2023-08-01' +
-                                           INTERVAL FLOOR(RAND() * 59) DAY +
-                                           INTERVAL FLOOR(RAND() * 24) HOUR +
-                                           INTERVAL FLOOR(RAND() * 60) MINUTE)
-        ,
-       (3, 21, 12, 'valid', '192.168.2.2', '2023-08-01' +
-                                           INTERVAL FLOOR(RAND() * 59) DAY +
-                                           INTERVAL FLOOR(RAND() * 24) HOUR +
-                                           INTERVAL FLOOR(RAND() * 60) MINUTE)
-        ,
-       (3, 21, 13, 'valid', '192.168.2.3', '2023-08-01' +
-                                           INTERVAL FLOOR(RAND() * 59) DAY +
-                                           INTERVAL FLOOR(RAND() * 24) HOUR +
-                                           INTERVAL FLOOR(RAND() * 60) MINUTE),
-
--- Votes for Competitor 22
-       (3, 22, 21, 'valid', '192.168.2.4', '2023-08-01' +
-                                           INTERVAL FLOOR(RAND() * 59) DAY +
-                                           INTERVAL FLOOR(RAND() * 24) HOUR +
-                                           INTERVAL FLOOR(RAND() * 60) MINUTE),
-       (3, 22, 22, 'valid', '192.168.2.5', '2023-08-01' +
-                                           INTERVAL FLOOR(RAND() * 59) DAY +
-                                           INTERVAL FLOOR(RAND() * 24) HOUR +
-                                           INTERVAL FLOOR(RAND() * 60) MINUTE),
-       (3, 22, 23, 'valid', '192.168.2.6', '2023-08-01' +
-                                           INTERVAL FLOOR(RAND() * 59) DAY +
-                                           INTERVAL FLOOR(RAND() * 24) HOUR +
-                                           INTERVAL FLOOR(RAND() * 60) MINUTE),
-
--- Votes for Competitor 23
-       (3, 23, 31, 'valid', '192.168.2.7', '2023-08-01' +
-                                           INTERVAL FLOOR(RAND() * 59) DAY +
-                                           INTERVAL FLOOR(RAND() * 24) HOUR +
-                                           INTERVAL FLOOR(RAND() * 60) MINUTE),
-       (3, 23, 32, 'valid', '192.168.2.8', '2023-08-01' +
-                                           INTERVAL FLOOR(RAND() * 59) DAY +
-                                           INTERVAL FLOOR(RAND() * 24) HOUR +
-                                           INTERVAL FLOOR(RAND() * 60) MINUTE),
-       (3, 23, 33, 'valid', '192.168.2.9', '2023-08-01' +
-                                           INTERVAL FLOOR(RAND() * 59) DAY +
-                                           INTERVAL FLOOR(RAND() * 24) HOUR +
-                                           INTERVAL FLOOR(RAND() * 60) MINUTE),
-
--- Votes for Competitor 24
-       (3, 24, 41, 'valid', '192.168.2.10', '2023-08-01' +
-                                            INTERVAL FLOOR(RAND() * 59) DAY +
-                                            INTERVAL FLOOR(RAND() * 24) HOUR +
-                                            INTERVAL FLOOR(RAND() * 60) MINUTE),
-       (3, 24, 42, 'valid', '192.168.2.11', '2023-08-01' +
-                                            INTERVAL FLOOR(RAND() * 59) DAY +
-                                            INTERVAL FLOOR(RAND() * 24) HOUR +
-                                            INTERVAL FLOOR(RAND() * 60) MINUTE),
-       (3, 24, 43, 'valid', '192.168.2.12', '2023-08-01' +
-                                            INTERVAL FLOOR(RAND() * 59) DAY +
-                                            INTERVAL FLOOR(RAND() * 24) HOUR +
-                                            INTERVAL FLOOR(RAND() * 60) MINUTE),
-
--- Votes for Competitor 25
-       (3, 25, 51, 'valid', '192.168.2.13', '2023-08-01' +
-                                            INTERVAL FLOOR(RAND() * 59) DAY +
-                                            INTERVAL FLOOR(RAND() * 24) HOUR +
-                                            INTERVAL FLOOR(RAND() * 60) MINUTE),
-       (3, 25, 52, 'valid', '192.168.2.14', '2023-08-01' +
-                                            INTERVAL FLOOR(RAND() * 59) DAY +
-                                            INTERVAL FLOOR(RAND() * 24) HOUR +
-                                            INTERVAL FLOOR(RAND() * 60) MINUTE),
-       (3, 25, 53, 'valid', '192.168.2.15', '2023-08-01' +
-                                            INTERVAL FLOOR(RAND() * 59) DAY +
-                                            INTERVAL FLOOR(RAND() * 24) HOUR +
-                                            INTERVAL FLOOR(RAND() * 60) MINUTE),
-
--- Votes for Competitor 26
-       (3, 26, 61, 'valid', '192.168.2.16', '2023-08-01' +
-                                            INTERVAL FLOOR(RAND() * 59) DAY +
-                                            INTERVAL FLOOR(RAND() * 24) HOUR +
-                                            INTERVAL FLOOR(RAND() * 60) MINUTE),
-       (3, 26, 62, 'valid', '192.168.2.17', '2023-08-01' +
-                                            INTERVAL FLOOR(RAND() * 59) DAY +
-                                            INTERVAL FLOOR(RAND() * 24) HOUR +
-                                            INTERVAL FLOOR(RAND() * 60) MINUTE),
-       (3, 26, 63, 'valid', '192.168.2.18', '2023-08-01' +
-                                            INTERVAL FLOOR(RAND() * 59) DAY +
-                                            INTERVAL FLOOR(RAND() * 24) HOUR +
-                                            INTERVAL FLOOR(RAND() * 60) MINUTE),
-
--- Votes for Competitor 27
-       (3, 27, 71, 'valid', '192.168.2.19', '2023-08-01' +
-                                            INTERVAL FLOOR(RAND() * 59) DAY +
-                                            INTERVAL FLOOR(RAND() * 24) HOUR +
-                                            INTERVAL FLOOR(RAND() * 60) MINUTE),
-       (3, 27, 72, 'valid', '192.168.2.20', '2023-08-01' +
-                                            INTERVAL FLOOR(RAND() * 59) DAY +
-                                            INTERVAL FLOOR(RAND() * 24) HOUR +
-                                            INTERVAL FLOOR(RAND() * 60) MINUTE),
-       (3, 27, 73, 'valid', '192.168.2.21', '2023-08-01' +
-                                            INTERVAL FLOOR(RAND() * 59) DAY +
-                                            INTERVAL FLOOR(RAND() * 24) HOUR +
-                                            INTERVAL FLOOR(RAND() * 60) MINUTE),
-
--- Votes for Competitor 28
-       (3, 28, 81, 'valid', '192.168.2.22', '2023-08-01' +
-                                            INTERVAL FLOOR(RAND() * 59) DAY +
-                                            INTERVAL FLOOR(RAND() * 24) HOUR +
-                                            INTERVAL FLOOR(RAND() * 60) MINUTE),
-       (3, 28, 82, 'valid', '192.168.2.23', '2023-08-01' +
-                                            INTERVAL FLOOR(RAND() * 59) DAY +
-                                            INTERVAL FLOOR(RAND() * 24) HOUR +
-                                            INTERVAL FLOOR(RAND() * 60) MINUTE),
-       (3, 28, 83, 'valid', '192.168.2.24', '2023-08-01' +
-                                            INTERVAL FLOOR(RAND() * 59) DAY +
-                                            INTERVAL FLOOR(RAND() * 24) HOUR +
-                                            INTERVAL FLOOR(RAND() * 60) MINUTE),
-
--- Votes for Competitor 29
-       (3, 29, 85, 'invalid', '192.168.2.25', '2023-08-01' +
-                                            INTERVAL FLOOR(RAND() * 59) DAY +
-                                            INTERVAL FLOOR(RAND() * 24) HOUR +
-                                            INTERVAL FLOOR(RAND() * 60) MINUTE),
-       (3, 29, 86, 'invalid', '192.168.2.25', '2023-08-01' +
-                                            INTERVAL FLOOR(RAND() * 59) DAY +
-                                            INTERVAL FLOOR(RAND() * 24) HOUR +
-                                            INTERVAL FLOOR(RAND() * 60) MINUTE),
-       (3, 29, 87, 'invalid', '192.168.2.25', '2023-08-01' +
-                                            INTERVAL FLOOR(RAND() * 59) DAY +
-                                            INTERVAL FLOOR(RAND() * 24) HOUR +
-                                            INTERVAL FLOOR(RAND() * 60) MINUTE),
-       (3, 29, 91, 'invalid', '192.168.2.25', '2023-08-01' +
-                                            INTERVAL FLOOR(RAND() * 59) DAY +
-                                            INTERVAL FLOOR(RAND() * 24) HOUR +
-                                            INTERVAL FLOOR(RAND() * 60) MINUTE),
-       (3, 29, 92, 'invalid', '192.168.2.25', '2023-08-01' +
-                                            INTERVAL FLOOR(RAND() * 59) DAY +
-                                            INTERVAL FLOOR(RAND() * 24) HOUR +
-                                            INTERVAL FLOOR(RAND() * 60) MINUTE),
-       (3, 29, 93, 'invalid', '192.168.2.25', '2023-08-01' +
-                                            INTERVAL FLOOR(RAND() * 59) DAY +
-                                            INTERVAL FLOOR(RAND() * 24) HOUR +
-                                            INTERVAL FLOOR(RAND() * 60) MINUTE),
-
--- Votes for Competitor 30
-       (3, 30, 101, 'valid', '192.168.2.28', '2023-08-01' +
-                                             INTERVAL FLOOR(RAND() * 24) HOUR +
-                                             INTERVAL FLOOR(RAND() * 60) MINUTE),
-       (3, 30, 102, 'valid', '192.168.2.29', '2023-08-01' +
-                                             INTERVAL FLOOR(RAND() * 24) HOUR +
-                                             INTERVAL FLOOR(RAND() * 60) MINUTE),
-       (3, 30, 103, 'valid', '192.168.2.30', '2023-08-01' +
-                                             INTERVAL FLOOR(RAND() * 59) DAY +
-                                             INTERVAL FLOOR(RAND() * 24) HOUR +
-                                             INTERVAL FLOOR(RAND() * 60) MINUTE);
-
-INSERT INTO votes (competition_id, competitor_id, voted_by, status, voted_ip, voted_at)
-VALUES (4, 31, 11, 'valid', '192.168.3.1', '2024-08-15' +
-                                           INTERVAL FLOOR(RAND() * 24) HOUR +
-                                           INTERVAL FLOOR(RAND() * 60) MINUTE),
-       (4, 31, 12, 'valid', '192.168.3.2', '2024-08-15' +
-                                           INTERVAL FLOOR(RAND() * 24) HOUR +
-                                           INTERVAL FLOOR(RAND() * 60) MINUTE),
-       (4, 31, 13, 'valid', '192.168.3.3', '2024-08-15' +
-                                           INTERVAL FLOOR(RAND() * 24) HOUR +
-                                           INTERVAL FLOOR(RAND() * 60) MINUTE),
-       (4, 31, 51, 'valid', '192.168.4.31', '2024-08-15' +
-                                            INTERVAL FLOOR(RAND() * 24) HOUR +
-                                            INTERVAL FLOOR(RAND() * 60) MINUTE),
-       (4, 31, 52, 'valid', '192.168.4.32', '2024-08-05' +
-                                            INTERVAL FLOOR(RAND() * 24) HOUR +
-                                            INTERVAL FLOOR(RAND() * 60) MINUTE),
-
-       (4, 32, 21, 'valid', '192.168.3.4', '2024-08-15' +
-                                           INTERVAL FLOOR(RAND() * 24) HOUR +
-                                           INTERVAL FLOOR(RAND() * 60) MINUTE),
-       (4, 32, 22, 'valid', '192.168.3.5', '2024-08-15' +
-                                           INTERVAL FLOOR(RAND() * 24) HOUR +
-                                           INTERVAL FLOOR(RAND() * 60) MINUTE),
-       (4, 32, 23, 'valid', '192.168.3.6', '2024-08-15' +
-                                           INTERVAL FLOOR(RAND() * 24) HOUR +
-                                           INTERVAL FLOOR(RAND() * 60) MINUTE),
-
-       (4, 33, 31, 'valid', '192.168.3.7', '2024-08-15' +
-                                           INTERVAL FLOOR(RAND() * 24) HOUR +
-                                           INTERVAL FLOOR(RAND() * 60) MINUTE),
-       (4, 33, 32, 'valid', '192.168.3.8', '2024-08-15' +
-                                           INTERVAL FLOOR(RAND() * 24) HOUR +
-                                           INTERVAL FLOOR(RAND() * 60) MINUTE),
-       (4, 33, 33, 'valid', '192.168.3.9', '2024-08-15' +
-                                           INTERVAL FLOOR(RAND() * 24) HOUR +
-                                           INTERVAL FLOOR(RAND() * 60) MINUTE),
-       (4, 33, 53, 'valid', '192.168.4.33', '2024-08-01' +
-                                            INTERVAL FLOOR(RAND() * 24) HOUR +
-                                            INTERVAL FLOOR(RAND() * 60) MINUTE),
-       (4, 33, 54, 'valid', '192.168.4.34', '2024-08-10' +
-                                            INTERVAL FLOOR(RAND() * 24) HOUR +
-                                            INTERVAL FLOOR(RAND() * 60) MINUTE),
-       (4, 33, 55, 'valid', '192.168.4.35', '2024-08-01' +
-                                            INTERVAL FLOOR(RAND() * 59) DAY +
-                                            INTERVAL FLOOR(RAND() * 24) HOUR +
-                                            INTERVAL FLOOR(RAND() * 60) MINUTE),
-       (4, 33, 56, 'valid', '192.168.4.36', '2024-08-15' +
-                                            INTERVAL FLOOR(RAND() * 24) HOUR +
-                                            INTERVAL FLOOR(RAND() * 60) MINUTE),
-       (4, 33, 57, 'valid', '192.168.4.37', '2024-08-30' +
-                                            INTERVAL FLOOR(RAND() * 24) HOUR +
-                                            INTERVAL FLOOR(RAND() * 60) MINUTE),
-
-       (4, 34, 41, 'valid', '192.168.3.10', '2024-08-15' +
-                                            INTERVAL FLOOR(RAND() * 24) HOUR +
-                                            INTERVAL FLOOR(RAND() * 60) MINUTE),
-       (4, 34, 42, 'valid', '192.168.3.11', '2024-08-15' +
-                                            INTERVAL FLOOR(RAND() * 24) HOUR +
-                                            INTERVAL FLOOR(RAND() * 60) MINUTE),
-       (4, 34, 43, 'valid', '192.168.3.12', '2024-08-15' +
-                                            INTERVAL FLOOR(RAND() * 24) HOUR +
-                                            INTERVAL FLOOR(RAND() * 60) MINUTE),
-       (4, 34, 58, 'valid', '192.168.4.38', '2024-08-01' +
-                                            INTERVAL FLOOR(RAND() * 24) HOUR +
-                                            INTERVAL FLOOR(RAND() * 60) MINUTE),
-
-       (4, 35, 59, 'valid', '192.168.4.39', '2024-08-01' +
-                                            INTERVAL FLOOR(RAND() * 24) HOUR +
-                                            INTERVAL FLOOR(RAND() * 60) MINUTE),
-       (4, 35, 60, 'valid', '192.168.4.40', '2024-08-05' +
-                                            INTERVAL FLOOR(RAND() * 24) HOUR +
-                                            INTERVAL FLOOR(RAND() * 60) MINUTE),
-       (4, 35, 61, 'valid', '192.168.4.41', '2024-08-10' +
-                                            INTERVAL FLOOR(RAND() * 24) HOUR +
-                                            INTERVAL FLOOR(RAND() * 60) MINUTE),
-       (4, 35, 62, 'valid', '192.168.4.42', '2024-08-15' +
-                                            INTERVAL FLOOR(RAND() * 24) HOUR +
-                                            INTERVAL FLOOR(RAND() * 60) MINUTE),
-       (4, 35, 63, 'valid', '192.168.4.43', '2024-08-20' +
-                                            INTERVAL FLOOR(RAND() * 24) HOUR +
-                                            INTERVAL FLOOR(RAND() * 60) MINUTE),
-       (4, 35, 64, 'valid', '192.168.4.44', '2024-08-25' +
-                                            INTERVAL FLOOR(RAND() * 24) HOUR +
-                                            INTERVAL FLOOR(RAND() * 60) MINUTE),
-
-       (4, 36, 65, 'valid', '192.168.4.45', '2024-09-01' +
-                                            INTERVAL FLOOR(RAND() * 24) HOUR +
-                                            INTERVAL FLOOR(RAND() * 60) MINUTE),
-       (4, 36, 66, 'valid', '192.168.4.45', '2024-09-02' +
-                                            INTERVAL FLOOR(RAND() * 24) HOUR +
-                                            INTERVAL FLOOR(RAND() * 60) MINUTE),
-       (4, 36, 67, 'valid', '192.168.4.45', '2024-09-03' +
-                                            INTERVAL FLOOR(RAND() * 24) HOUR +
-                                            INTERVAL FLOOR(RAND() * 60) MINUTE),
-       (4, 36, 68, 'valid', '192.168.4.45', '2024-09-04' +
-                                            INTERVAL FLOOR(RAND() * 24) HOUR +
-                                            INTERVAL FLOOR(RAND() * 60) MINUTE),
-       (4, 36, 69, 'valid', '192.168.4.45', '2024-09-05' +
-                                            INTERVAL FLOOR(RAND() * 24) HOUR +
-                                            INTERVAL FLOOR(RAND() * 60) MINUTE),
-       (4, 36, 70, 'valid', '192.168.4.45', '2024-09-06' +
-                                            INTERVAL FLOOR(RAND() * 24) HOUR +
-                                            INTERVAL FLOOR(RAND() * 60) MINUTE),
-       (4, 36, 71, 'valid', '192.168.4.51', '2024-09-07' +
-                                            INTERVAL FLOOR(RAND() * 24) HOUR +
-                                            INTERVAL FLOOR(RAND() * 60) MINUTE),
-       (4, 36, 72, 'valid', '192.168.4.51', '2024-09-08' +
-                                            INTERVAL FLOOR(RAND() * 24) HOUR +
-                                            INTERVAL FLOOR(RAND() * 60) MINUTE),
-       (4, 36, 73, 'valid', '192.168.4.51', '2024-09-09' +
-                                            INTERVAL FLOOR(RAND() * 24) HOUR +
-                                            INTERVAL FLOOR(RAND() * 60) MINUTE),
-       (4, 36, 74, 'valid', '192.168.4.51', '2024-09-10' +
-                                            INTERVAL FLOOR(RAND() * 24) HOUR +
-                                            INTERVAL FLOOR(RAND() * 60) MINUTE),
-       (4, 36, 75, 'valid', '192.168.4.51', '2024-09-11' +
-                                            INTERVAL FLOOR(RAND() * 24) HOUR +
-                                            INTERVAL FLOOR(RAND() * 60) MINUTE),
-       (4, 36, 76, 'valid', '192.168.4.51', '2024-09-12' +
-                                            INTERVAL FLOOR(RAND() * 24) HOUR +
-                                            INTERVAL FLOOR(RAND() * 60) MINUTE),
-       (4, 36, 77, 'valid', '192.168.4.51', '2024-09-13' +
-                                            INTERVAL FLOOR(RAND() * 24) HOUR +
-                                            INTERVAL FLOOR(RAND() * 60) MINUTE),
-       (4, 36, 78, 'valid', '192.168.4.51', '2024-09-14' +
-                                            INTERVAL FLOOR(RAND() * 24) HOUR +
-                                            INTERVAL FLOOR(RAND() * 60) MINUTE),
-       (4, 36, 79, 'valid', '192.168.4.51', '2024-09-15' +
-                                            INTERVAL FLOOR(RAND() * 24) HOUR +
-                                            INTERVAL FLOOR(RAND() * 60) MINUTE),
-       (4, 36, 80, 'valid', '192.168.4.60', '2024-09-16' +
-                                            INTERVAL FLOOR(RAND() * 24) HOUR +
-                                            INTERVAL FLOOR(RAND() * 60) MINUTE),
-
-       (4, 37, 15, 'valid', '192.168.3.19', '2024-09-15' +
-                                            INTERVAL FLOOR(RAND() * 24) HOUR +
-                                            INTERVAL FLOOR(RAND() * 60) MINUTE),
-       (4, 37, 16, 'valid', '192.168.3.20', '2024-09-15' +
-                                            INTERVAL FLOOR(RAND() * 24) HOUR +
-                                            INTERVAL FLOOR(RAND() * 60) MINUTE),
-
-       (4, 38, 81, 'valid', '192.168.3.22', '2024-09-15' +
-                                            INTERVAL FLOOR(RAND() * 24) HOUR +
-                                            INTERVAL FLOOR(RAND() * 60) MINUTE),
-       (4, 38, 82, 'valid', '192.168.3.23', '2024-09-15' +
-                                            INTERVAL FLOOR(RAND() * 24) HOUR +
-                                            INTERVAL FLOOR(RAND() * 60) MINUTE),
-       (4, 38, 83, 'valid', '192.168.3.24', '2024-09-15' +
-                                            INTERVAL FLOOR(RAND() * 24) HOUR +
-                                            INTERVAL FLOOR(RAND() * 60) MINUTE),
-       (4, 39, 91, 'valid', '192.168.3.25', '2024-09-15' +
-                                            INTERVAL FLOOR(RAND() * 24) HOUR +
-                                            INTERVAL FLOOR(RAND() * 60) MINUTE),
-       (4, 39, 92, 'valid', '192.168.3.26', '2024-09-15' +
-                                            INTERVAL FLOOR(RAND() * 24) HOUR +
-                                            INTERVAL FLOOR(RAND() * 60) MINUTE),
-       (4, 39, 93, 'valid', '192.168.3.27', '2024-09-15' +
-                                            INTERVAL FLOOR(RAND() * 24) HOUR +
-                                            INTERVAL FLOOR(RAND() * 60) MINUTE),
-
-       (4, 40, 101, 'valid', '192.168.3.28', '2024-09-15' +
-                                             INTERVAL FLOOR(RAND() * 24) HOUR +
-                                             INTERVAL FLOOR(RAND() * 60) MINUTE),
-       (4, 40, 102, 'valid', '192.168.3.29', '2024-09-15' +
-                                             INTERVAL FLOOR(RAND() * 24) HOUR +
-                                             INTERVAL FLOOR(RAND() * 60) MINUTE),
-       (4, 40, 103, 'valid', '192.168.3.30', '2024-09-15' +
-                                             INTERVAL FLOOR(RAND() * 24) HOUR +
-                                             INTERVAL FLOOR(RAND() * 60) MINUTE);
+/*!40000 ALTER TABLE `votes` DISABLE KEYS */;
+INSERT INTO `votes` (`vote_id`, `competition_id`, `competitor_id`, `voted_by`, `status`, `voted_ip`, `voted_at`) VALUES
+	(1, 1, 4, 11, 'valid', '10.1.0.0', '2021-08-27 21:15:43'),
+	(2, 1, 7, 12, 'valid', '10.1.0.1', '2021-09-26 21:22:04'),
+	(3, 1, 2, 13, 'valid', '10.1.0.2', '2021-08-30 07:11:35'),
+	(4, 1, 2, 14, 'valid', '10.1.0.3', '2021-08-06 20:16:49'),
+	(5, 1, 7, 15, 'valid', '10.1.0.4', '2021-08-08 22:20:29'),
+	(6, 1, 6, 16, 'valid', '10.1.0.5', '2021-08-07 06:31:10'),
+	(7, 1, 10, 17, 'valid', '10.1.0.6', '2021-09-27 22:08:25'),
+	(8, 1, 4, 18, 'valid', '10.1.0.7', '2021-08-11 20:37:58'),
+	(9, 1, 9, 19, 'valid', '10.1.0.8', '2021-08-08 00:54:48'),
+	(10, 1, 7, 20, 'valid', '10.1.0.9', '2021-08-03 03:05:43'),
+	(11, 1, 3, 21, 'valid', '10.1.0.10', '2021-08-14 11:44:52'),
+	(12, 1, 6, 22, 'valid', '10.1.0.11', '2021-08-25 16:20:52'),
+	(13, 1, 5, 23, 'valid', '10.1.0.12', '2021-09-09 09:10:54'),
+	(14, 1, 4, 24, 'valid', '10.1.0.13', '2021-08-09 00:38:26'),
+	(15, 1, 8, 25, 'valid', '10.1.0.14', '2021-09-04 17:48:12'),
+	(16, 1, 2, 26, 'valid', '10.1.0.15', '2021-09-05 19:38:36'),
+	(17, 1, 7, 27, 'valid', '10.1.0.16', '2021-08-08 23:03:00'),
+	(18, 1, 7, 28, 'valid', '10.1.0.17', '2021-08-08 04:58:10'),
+	(19, 1, 2, 29, 'valid', '10.1.0.18', '2021-09-16 21:12:51'),
+	(20, 1, 8, 30, 'valid', '10.1.0.19', '2021-08-27 16:58:01'),
+	(21, 1, 5, 31, 'valid', '10.1.0.20', '2021-08-13 06:27:50'),
+	(22, 1, 7, 32, 'valid', '10.1.0.21', '2021-08-12 12:20:32'),
+	(23, 1, 4, 33, 'valid', '10.1.0.22', '2021-08-01 12:57:48'),
+	(24, 1, 5, 34, 'valid', '10.1.0.23', '2021-08-14 18:51:45'),
+	(25, 1, 5, 35, 'valid', '10.1.0.24', '2021-08-24 18:01:15'),
+	(26, 1, 7, 36, 'valid', '10.1.0.25', '2021-09-14 06:30:37'),
+	(27, 1, 7, 37, 'valid', '10.1.0.26', '2021-08-02 07:46:18'),
+	(28, 1, 10, 38, 'valid', '10.1.0.27', '2021-09-07 04:15:19'),
+	(29, 1, 10, 39, 'valid', '10.1.0.28', '2021-08-05 04:47:56'),
+	(30, 1, 7, 40, 'valid', '10.1.0.29', '2021-08-21 23:10:42'),
+	(31, 1, 6, 41, 'valid', '10.1.0.30', '2021-08-21 09:48:55'),
+	(32, 1, 5, 42, 'valid', '10.1.0.31', '2021-08-10 22:01:30'),
+	(33, 1, 8, 43, 'valid', '10.1.0.32', '2021-09-09 03:21:36'),
+	(34, 1, 7, 44, 'valid', '10.1.0.33', '2021-08-13 13:50:00'),
+	(35, 1, 8, 45, 'valid', '10.1.0.34', '2021-09-15 16:56:10'),
+	(36, 1, 9, 46, 'valid', '10.1.0.35', '2021-08-05 11:10:24'),
+	(37, 1, 3, 47, 'valid', '10.1.0.36', '2021-08-31 08:42:22'),
+	(38, 1, 7, 48, 'valid', '10.1.0.37', '2021-08-05 03:55:29'),
+	(39, 1, 10, 49, 'valid', '10.1.0.38', '2021-09-16 23:34:01'),
+	(40, 1, 5, 50, 'valid', '10.1.0.39', '2021-09-16 05:19:22'),
+	(41, 1, 1, 51, 'valid', '10.1.0.40', '2021-08-28 17:47:55'),
+	(42, 1, 6, 52, 'valid', '10.1.0.41', '2021-08-29 15:18:20'),
+	(43, 1, 8, 53, 'valid', '10.1.0.42', '2021-08-03 10:45:35'),
+	(44, 1, 5, 54, 'valid', '10.1.0.43', '2021-09-03 14:23:13'),
+	(45, 1, 7, 55, 'valid', '10.1.0.44', '2021-08-01 12:19:39'),
+	(46, 1, 5, 56, 'valid', '10.1.0.45', '2021-09-07 07:45:59'),
+	(47, 1, 5, 57, 'valid', '10.1.0.46', '2021-09-11 23:44:16'),
+	(48, 1, 8, 58, 'valid', '10.1.0.47', '2021-08-16 09:57:49'),
+	(49, 1, 7, 59, 'valid', '10.1.0.48', '2021-08-22 20:34:33'),
+	(50, 1, 5, 60, 'valid', '10.1.0.49', '2021-09-04 03:04:37'),
+	(51, 1, 2, 61, 'valid', '10.1.200.103', '2021-08-02 21:28:09'),
+	(52, 1, 8, 62, 'valid', '10.1.200.145', '2021-08-04 07:05:52'),
+	(53, 1, 2, 63, 'valid', '10.1.200.30', '2021-09-27 00:30:57'),
+	(54, 1, 4, 64, 'valid', '10.1.200.145', '2021-08-12 17:25:20'),
+	(55, 1, 4, 65, 'valid', '10.1.200.30', '2021-08-25 04:00:18'),
+	(56, 1, 4, 66, 'valid', '10.1.200.30', '2021-08-11 14:47:05'),
+	(57, 1, 4, 67, 'valid', '10.1.200.103', '2021-08-31 17:31:14'),
+	(58, 1, 4, 68, 'valid', '10.1.200.30', '2021-09-29 07:48:16'),
+	(59, 1, 4, 69, 'valid', '10.1.200.30', '2021-08-26 00:42:58'),
+	(60, 1, 2, 70, 'valid', '10.1.200.103', '2021-08-09 22:28:16'),
+	(61, 1, 2, 71, 'valid', '10.1.200.30', '2021-09-14 01:56:30'),
+	(62, 1, 8, 72, 'valid', '10.1.200.30', '2021-09-10 07:39:07'),
+	(63, 1, 4, 73, 'valid', '10.1.200.30', '2021-08-23 10:10:06'),
+	(64, 1, 2, 74, 'valid', '10.1.200.30', '2021-08-31 02:46:28'),
+	(65, 1, 4, 75, 'valid', '10.1.200.30', '2021-08-18 08:41:16'),
+	(66, 1, 8, 76, 'valid', '10.1.200.30', '2021-09-01 15:32:32'),
+	(67, 1, 8, 77, 'valid', '10.1.200.30', '2021-09-12 14:16:19'),
+	(68, 1, 2, 78, 'valid', '10.1.200.103', '2021-09-08 18:57:10'),
+	(69, 1, 2, 79, 'valid', '10.1.200.145', '2021-08-07 19:58:10'),
+	(70, 1, 8, 80, 'valid', '10.1.200.145', '2021-08-27 06:30:14'),
+	(71, 1, 8, 81, 'valid', '10.1.200.103', '2021-09-23 21:22:50'),
+	(72, 1, 2, 82, 'valid', '10.1.200.103', '2021-09-20 05:42:46'),
+	(73, 1, 8, 83, 'valid', '10.1.200.103', '2021-09-23 20:23:25'),
+	(74, 1, 2, 84, 'valid', '10.1.200.145', '2021-09-23 10:12:52'),
+	(75, 1, 2, 85, 'valid', '10.1.200.103', '2021-08-31 18:40:46'),
+	(76, 1, 2, 86, 'valid', '10.1.200.30', '2021-09-22 08:07:29'),
+	(77, 1, 8, 87, 'valid', '10.1.200.30', '2021-08-11 06:06:34'),
+	(78, 1, 8, 88, 'valid', '10.1.200.30', '2021-09-09 03:58:33'),
+	(79, 1, 8, 89, 'valid', '10.1.200.145', '2021-08-25 11:31:04'),
+	(80, 1, 8, 90, 'valid', '10.1.200.30', '2021-09-04 16:24:09'),
+	(81, 2, 11, 11, 'valid', '10.2.0.0', '2022-08-30 20:08:51'),
+	(82, 2, 12, 12, 'valid', '10.2.0.1', '2022-08-23 05:08:59'),
+	(83, 2, 14, 13, 'valid', '10.2.0.2', '2022-08-01 23:24:01'),
+	(84, 2, 18, 14, 'valid', '10.2.0.3', '2022-09-01 18:03:39'),
+	(85, 2, 16, 15, 'valid', '10.2.0.4', '2022-09-11 11:51:07'),
+	(86, 2, 16, 16, 'valid', '10.2.0.5', '2022-08-30 21:58:47'),
+	(87, 2, 12, 17, 'valid', '10.2.0.6', '2022-08-12 16:11:54'),
+	(88, 2, 20, 18, 'valid', '10.2.0.7', '2022-08-25 05:47:31'),
+	(89, 2, 20, 19, 'valid', '10.2.0.8', '2022-08-28 19:07:21'),
+	(90, 2, 13, 20, 'valid', '10.2.0.9', '2022-09-20 18:28:49'),
+	(91, 2, 11, 21, 'valid', '10.2.0.10', '2022-09-01 14:51:44'),
+	(92, 2, 15, 22, 'valid', '10.2.0.11', '2022-08-15 03:29:25'),
+	(93, 2, 18, 23, 'valid', '10.2.0.12', '2022-08-27 02:31:36'),
+	(94, 2, 11, 24, 'valid', '10.2.0.13', '2022-09-23 02:56:15'),
+	(95, 2, 14, 25, 'valid', '10.2.0.14', '2022-09-17 13:02:05'),
+	(96, 2, 20, 26, 'valid', '10.2.0.15', '2022-08-01 16:21:31'),
+	(97, 2, 16, 27, 'valid', '10.2.0.16', '2022-09-22 15:33:33'),
+	(98, 2, 19, 28, 'valid', '10.2.0.17', '2022-08-21 18:40:01'),
+	(99, 2, 18, 29, 'valid', '10.2.0.18', '2022-08-01 20:58:17'),
+	(100, 2, 20, 30, 'valid', '10.2.0.19', '2022-09-21 23:23:44'),
+	(101, 2, 18, 31, 'valid', '10.2.0.20', '2022-09-05 12:49:26'),
+	(102, 2, 16, 32, 'valid', '10.2.0.21', '2022-09-06 23:18:44'),
+	(103, 2, 14, 33, 'valid', '10.2.0.22', '2022-08-31 22:55:43'),
+	(104, 2, 20, 34, 'valid', '10.2.0.23', '2022-09-10 10:08:05'),
+	(105, 2, 15, 35, 'valid', '10.2.0.24', '2022-08-07 22:31:24'),
+	(106, 2, 18, 36, 'valid', '10.2.0.25', '2022-08-05 21:48:05'),
+	(107, 2, 19, 37, 'valid', '10.2.0.26', '2022-08-07 08:06:26'),
+	(108, 2, 16, 38, 'valid', '10.2.0.27', '2022-08-12 21:35:00'),
+	(109, 2, 11, 39, 'valid', '10.2.0.28', '2022-08-13 12:00:05'),
+	(110, 2, 13, 40, 'valid', '10.2.0.29', '2022-09-06 12:14:24'),
+	(111, 2, 15, 41, 'valid', '10.2.0.30', '2022-09-13 12:13:18'),
+	(112, 2, 18, 42, 'valid', '10.2.0.31', '2022-09-24 13:24:46'),
+	(113, 2, 15, 43, 'valid', '10.2.0.32', '2022-09-25 06:08:33'),
+	(114, 2, 20, 44, 'valid', '10.2.0.33', '2022-09-28 05:26:29'),
+	(115, 2, 14, 45, 'valid', '10.2.0.34', '2022-08-21 09:58:57'),
+	(116, 2, 17, 46, 'valid', '10.2.0.35', '2022-08-20 21:38:58'),
+	(117, 2, 19, 47, 'valid', '10.2.0.36', '2022-08-30 23:45:04'),
+	(118, 2, 15, 48, 'valid', '10.2.0.37', '2022-08-17 05:32:32'),
+	(119, 2, 13, 49, 'valid', '10.2.0.38', '2022-08-07 04:11:28'),
+	(120, 2, 19, 50, 'valid', '10.2.0.39', '2022-09-21 14:27:26'),
+	(121, 2, 15, 51, 'valid', '10.2.0.40', '2022-09-21 15:59:31'),
+	(122, 2, 17, 52, 'valid', '10.2.0.41', '2022-09-14 22:00:21'),
+	(123, 2, 19, 53, 'valid', '10.2.0.42', '2022-09-10 17:35:01'),
+	(124, 2, 15, 54, 'valid', '10.2.0.43', '2022-09-13 17:13:37'),
+	(125, 2, 19, 55, 'valid', '10.2.0.44', '2022-09-29 05:40:15'),
+	(126, 2, 11, 56, 'valid', '10.2.0.45', '2022-09-15 08:58:46'),
+	(127, 2, 18, 57, 'valid', '10.2.0.46', '2022-08-01 06:17:38'),
+	(128, 2, 15, 58, 'valid', '10.2.0.47', '2022-09-20 11:35:31'),
+	(129, 2, 11, 59, 'valid', '10.2.0.48', '2022-09-05 18:59:37'),
+	(130, 2, 14, 60, 'valid', '10.2.0.49', '2022-08-28 01:07:02'),
+	(131, 2, 20, 61, 'valid', '10.2.200.134', '2022-08-25 08:13:18'),
+	(132, 2, 15, 62, 'valid', '10.2.200.139', '2022-08-08 16:21:27'),
+	(133, 2, 15, 63, 'valid', '10.2.200.134', '2022-09-23 06:44:33'),
+	(134, 2, 20, 64, 'valid', '10.2.200.139', '2022-09-18 16:59:15'),
+	(135, 2, 12, 65, 'valid', '10.2.200.134', '2022-09-09 23:38:55'),
+	(136, 2, 20, 66, 'valid', '10.2.200.134', '2022-09-18 04:48:54'),
+	(137, 2, 20, 67, 'valid', '10.2.200.139', '2022-09-07 13:02:43'),
+	(138, 2, 15, 68, 'valid', '10.2.200.134', '2022-09-29 01:58:49'),
+	(139, 2, 20, 69, 'valid', '10.2.200.139', '2022-08-08 10:13:57'),
+	(140, 2, 15, 70, 'valid', '10.2.200.217', '2022-09-16 15:47:17'),
+	(141, 2, 15, 71, 'valid', '10.2.200.139', '2022-08-27 09:25:37'),
+	(142, 2, 20, 72, 'valid', '10.2.200.139', '2022-08-27 13:12:44'),
+	(143, 2, 12, 73, 'valid', '10.2.200.139', '2022-09-18 16:46:39'),
+	(144, 2, 15, 74, 'valid', '10.2.200.217', '2022-08-23 09:24:47'),
+	(145, 2, 15, 75, 'valid', '10.2.200.217', '2022-08-08 00:28:49'),
+	(146, 2, 12, 76, 'valid', '10.2.200.217', '2022-09-15 20:17:40'),
+	(147, 2, 15, 77, 'valid', '10.2.200.134', '2022-08-20 10:55:55'),
+	(148, 2, 15, 78, 'valid', '10.2.200.217', '2022-09-25 07:03:43'),
+	(149, 2, 12, 79, 'valid', '10.2.200.217', '2022-09-03 15:32:42'),
+	(150, 2, 12, 80, 'valid', '10.2.200.134', '2022-08-27 04:58:26'),
+	(151, 2, 12, 81, 'valid', '10.2.200.139', '2022-09-08 09:31:23'),
+	(152, 2, 20, 82, 'valid', '10.2.200.139', '2022-08-12 03:23:03'),
+	(153, 2, 15, 83, 'valid', '10.2.200.134', '2022-08-27 14:28:39'),
+	(154, 2, 20, 84, 'valid', '10.2.200.139', '2022-08-03 16:31:04'),
+	(155, 2, 20, 85, 'valid', '10.2.200.217', '2022-09-10 05:01:23'),
+	(156, 2, 15, 86, 'valid', '10.2.200.217', '2022-08-13 12:59:21'),
+	(157, 2, 12, 87, 'valid', '10.2.200.139', '2022-09-13 14:45:58'),
+	(158, 2, 12, 88, 'valid', '10.2.200.134', '2022-09-10 17:11:23'),
+	(159, 2, 20, 89, 'valid', '10.2.200.134', '2022-09-26 16:20:39'),
+	(160, 2, 15, 90, 'valid', '10.2.200.217', '2022-08-08 13:49:30'),
+	(161, 3, 21, 11, 'valid', '10.3.0.0', '2023-08-05 11:58:12'),
+	(162, 3, 21, 12, 'valid', '10.3.0.1', '2023-09-14 21:26:04'),
+	(163, 3, 26, 13, 'valid', '10.3.0.2', '2023-08-31 05:26:55'),
+	(164, 3, 21, 14, 'valid', '10.3.0.3', '2023-08-05 16:53:03'),
+	(165, 3, 23, 15, 'valid', '10.3.0.4', '2023-08-24 09:23:55'),
+	(166, 3, 26, 16, 'valid', '10.3.0.5', '2023-08-20 15:54:27'),
+	(167, 3, 26, 17, 'valid', '10.3.0.6', '2023-08-29 12:08:43'),
+	(168, 3, 28, 18, 'valid', '10.3.0.7', '2023-09-17 11:30:20'),
+	(169, 3, 28, 19, 'valid', '10.3.0.8', '2023-08-06 02:14:48'),
+	(170, 3, 23, 20, 'valid', '10.3.0.9', '2023-08-04 02:31:10'),
+	(171, 3, 25, 21, 'valid', '10.3.0.10', '2023-08-01 02:45:38'),
+	(172, 3, 27, 22, 'valid', '10.3.0.11', '2023-09-21 03:35:25'),
+	(173, 3, 25, 23, 'valid', '10.3.0.12', '2023-08-07 13:30:12'),
+	(174, 3, 25, 24, 'valid', '10.3.0.13', '2023-08-31 15:53:20'),
+	(175, 3, 30, 25, 'valid', '10.3.0.14', '2023-08-26 18:30:55'),
+	(176, 3, 21, 26, 'valid', '10.3.0.15', '2023-08-18 23:58:21'),
+	(177, 3, 30, 27, 'valid', '10.3.0.16', '2023-09-20 06:44:25'),
+	(178, 3, 30, 28, 'valid', '10.3.0.17', '2023-08-04 07:44:41'),
+	(179, 3, 30, 29, 'valid', '10.3.0.18', '2023-09-20 03:38:13'),
+	(180, 3, 25, 30, 'valid', '10.3.0.19', '2023-09-27 04:00:58'),
+	(181, 3, 25, 31, 'valid', '10.3.0.20', '2023-08-19 03:54:28'),
+	(182, 3, 28, 32, 'valid', '10.3.0.21', '2023-08-16 10:13:09'),
+	(183, 3, 25, 33, 'valid', '10.3.0.22', '2023-09-02 18:05:22'),
+	(184, 3, 21, 34, 'valid', '10.3.0.23', '2023-09-10 20:38:39'),
+	(185, 3, 23, 35, 'valid', '10.3.0.24', '2023-09-22 15:37:19'),
+	(186, 3, 29, 36, 'valid', '10.3.0.25', '2023-08-13 15:34:11'),
+	(187, 3, 25, 37, 'valid', '10.3.0.26', '2023-09-22 19:43:23'),
+	(188, 3, 26, 38, 'valid', '10.3.0.27', '2023-08-09 08:24:45'),
+	(189, 3, 28, 39, 'valid', '10.3.0.28', '2023-08-15 20:23:02'),
+	(190, 3, 25, 40, 'valid', '10.3.0.29', '2023-08-25 19:53:13'),
+	(191, 3, 23, 41, 'valid', '10.3.0.30', '2023-09-16 23:29:12'),
+	(192, 3, 28, 42, 'valid', '10.3.0.31', '2023-09-11 05:25:13'),
+	(193, 3, 25, 43, 'valid', '10.3.0.32', '2023-08-13 23:54:17'),
+	(194, 3, 23, 44, 'valid', '10.3.0.33', '2023-08-07 08:33:47'),
+	(195, 3, 21, 45, 'valid', '10.3.0.34', '2023-08-02 16:46:03'),
+	(196, 3, 23, 46, 'valid', '10.3.0.35', '2023-08-12 10:09:46'),
+	(197, 3, 26, 47, 'valid', '10.3.0.36', '2023-08-05 18:14:29'),
+	(198, 3, 23, 48, 'valid', '10.3.0.37', '2023-08-21 16:17:28'),
+	(199, 3, 23, 49, 'valid', '10.3.0.38', '2023-08-29 09:13:46'),
+	(200, 3, 29, 50, 'valid', '10.3.0.39', '2023-08-12 02:22:52'),
+	(201, 3, 30, 51, 'valid', '10.3.0.40', '2023-08-05 09:41:30'),
+	(202, 3, 28, 52, 'valid', '10.3.0.41', '2023-08-20 15:08:42'),
+	(203, 3, 25, 53, 'valid', '10.3.0.42', '2023-08-07 15:11:49'),
+	(204, 3, 26, 54, 'valid', '10.3.0.43', '2023-09-07 03:16:32'),
+	(205, 3, 26, 55, 'valid', '10.3.0.44', '2023-08-15 23:52:51'),
+	(206, 3, 26, 56, 'valid', '10.3.0.45', '2023-08-13 18:56:49'),
+	(207, 3, 28, 57, 'valid', '10.3.0.46', '2023-08-28 12:40:15'),
+	(208, 3, 23, 58, 'valid', '10.3.0.47', '2023-08-12 00:23:12'),
+	(209, 3, 25, 59, 'valid', '10.3.0.48', '2023-09-28 20:46:08'),
+	(210, 3, 27, 60, 'valid', '10.3.0.49', '2023-09-11 09:02:52'),
+	(211, 3, 22, 61, 'valid', '10.3.200.165', '2023-08-27 04:23:00'),
+	(212, 3, 22, 62, 'valid', '10.3.200.226', '2023-08-15 16:02:45'),
+	(213, 3, 28, 63, 'valid', '10.3.200.50', '2023-08-15 14:33:10'),
+	(214, 3, 26, 64, 'valid', '10.3.200.165', '2023-09-10 02:05:01'),
+	(215, 3, 26, 65, 'valid', '10.3.200.50', '2023-09-26 16:41:32'),
+	(216, 3, 22, 66, 'valid', '10.3.200.50', '2023-09-22 01:49:42'),
+	(217, 3, 28, 67, 'valid', '10.3.200.226', '2023-09-18 04:57:06'),
+	(218, 3, 26, 68, 'valid', '10.3.200.165', '2023-09-15 01:57:37'),
+	(219, 3, 28, 69, 'valid', '10.3.200.165', '2023-09-12 13:30:14'),
+	(220, 3, 28, 70, 'valid', '10.3.200.165', '2023-08-15 02:02:35'),
+	(221, 3, 26, 71, 'valid', '10.3.200.165', '2023-09-11 01:56:37'),
+	(222, 3, 26, 72, 'valid', '10.3.200.226', '2023-09-01 05:32:11'),
+	(223, 3, 26, 73, 'valid', '10.3.200.226', '2023-08-14 16:25:47'),
+	(224, 3, 26, 74, 'valid', '10.3.200.226', '2023-08-27 09:53:57'),
+	(225, 3, 26, 75, 'valid', '10.3.200.226', '2023-08-22 16:59:29'),
+	(226, 3, 26, 76, 'valid', '10.3.200.226', '2023-08-18 12:37:42'),
+	(227, 3, 28, 77, 'valid', '10.3.200.50', '2023-08-14 15:07:37'),
+	(228, 3, 22, 78, 'valid', '10.3.200.50', '2023-08-03 05:31:30'),
+	(229, 3, 26, 79, 'valid', '10.3.200.226', '2023-08-12 06:50:43'),
+	(230, 3, 26, 80, 'valid', '10.3.200.165', '2023-08-24 08:25:18'),
+	(231, 3, 22, 81, 'valid', '10.3.200.50', '2023-09-20 14:01:55'),
+	(232, 3, 26, 82, 'valid', '10.3.200.226', '2023-09-10 19:13:30'),
+	(233, 3, 26, 83, 'valid', '10.3.200.50', '2023-09-21 01:37:05'),
+	(234, 3, 22, 84, 'valid', '10.3.200.165', '2023-08-08 00:20:14'),
+	(235, 3, 28, 85, 'valid', '10.3.200.50', '2023-09-05 10:11:26'),
+	(236, 3, 26, 86, 'valid', '10.3.200.165', '2023-09-10 09:55:18'),
+	(237, 3, 26, 87, 'valid', '10.3.200.165', '2023-08-16 00:40:31'),
+	(238, 3, 26, 88, 'valid', '10.3.200.165', '2023-08-21 14:26:43'),
+	(239, 3, 28, 89, 'valid', '10.3.200.50', '2023-08-04 00:34:14'),
+	(240, 3, 26, 90, 'valid', '10.3.200.50', '2023-08-25 03:41:25'),
+	(241, 4, 48, 11, 'valid', '10.4.0.0', '2024-09-07 05:51:11'),
+	(242, 4, 36, 12, 'valid', '10.4.0.1', '2024-09-14 18:23:31'),
+	(243, 4, 50, 13, 'valid', '10.4.0.2', '2024-08-25 00:57:19'),
+	(244, 4, 40, 14, 'valid', '10.4.0.3', '2024-08-24 08:32:56'),
+	(245, 4, 44, 15, 'valid', '10.4.0.4', '2024-08-12 02:42:34'),
+	(246, 4, 37, 16, 'valid', '10.4.0.5', '2024-08-07 03:07:58'),
+	(247, 4, 49, 17, 'valid', '10.4.0.6', '2024-08-11 00:22:46'),
+	(248, 4, 38, 18, 'valid', '10.4.0.7', '2024-08-22 05:16:07'),
+	(249, 4, 32, 19, 'valid', '10.4.0.8', '2024-09-02 10:14:15'),
+	(250, 4, 45, 20, 'valid', '10.4.0.9', '2024-08-15 19:06:31'),
+	(251, 4, 48, 21, 'valid', '10.4.0.10', '2024-08-01 04:38:21'),
+	(252, 4, 36, 22, 'valid', '10.4.0.11', '2024-08-06 10:39:44'),
+	(253, 4, 49, 23, 'valid', '10.4.0.12', '2024-08-13 11:49:13'),
+	(254, 4, 35, 24, 'valid', '10.4.0.13', '2024-08-16 13:51:55'),
+	(255, 4, 49, 25, 'valid', '10.4.0.14', '2024-09-04 03:07:13'),
+	(256, 4, 37, 26, 'valid', '10.4.0.15', '2024-09-05 16:37:56'),
+	(257, 4, 43, 27, 'valid', '10.4.0.16', '2024-09-07 14:58:50'),
+	(258, 4, 40, 28, 'valid', '10.4.0.17', '2024-08-04 10:05:00'),
+	(259, 4, 33, 29, 'valid', '10.4.0.18', '2024-09-21 21:13:40'),
+	(260, 4, 35, 30, 'valid', '10.4.0.19', '2024-08-26 12:43:53'),
+	(261, 4, 49, 31, 'valid', '10.4.0.20', '2024-09-16 13:58:27'),
+	(262, 4, 49, 32, 'valid', '10.4.0.21', '2024-09-06 12:41:22'),
+	(263, 4, 34, 33, 'valid', '10.4.0.22', '2024-09-27 04:20:57'),
+	(264, 4, 35, 34, 'valid', '10.4.0.23', '2024-08-08 07:53:29'),
+	(265, 4, 50, 35, 'valid', '10.4.0.24', '2024-08-12 23:05:03'),
+	(266, 4, 37, 36, 'valid', '10.4.0.25', '2024-09-23 09:17:41'),
+	(267, 4, 46, 37, 'valid', '10.4.0.26', '2024-09-12 09:06:03'),
+	(268, 4, 46, 38, 'valid', '10.4.0.27', '2024-09-24 04:48:17'),
+	(269, 4, 36, 39, 'valid', '10.4.0.28', '2024-08-27 01:02:59'),
+	(270, 4, 33, 40, 'valid', '10.4.0.29', '2024-09-05 20:09:32'),
+	(271, 4, 44, 41, 'valid', '10.4.0.30', '2024-08-09 11:01:33'),
+	(272, 4, 38, 42, 'valid', '10.4.0.31', '2024-09-23 09:11:58'),
+	(273, 4, 36, 43, 'valid', '10.4.0.32', '2024-09-25 11:24:35'),
+	(274, 4, 46, 44, 'valid', '10.4.0.33', '2024-09-19 22:47:46'),
+	(275, 4, 47, 45, 'valid', '10.4.0.34', '2024-09-15 06:14:54'),
+	(276, 4, 36, 46, 'valid', '10.4.0.35', '2024-08-20 17:23:21'),
+	(277, 4, 46, 47, 'valid', '10.4.0.36', '2024-09-05 13:09:26'),
+	(278, 4, 46, 48, 'valid', '10.4.0.37', '2024-08-15 02:15:38'),
+	(279, 4, 50, 49, 'valid', '10.4.0.38', '2024-08-19 15:09:15'),
+	(280, 4, 37, 50, 'valid', '10.4.0.39', '2024-09-02 21:03:59'),
+	(281, 4, 48, 51, 'valid', '10.4.0.40', '2024-09-22 08:55:29'),
+	(282, 4, 48, 52, 'valid', '10.4.0.41', '2024-08-23 22:25:06'),
+	(283, 4, 50, 53, 'valid', '10.4.0.42', '2024-08-27 12:39:07'),
+	(284, 4, 37, 54, 'valid', '10.4.0.43', '2024-09-12 05:45:46'),
+	(285, 4, 48, 55, 'valid', '10.4.0.44', '2024-08-06 05:51:13'),
+	(286, 4, 37, 56, 'valid', '10.4.0.45', '2024-08-17 11:28:13'),
+	(287, 4, 49, 57, 'valid', '10.4.0.46', '2024-09-03 09:43:27'),
+	(288, 4, 37, 58, 'valid', '10.4.0.47', '2024-08-18 00:01:09'),
+	(289, 4, 33, 59, 'valid', '10.4.0.48', '2024-09-29 03:49:03'),
+	(290, 4, 41, 60, 'valid', '10.4.0.49', '2024-08-23 10:02:32'),
+	(291, 4, 31, 61, 'valid', '10.4.200.190', '2024-09-19 17:14:50'),
+	(292, 4, 40, 62, 'valid', '10.4.200.116', '2024-08-05 12:57:54'),
+	(293, 4, 40, 63, 'valid', '10.4.200.218', '2024-09-01 07:04:51'),
+	(294, 4, 40, 64, 'valid', '10.4.200.116', '2024-09-07 12:21:03'),
+	(295, 4, 31, 65, 'valid', '10.4.200.116', '2024-09-04 13:17:27'),
+	(296, 4, 31, 66, 'valid', '10.4.200.190', '2024-09-07 08:03:27'),
+	(297, 4, 40, 67, 'valid', '10.4.200.116', '2024-08-15 17:06:46'),
+	(298, 4, 40, 68, 'valid', '10.4.200.218', '2024-09-19 05:08:00'),
+	(299, 4, 40, 69, 'valid', '10.4.200.190', '2024-08-03 10:08:06'),
+	(300, 4, 40, 70, 'valid', '10.4.200.218', '2024-08-12 04:13:45'),
+	(301, 4, 31, 71, 'valid', '10.4.200.218', '2024-08-27 12:19:44'),
+	(302, 4, 40, 72, 'valid', '10.4.200.218', '2024-08-06 15:35:16'),
+	(303, 4, 49, 73, 'valid', '10.4.200.116', '2024-08-20 08:45:59'),
+	(304, 4, 49, 74, 'valid', '10.4.200.218', '2024-08-28 03:41:07'),
+	(305, 4, 40, 75, 'valid', '10.4.200.116', '2024-09-06 15:30:45'),
+	(306, 4, 31, 76, 'valid', '10.4.200.190', '2024-09-29 10:21:00'),
+	(307, 4, 40, 77, 'valid', '10.4.200.218', '2024-09-13 12:27:09'),
+	(308, 4, 40, 78, 'valid', '10.4.200.190', '2024-09-12 22:51:18'),
+	(309, 4, 31, 79, 'valid', '10.4.200.190', '2024-08-12 02:51:28'),
+	(310, 4, 40, 80, 'valid', '10.4.200.190', '2024-09-04 05:31:15'),
+	(311, 4, 31, 81, 'valid', '10.4.200.190', '2024-09-18 18:56:23'),
+	(312, 4, 31, 82, 'valid', '10.4.200.190', '2024-09-15 11:05:07'),
+	(313, 4, 49, 83, 'valid', '10.4.200.116', '2024-09-01 23:16:45'),
+	(314, 4, 40, 84, 'valid', '10.4.200.116', '2024-09-28 00:53:51'),
+	(315, 4, 40, 85, 'valid', '10.4.200.190', '2024-08-05 13:37:01'),
+	(316, 4, 31, 86, 'valid', '10.4.200.116', '2024-08-19 04:27:08'),
+	(317, 4, 40, 87, 'valid', '10.4.200.218', '2024-08-17 12:10:15'),
+	(318, 4, 40, 88, 'valid', '10.4.200.116', '2024-08-22 17:58:36'),
+	(319, 4, 40, 89, 'valid', '10.4.200.218', '2024-08-03 13:11:54'),
+	(320, 4, 40, 90, 'valid', '10.4.200.190', '2024-08-22 03:38:07');
+/*!40000 ALTER TABLE `votes` ENABLE KEYS */;
 
 -- -----------------------------------------------------
 -- Insert additional announcements
