@@ -89,7 +89,7 @@ CREATE TABLE IF NOT EXISTS announcements
 (
     announcement_id INT                         NOT NULL AUTO_INCREMENT,
     title           varchar(128)                NOT NULL,
-    content         varchar(1024)                NOT NULL,
+    content         text                NOT NULL,
     end_at          datetime                    NOT NULL,
     status          ENUM ('active', 'inactive') NOT NULL,
     created_by      int                         NOT NULL,
