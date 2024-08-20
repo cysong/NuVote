@@ -207,6 +207,7 @@
         tbody.innerHTML = '';
         votes.forEach(vote => {
             const row = document.createElement('tr');
+            row.setAttribute('data-vote-id', vote.vote_id)
             html = ''
             if (competition.status != 'approved') {
                 html = `<td style="text-align: center;"><input type="checkbox" style="cursor: pointer;" value="${vote.vote_id}" ${vote.status=='invalid'?'disabled':'' }></td>`

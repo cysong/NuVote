@@ -14,7 +14,7 @@
 <br>
 
 {% for announcement in announcements %}
-<div class="announcement rounded shadow-sm position-relative mb-2">
+<div class="announcement rounded shadow-sm position-relative mb-2" data-announcement-id="{{announcement.announcement_id}}">
     <div class="card border-1 shadow-sm">
         <div class="card-body position-relative">
             <h5 class="card-title"><b>{{ announcement.title }}</b></h5>

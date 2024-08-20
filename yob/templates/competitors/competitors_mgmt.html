@@ -30,7 +30,7 @@
     <!-- Competitors List -->
     <div class="list-group">
         {% for competitor in competitors %}
-        <div class="list-group-item d-flex">
+        <div class="list-group-item d-flex" data-competitor-id="{{competitor.competitor_id}}">
             <!-- Competitor Image with Link -->
             <a href="{{ url_for('competitor_view', competitor_id=competitor.competitor_id) }}" class="d-block" style="width: 200px;">
                 <div class="position-relative" style="padding-top: 100%; overflow: hidden;">

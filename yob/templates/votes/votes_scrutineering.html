@@ -29,7 +29,7 @@
   </div>
 
   <!--Votes by IP table-->
-  <table class="table table-hover table-striped thead-light">
+  <table class="table table-hover table-striped thead-light ip-table">
     <thead>
       <tr>
         <th scope="col">IP Address</th>
@@ -40,7 +40,7 @@
     </thead>
     <tbody>
       {% for vote in votes %}
-      <tr>
+      <tr data-ip="{{vote.voted_ip}}">
         <td>
           <a href="{{ url_for('votes_list', competition_id=competition.competition_id) }}?ip={{ vote.voted_ip }}"
             onclick="enter_from_menu()">{{ vote.voted_ip }}</a`
