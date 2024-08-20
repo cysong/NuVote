@@ -33,4 +33,5 @@ export function logout() {
     cy.wait(500);
     cy.get(".dropdown-menu").find(".dropdown-item").contains("Logout").click();
     cy.url().should("contains", `${baseUrl}/`);
+    cy.get("#navbarDropdown .profile-small").should('not.exist');
 }
