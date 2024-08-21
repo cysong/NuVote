@@ -87,7 +87,7 @@ def competition_edit(competition_id):
             status = request.form['status']
 
             if not verify_competition(name, description, start_date, end_date):
-                return redirect(url_for('competition_create'))
+                return redirect(url_for('competition_edit', competition_id=competition_id))
             competition = Competition(name, description, request.form['image'], start_date, end_date,
                                       status, g.user['user_id'])
             update_competition(competition_id, competition)
