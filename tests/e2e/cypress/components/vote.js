@@ -58,5 +58,6 @@ export function disable_vote(competition_id) {
 
     //check disable status
     cy.get("#status-filter").uncheck({ force: true }).should("not.be.checked");
+    cy.get(".alert-success").should("contain.text", "Vote disabled successfully.");
     cy.get(`.table tr:first-child`).should("contain.text", "invalid");
 }
