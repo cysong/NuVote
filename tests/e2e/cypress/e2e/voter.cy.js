@@ -10,7 +10,7 @@ describe("Voter", () => {
     });
     it("Register new user", () => {
         cy.log("Registering new user: " + username);
-        register(username, username + "@example.com");
+        register(username);
         cy.wait(1000);
     });
     it("Login as voter", () => {
