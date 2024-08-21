@@ -7,8 +7,9 @@
 <div>
     <!--Create Competition Button-->
     {% if role == 'admin' %}
-     <div class="mb-3 d-flex justify-content-end">
-        <a href="{{ url_for('competition_create') }}" class="btn btn-outline-success btn-lg" role="button">Create a Competition</a>
+    <div class="mb-3 d-flex justify-content-end">
+        <a href="{{ url_for('competition_create') }}" class="btn btn-outline-success btn-lg" role="button">Create a
+            Competition</a>
     </div>
     {% endif %}
 
@@ -44,28 +45,40 @@
                             </form>
                             {% endif %}
                             {% elif competition.status == 'on_going' %}
-                                <a href="{{ url_for('votes_scrutineering', competition_id=competition.competition_id) }}"
-                                class="btn btn-light text-decoration-none me-3 view-votes">View Votes</a>
+                            <a href="{{ url_for('votes_scrutineering', competition_id=competition.competition_id) }}"
+                               class="btn btn-light text-decoration-none me-3 view-votes">View Votes</a>
+                            <form action="{{ url_for('competition_finished', competition_id=competition.competition_id) }}"
+                                  method="POST">
+                                <button type="button" class="btn btn-primary finish-btn"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#confirmFinishModal"
+                                        data-item-id="{{ competition.competition_id }}"
+                                        data-item-type="competition">
+                                    <i class="bi bi-check-all"></i>
+                                    <span class="finish-text">Finished</span>
+                                </button>
+                            </form>
                             {% elif competition.status == 'finished' %}
-                                <a href="{{ url_for('votes_scrutineering', competition_id=competition.competition_id) }}"
-                                class="btn btn-light text-decoration-none me-3 view-votes">View Votes</a>
-                                <form action="{{ url_for('competition_approve', competition_id=competition.competition_id) }}"
-                                    method="POST" class="">
-                                    <button type="button" class="btn btn-success approve-btn"
-                                            data-bs-toggle="modal"
-                                            data-bs-target="#confirmApproveModal"
-                                            data-item-id="{{ competition.competition_id }}"
-                                            data-item-type="competition">
-                                        <i class="bi bi-check-all"></i>
-                                        <span class="approve-text">Approve</span>
-                                    </button>
-                                </form>
+                            <a href="{{ url_for('votes_scrutineering', competition_id=competition.competition_id) }}"
+                               class="btn btn-light text-decoration-none me-3 view-votes">View Votes</a>
+                            <form action="{{ url_for('competition_approve', competition_id=competition.competition_id) }}"
+                                  method="POST" class="">
+                                <button type="button" class="btn btn-success approve-btn"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#confirmApproveModal"
+                                        data-item-id="{{ competition.competition_id }}"
+                                        data-item-type="competition">
+                                    <i class="bi bi-check-all"></i>
+                                    <span class="approve-text">Approve</span>
+                                </button>
+                            </form>
                             {% elif competition.status == 'approved' %}
-                                <a href="{{ url_for('votes_scrutineering', competition_id=competition.competition_id) }}"
-                                class="btn btn-light text-decoration-none me-3 view-votes">View Votes</a>
+                            <a href="{{ url_for('votes_scrutineering', competition_id=competition.competition_id) }}"
+                               class="btn btn-light text-decoration-none me-3 view-votes">View Votes</a>
                             {% endif %}
                         </div>
-                        <a href="{{ url_for('competition_view', competition_id=competition.competition_id) }}" class="stretched-link competition-view"></a>
+                        <a href="{{ url_for('competition_view', competition_id=competition.competition_id) }}"
+                           class="stretched-link competition-view"></a>
                     </div>
                 </div>
             </div>
@@ -95,6 +108,26 @@
 </div>
 
 <!-- Confirmation Modal -->
+<div class="modal fade" id="confirmFinishModal" tabindex="-1" aria-labelledby="confirmFinishModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="confirmFinishModalLabel">Confirm Finish</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to finish this competition?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary" id="confirmFinishButton">Finish</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Confirmation Modal -->
 <div class="modal fade" id="confirmApproveModal" tabindex="-1" aria-labelledby="confirmApproveModalLabel"
      aria-hidden="true">
     <div class="modal-dialog">
@@ -108,7 +141,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-danger" id="confirmApproveButton">Approve</button>
+                <button type="button" class="btn btn-success" id="confirmApproveButton">Approve</button>
             </div>
         </div>
     </div>
@@ -129,6 +162,22 @@
         confirmDeleteButton.addEventListener('click', function () {
             formToSubmit.submit();
             var modal = bootstrap.Modal.getInstance(confirmDeleteModal);
+            modal.hide();
+        });
+    });
+    document.addEventListener('DOMContentLoaded', function () {
+        var confirmFinishModal = document.getElementById('confirmFinishModal');
+        var confirmFinishButton = document.getElementById('confirmFinishButton');
+        var formToSubmit;
+
+        confirmFinishModal.addEventListener('show.bs.modal', function (event) {
+            var button = event.relatedTarget;
+            formToSubmit = button.closest('form');
+        });
+
+        confirmFinishButton.addEventListener('click', function () {
+            formToSubmit.submit();
+            var modal = bootstrap.Modal.getInstance(confirmFinishModal);
             modal.hide();
         });
     });

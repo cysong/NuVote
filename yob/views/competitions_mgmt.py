@@ -109,6 +109,22 @@ def competition_delete(competition_id):
         abort(403, description=f"Filed to delete the Competition with id {competition_id}!")
 
 
+@app.route('/competition/finished/<int:competition_id>', methods=['POST'])
+@login_required
+@roles_required('admin', 'scrutineer')
+def competition_finished(competition_id):
+    '''Finish the competition'''
+    competition = get_competition_by_id(competition_id)
+    if competition['end_date'] < datetime.now():
+        flash("Current competition is not completed yet!", "danger")
+        return redirect(url_for('competitions_mgmt'))
+    if update_competition_status(competition_id, 'finished'):
+        flash("Competition updated successfully", "success")
+        return redirect(url_for('competitions_mgmt'))
+    else:
+        abort(403, description=f"Filed to update the Competition with id {competition_id}!")
+
+
 @app.route('/competition/approve/<int:competition_id>', methods=['POST'])
 @login_required
 @roles_required('admin', 'scrutineer')
