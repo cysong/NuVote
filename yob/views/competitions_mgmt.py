@@ -115,7 +115,7 @@ def competition_delete(competition_id):
 def competition_finished(competition_id):
     '''Finish the competition'''
     competition = get_competition_by_id(competition_id)
-    if competition['end_date'] < datetime.now():
+    if competition['end_date'] > datetime.now():
         flash("Current competition is not completed yet!", "danger")
         return redirect(url_for('competitions_mgmt'))
     if update_competition_status(competition_id, 'finished'):
