@@ -56,10 +56,15 @@
         <!-- Competition Status -->
         <div class="form-floating mb-3">
             <select class="form-select" id="status" aria-label="Competition Status" name="status">
-                {% for s in ['draft', 'in_plan', 'on_going' ,'finished', 'approved'] %}
-                <option value="{{ s }}" {% if competition[
-                'status'] == s %}selected{% endif %}>{{ s.capitalize() }}</option>
+                {% if competition['status'] == 'draft' %}
+                {% for s in ['draft', 'in_plan'] %}
+                <option value="{{ s }}" {% if competition['status'] == s %}selected{% endif %}>{{ s.capitalize() }}</option>
                 {% endfor %}
+                {% else %}
+                {% for s in [ 'in_plan', 'on_going'] %}
+                <option value="{{ s }}" {% if competition['status'] == s %}selected{% endif %}>{{ s.capitalize() }}</option>
+                {% endfor %}
+                {% endif %}
             </select>
             <label for="status">Competition Status</label>
         </div>
