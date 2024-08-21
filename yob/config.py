@@ -2,7 +2,7 @@
 from unittest.mock import DEFAULT
 
 
-APP_NAME = 'Bird of the Year'
+APP_NAME = 'Wildlife of the Year'
 SLOGAN = 'Vote for the wings of Aotearoa!'
 # Default role assigned to new users upon registration.
 DEFAULT_SECRET_KEY = '16ef49d7e56c50b0de84898da482e8a2'
