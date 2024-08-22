@@ -508,23 +508,23 @@ VALUES ('jack', 'Jack', 'Smith', 'New York', 'jack.smith@example.com', 'Enthusia
 -- Insert competitions
 -- -----------------------------------------------------
 INSERT INTO competitions (name, description, image, start_date, end_date, status, create_by, created_at)
-VALUES ('New Zealand Bird in 2021',
+VALUES ('New Zealand Wildlife in 2021',
         'Explore the diverse world of bird in the New Zealand Bird competition of 2021. This event brings together enthusiasts and experts to showcase a stunning variety of birds, celebrating their unique forms, colors, and ecological importance.',
         '/static/uploads/competition_images/mushroomcompetition.png', '2021-08-01', '2021-09-30', 'finished', 3,
         '2021-07-15 13:50:26'),
-       ('New Zealand Bird in 2022',
+       ('New Zealand Wildlife in 2022',
         'Celebrate the agility, strength, and loyalty of birds in this annual competition. From high-energy obstacle courses to demonstrations of incredible obedience, this event showcases the best in canine talent, drawing participants and spectators from across the country.',
         '/static/uploads/competition_images/dogcompetition.png', '2022-08-01', '2022-09-30', 'approved', 1,
         '2022-07-15 23:50:26'),
-       ('New Zealand Bird in 2023',
+       ('New Zealand Wildlife in 2023',
         'A flying competition that puts the spotlight on our birds. This event is dedicated to showcasing the skills and speed of birds in pollination challenges, honey production, and hive-building activities. A unique and engaging way to celebrate these vital creatures.',
         '/static/uploads/competition_images/beecompetition.png', '2023-08-01', '2023-09-30', 'finished', 2,
         '2023-07-15 23:50:26'),
-       ('New Zealand Bird in 2024',
+       ('New Zealand Wildlife in 2024',
         'A vibrant celebration of the country’s avian diversity. This competition invites bird enthusiasts to showcase the beauty and talents of their feathered friends, from singing competitions to displays of unique plumage. It’s a colorful and lively event that draws nature lovers from all corners.',
         '/static/uploads/competition_images/birdcompetition.png', '2024-08-01', '2024-09-30', 'on_going', 3,
         '2024-07-11 23:50:26'),
-       ('New Zealand Bird in 2025',
+       ('New Zealand Wildlife in 2025',
         'An impressive showcase of the elegance and majesty of birds. This competition highlights the finest stags and does, focusing on attributes such as antler growth, agility, and overall health. A must-see for wildlife enthusiasts and those passionate about conservation.',
         '/static/uploads/competition_images/deercompetition.png', '2025-09-01', '2025-09-15', 'in_plan', 4, NOW());
 
