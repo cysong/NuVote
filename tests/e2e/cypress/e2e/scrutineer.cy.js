@@ -9,7 +9,7 @@ describe("Scrutineer", () => {
         
     });
     afterEach(() => {
-        
+        logout();
     });
     it("Create a scrutineer", () => {
         cy.log("Username: " + username);

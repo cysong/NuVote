@@ -1,6 +1,10 @@
 export function cast_a_vote(competition_id) {
     cy.visit("/");
-    cy.get(`a[href='/competition/vote/${competition_id}`).click();
+    cy.get(`.competition-card[data-competition-id='${competition_id}']`)
+    .should("be.exist")
+    .scrollIntoView({ duration: 1000 })
+    .find("a.stretched-link")
+    .click();
     cy.get(".competition-card").find("h5.card-title").should("be.visible");
     cy.get(".col:nth-child(1) .btn").click();
     cy.wait(500);
@@ -21,15 +25,15 @@ export function disable_vote(competition_id) {
 
     cy.get("#dailyVotesChart")
         .should("be.visible")
-        .scrollIntoView({ offset: { top: 0, left: 0 } });
+        .scrollIntoView({ duration: 500 });
     cy.wait(1000);
     cy.get("#competitorsLineChart")
         .should("be.visible")
-        .scrollIntoView({ offset: { top: 0, left: 0 } });
+        .scrollIntoView({ duration: 500 });
     cy.wait(1000);
     cy.get("h2")
         .contains("Votes by Ip")
-        .scrollIntoView({ offset: { top: 0, left: 0 } });
+        .scrollIntoView({ duration: 500 });
     cy.wait(1000);
 
     cy.get(".ip-table tbody tr:first-child td:first-child a").click();
@@ -60,4 +64,25 @@ export function disable_vote(competition_id) {
     cy.get("#status-filter").uncheck({ force: true }).should("not.be.checked");
     cy.get(".alert-success").should("contain.text", "Vote disabled successfully.");
     cy.get(`.table tr:first-child`).should("contain.text", "invalid");
+}
+
+export function view_vote_result(competition_id) {
+    cy.visit("/");
+    cy.get(`.competition-card[data-competition-id='${competition_id}']`)
+        .should("be.exist")
+        .scrollIntoView({ duration: 1000 })
+        .find("a.stretched-link")
+        .click();
+    cy.get(".winner-image-container").should("be.visible").click();
+
+    cy.get(".competitor-banner").should("be.visible");
+    cy.wait(1000)
+    cy.get(".btn").contains("Back").click();
+
+    cy.get(".winner-image-container").should("be.visible")
+    // cy.get('.competitor-card').each(($el) => {
+    //     cy.wrap($el).scrollIntoView({ duration: 200, easing: 'linear' });
+    //     cy.wait(200);
+    //   });
+      cy.get(".scroll-container").scrollTo("bottom", {duration: 2000})
 }
