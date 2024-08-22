@@ -9,7 +9,7 @@ describe("Scrutineer", () => {
         
     });
     afterEach(() => {
-        logout();
+        // logout();  // This is causing the test to fail
     });
     it("Create a scrutineer", () => {
         cy.log("Username: " + username);
