@@ -1,15 +1,13 @@
-import {ADMIN_USERNAME, COMPETITION_ID_FINISHED, DEFAULT_PASSWORD, SCRUTINEER_USERNAME} from "../constants";
+import { ADMIN_USERNAME, COMPETITION_ID_FINISHED, DEFAULT_PASSWORD, SCRUTINEER_USERNAME } from "../constants";
 import { create_user, login, logout } from "../components/user";
 import { disable_vote } from "../components/vote";
 
 const username = SCRUTINEER_USERNAME;
 
 describe("Scrutineer", () => {
-    beforeEach(() => {
-        
-    });
+    beforeEach(() => {});
     afterEach(() => {
-        // logout();  // This is causing the test to fail
+        logout();
     });
     it("Create a scrutineer", () => {
         cy.log("Username: " + username);

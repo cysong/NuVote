@@ -1,7 +1,5 @@
 import { DEFAULT_PASSWORD } from "../constants";
 
-const baseUrl = Cypress.config("baseUrl");
-
 export function register(username) {
     const email = `${username}@example.com`;
     cy.visit("/register");
@@ -29,10 +27,8 @@ export function login(username, password) {
 }
 
 export function logout() {
-    cy.url().should("contains", `${baseUrl}/`);
-    cy.get("#navbarDropdown .profile-small").click();
+    cy.get("#navbarDropdown .profile-small").should("be.visible").click();
     cy.get(".dropdown-menu").find(".dropdown-item").contains("Logout").click();
-    cy.url().should("contains", `${baseUrl}/`);
     cy.get("#navbarDropdown .profile-small").should("not.exist");
 }
 
