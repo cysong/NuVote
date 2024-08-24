@@ -8,7 +8,7 @@ from yob.login_manage import roles_required
 from yob.repositories.competition_repository import get_competition_by_id
 from yob.repositories.competitors_repository import get_competitor_by_id, get_competitors_by_competition_id, \
     update_competitor, create_competitor, delete_competitor
-from yob.views.profile import allowed_file, get_hashed_filename, read_file_extension
+from yob.users.profile import allowed_file, get_hashed_filename, read_file_extension
 
 
 @app.route('/competition/<int:competition_id>/competitors')

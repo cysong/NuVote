@@ -11,7 +11,7 @@ from yob.repositories.competition_repository import get_all_competitions, get_co
     Competition, create_competition, update_competition, update_competition_status
 from yob.repositories.competitions_mgmt_repository import update_competition_image_update
 from yob.utility import are_fields_present
-from yob.views.profile import allowed_file, get_hashed_filename, read_file_extension
+from yob.users.profile import allowed_file, get_hashed_filename, read_file_extension
 
 
 @app.route('/competitions')

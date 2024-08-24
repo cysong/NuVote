@@ -53,7 +53,7 @@ def login_required(f):
     def decorated_function(*args, **kwargs):
         if not is_logged_in():
             flash("Access denied", "danger")
-            return redirect(url_for('login'))
+            return redirect(url_for('users.login'))
         return f(*args, **kwargs)
 
     return decorated_function

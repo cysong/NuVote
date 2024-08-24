@@ -38,24 +38,24 @@
                                 <!-- Dropdown menu -->
                                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                                     <li><a class="dropdown-item" href="{{url_for('profile', user_id=CURRENT_USER.user_id)}}" onclick="enter_from_menu()">Edit Profile</a></li>
-                                    <li><a class="dropdown-item" href="{{url_for('password', user_id=CURRENT_USER.user_id)}}" onclick="enter_from_menu()">Change Password</a></li>
+                                    <li><a class="dropdown-item" href="{{url_for('users.password', user_id=CURRENT_USER.user_id)}}" onclick="enter_from_menu()">Change Password</a></li>
                                     {% if CURRENT_USER.role == 'admin' or CURRENT_USER.role == 'scrutineer' %}
                                         <li><a class="dropdown-item" href="{{url_for('users.users_mgmt')}}" onclick="enter_from_menu()">Manage Users</a></li>
                                         <li><a class="dropdown-item" href="{{url_for('competitions_mgmt')}}" onclick="enter_from_menu()">Manage Competitions</a></li>
                                         <li><a class="dropdown-item" href="{{url_for('announcements_mgmt')}}" onclick="enter_from_menu()">Manage Announcements</a></li>
                                     {% endif %}
                                     <li><hr class="dropdown-divider"></li>
-                                    <li><a class="dropdown-item" href="{{ url_for('logout') }}" onclick="enter_from_menu()">Logout</a></li>
+                                    <li><a class="dropdown-item" href="{{ url_for('users.logout') }}" onclick="enter_from_menu()">Logout</a></li>
                                 </ul>
                             </li>
                         {% else %}
                             <!-- Login -->
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ url_for('login') }}" onclick="enter_from_menu()">Login</a>
+                                <a class="nav-link" href="{{ url_for('users.login') }}" onclick="enter_from_menu()">Login</a>
                             </li>
                             <!-- Register -->
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ url_for('register') }}" onclick="enter_from_menu()">Register</a>
+                                <a class="nav-link" href="{{ url_for('users.register') }}" onclick="enter_from_menu()">Register</a>
                             </li>
                         {% endif %}
                     </ul>

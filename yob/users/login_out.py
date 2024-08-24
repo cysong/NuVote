@@ -3,12 +3,13 @@ from flask import request, session, redirect, url_for, flash, render_template
 from yob import app
 from yob.repositories.users_repository import is_user_password_valid_by_username, get_user_by_username
 from yob.utility import are_fields_present
+from . import bp
 
 LOGIN_REQUIRED_FIELDS = ['username', 'password']
 
 
 # Route for login page (supports both GET and POST requests)
-@app.route('/login', methods=['GET', 'POST'])
+@bp.route('/login', methods=['GET', 'POST'])
 def login():
     '''Login page'''
 
@@ -55,7 +56,7 @@ def login_user(user):
 
 
 # Route for logout page
-@app.route('/logout')
+@bp.route('/logout')
 def logout():
     '''Logout the user'''
     app.login_manager.logout_user()

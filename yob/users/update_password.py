@@ -6,9 +6,9 @@ from yob import app
 from yob.config import DEFAULT_PASSWORD_REGEX
 from yob.decorators import login_required, owner_required
 from yob.repositories.users_repository import update_user_password_by_id, is_user_password_valid_by_id, get_user_by_id
+from . import bp
 
-
-@app.route('/profile/<int:user_id>/password', methods=['GET', 'POST'])
+@bp.route('/profile/<int:user_id>/password', methods=['GET', 'POST'])
 @login_required
 @owner_required
 def password(user_id):
@@ -20,17 +20,17 @@ def password(user_id):
         # Validate passwords
         if new_password != confirm_new_password:
             flash("Passwords do not match", "danger")
-            return redirect(url_for('password', user_id=user_id))
+            return redirect(url_for('users.password', user_id=user_id))
         if old_password == new_password:
             flash("New Password cannot be same as the old password", "danger")
-            return redirect(url_for('password', user_id=user_id))
+            return redirect(url_for('users.password', user_id=user_id))
         if not re.match(DEFAULT_PASSWORD_REGEX, new_password):
             flash('Password must be at least 8 characters long and include a mix of letters, numbers, '
                   'and special characters (@$!%*?&)!', 'danger')
-            return redirect(url_for('password', user_id=user_id))
+            return redirect(url_for('users.password', user_id=user_id))
         if not is_user_password_valid_by_id(user_id, old_password):
             flash('Password is incorrect!', 'danger')
-            return redirect(url_for('password', user_id=user_id))
+            return redirect(url_for('users.password', user_id=user_id))
         # Update password if old password is valid
         else:
             update_user_password_by_id(user_id, new_password)

@@ -8,8 +8,8 @@ from yob.decorators import login_required
 from yob.login_manage import roles_required
 from yob.repositories.users_repository import get_users, get_user_by_username, get_user_by_email, User, create_user
 from yob.utility import are_fields_present
+from . import bp
 
-bp = Blueprint('users', "users")
 
 CREATE_USER_REQUIRED_FIELDS = ['username', 'email', 'password', 'password2', 'first_name', 'last_name', 'location']
 

@@ -6,13 +6,14 @@ from yob import app, config
 from yob.repositories.users_repository import User, get_user_by_username, get_user_by_email, create_user, \
     check_username_exists, check_email_exists
 from yob.utility import are_fields_present
-from yob.views.login_out import login_user
+from yob.users.login_out import login_user
+from . import bp
 
 REGISTER_REQUIRED_FIELDS = ['username', 'email', 'password', 'password2', 'first_name', 'last_name', 'location']
 
 
 # Route for registration page (supports both GET and POST requests)
-@app.route('/register', methods=['GET', 'POST'])
+@bp.route('/register', methods=['GET', 'POST'])
 def register():
     '''Handle user registration'''
 
@@ -79,7 +80,7 @@ def register():
     return render_register(None)
 
 
-@app.route('/user/check_username', methods=['POST'])
+@bp.route('/user/check_username', methods=['POST'])
 def check_username():
     """Check if username has been taken"""
     username = request.json['username']
@@ -88,7 +89,7 @@ def check_username():
     return jsonify({'taken': is_taken})
 
 
-@app.route('/user/check_email', methods=['POST'])
+@bp.route('/user/check_email', methods=['POST'])
 def check_email():
     """Check if username has been taken"""
     email = request.json['email']

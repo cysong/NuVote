@@ -9,7 +9,7 @@
             <div class="card shadow">
                 <div class="card-body">
                     <h3 class="card-title text-center mb-4">Login</h3>
-                    <form action="{{ url_for('login') }}" class="needs-validation" method="POST" novalidate>
+                    <form action="{{ url_for('users.login') }}" class="needs-validation" method="POST" novalidate>
 
                         <!--Username-->
                         <div class="form-floating mb-3">
@@ -37,7 +37,7 @@
                         <!--Sign in and Register Buttons-->
                         <div class="d-grid gap-2 col-md-8 col-lg-6 mx-auto">
                             <button class="btn btn-success" type="submit">Sign in</button>
-                            <a class="btn btn-outline-success" href="{{ url_for('register') }}"
+                            <a class="btn btn-outline-success" href="{{ url_for('users.register') }}"
                                role="button">Register</a>
                         </div>
                     </form>

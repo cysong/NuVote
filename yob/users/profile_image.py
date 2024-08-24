@@ -10,9 +10,9 @@ from yob.decorators import login_required, owner_required
 from yob.repositories.profile_image_repository import handle_profile_image_update
 from yob.repositories.users_repository import get_user_by_id
 from yob.utility import random_string
+from . import bp
 
-
-@app.route('/profile_image/<int:user_id>', methods=['GET', 'POST'])
+@bp.route('/profile_image/<int:user_id>', methods=['GET', 'POST'])
 @login_required
 @owner_required
 def profile_image(user_id):

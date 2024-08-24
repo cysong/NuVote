@@ -12,7 +12,7 @@
                  style="max-width: 300px;">
 
             <!-- Form to upload new image -->
-            <form id="uploadImage" action="{{ url_for('profile_image', user_id=user['user_id']) }}"
+            <form id="uploadImage" action="{{ url_for('users.profile_image'), user_id=user['user_id']) }}"
                   class="needs-validation" method="POST" enctype="multipart/form-data" novalidate>
                 <div class="mb-3 col-md-6 col-lg-8 mx-auto">
                     <input class="form-control" type="file" id="image" name="image" accept="image/jpeg,image/png"
@@ -29,7 +29,7 @@
 
             <!-- Delete button if the image is not default -->
             {% if "/static/img/default_profile.png" != user['profile_image'] %}
-            <form action="{{ url_for('profile_image', user_id=user['user_id']) }}" method="POST" class="mt-3">
+            <form action="{{ url_for('users.profile_image'), user_id=user['user_id']) }}" method="POST" class="mt-3">
                 <input type="hidden" name="action" value="delete">
                 <div class="d-grid gap-2 col-md-8 col-lg-6 mx-auto">
                     <button type="button" class="btn btn-danger" data-bs-toggle="modal"
