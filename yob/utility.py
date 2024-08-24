@@ -1,7 +1,8 @@
 import random
 import string
 from datetime import datetime
-
+import importlib
+import pkgutil
 
 def get_current_datetime():
     """Return the current date and time."""
@@ -49,17 +50,9 @@ def get_locale_from_request(request):
 
 def import_all_modules_from_directory(directory, package):
     """Import all Python modules from the specified directory."""
-    import importlib
-    import os
-    import glob
-
-    # Get all Python files in the specified directory
-    module_names = [
-        os.path.basename(f)[:-3]
-        for f in glob.glob(os.path.join(directory, '*.py'))
-        if os.path.basename(f) != '__init__.py'
-    ]
-
-    # Import all the files
-    for module_name in module_names:
-        importlib.import_module(f'.{module_name}', package=package)
+    
+    # Iterate over all modules in the specified directory
+    for _, module_name, _ in pkgutil.iter_modules([directory]):
+        if module_name != '__init__':
+            # Import the module using importlib
+            importlib.import_module(f'.{module_name}', package=package)
