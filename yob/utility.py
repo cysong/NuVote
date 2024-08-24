@@ -45,3 +45,20 @@ def get_locale_from_request(request):
     }
 
     return locale_map.get(best_match, 'en_NZ.UTF-8')
+
+
+def import_all_modules_from_directory(directory, package):
+    """Import all Python modules from the specified directory."""
+    import importlib
+    import os
+    import glob
+
+    # Get all Python files in the specified directory
+    module_names = [
+        os.path.basename(f)[:-3]
+        for f in glob.glob(os.path.join(directory, '[!__init__]*.py'))
+    ]
+
+    # Import all the files
+    for module_name in module_names:
+        importlib.import_module(f'.{module_name}', package=package)
