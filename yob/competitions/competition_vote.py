@@ -9,9 +9,9 @@ from yob.repositories.competition_repository import get_competition_by_id
 from yob.repositories.competitors_repository import get_competitors_and_votes, get_competitor_by_id
 from yob.repositories.votes_repository import get_votes_by_competition_and_user, create_vote
 from yob.utility import get_current_datetime
+from . import bp
 
-
-@app.route('/competition/vote/<int:competition_id>', methods=['GET'])
+@bp.route('/competition/vote/<int:competition_id>', methods=['GET'])
 def competition_vote(competition_id):
     """The page view of vote for a competition"""
     competition = get_competition_by_id(competition_id)
@@ -37,7 +37,7 @@ def competition_vote(competition_id):
     return render_template('competitions/competition_vote.html', competition=competition, competitors=competitors, can_vote=can_vote, has_voted=has_voted, message=message, CURR_TIME=datetime.now())
 
 
-@app.route('/vote', methods=['POST'])
+@bp.route('/vote', methods=['POST'])
 @roles_required('voter')
 def vote():
     """Cast a new vote"""

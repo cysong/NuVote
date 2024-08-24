@@ -41,7 +41,7 @@
                                     <li><a class="dropdown-item" href="{{url_for('users.password', user_id=CURRENT_USER.user_id)}}" onclick="enter_from_menu()">Change Password</a></li>
                                     {% if CURRENT_USER.role == 'admin' or CURRENT_USER.role == 'scrutineer' %}
                                         <li><a class="dropdown-item" href="{{url_for('users.users_mgmt')}}" onclick="enter_from_menu()">Manage Users</a></li>
-                                        <li><a class="dropdown-item" href="{{url_for('competitions_mgmt')}}" onclick="enter_from_menu()">Manage Competitions</a></li>
+                                        <li><a class="dropdown-item" href="{{url_for('competitions.competitions_mgmt')}}" onclick="enter_from_menu()">Manage Competitions</a></li>
                                         <li><a class="dropdown-item" href="{{url_for('announcements_mgmt')}}" onclick="enter_from_menu()">Manage Announcements</a></li>
                                     {% endif %}
                                     <li><hr class="dropdown-divider"></li>

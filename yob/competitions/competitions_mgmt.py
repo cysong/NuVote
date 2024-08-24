@@ -12,9 +12,9 @@ from yob.repositories.competition_repository import get_all_competitions, get_co
 from yob.repositories.competitions_mgmt_repository import update_competition_image_update
 from yob.utility import are_fields_present
 from yob.users.profile import allowed_file, get_hashed_filename, read_file_extension
+from . import bp
 
-
-@app.route('/competitions')
+@bp.route('/competitions')
 @login_required
 @roles_required('admin', 'scrutineer')
 def competitions_mgmt():
@@ -26,7 +26,7 @@ def competitions_mgmt():
     return render_template('competitions/competitions_mgmt.html', competitions=competitions)
 
 
-@app.route('/competition/create', methods=['GET', 'POST'])
+@bp.route('/competition/create', methods=['GET', 'POST'])
 @login_required
 @roles_required('admin')
 def competition_create():
@@ -39,7 +39,7 @@ def competition_create():
             end_date = request.form['end_date']
 
             if not verify_competition(name, description, start_date, end_date):
-                return redirect(url_for('competition_create'))
+                return redirect(url_for('competitions.competition_create'))
 
             if 'image' not in request.files:
                 return jsonify(success=False, error='No file part')
@@ -58,21 +58,13 @@ def competition_create():
                 competition = Competition(name, description, file_url, start_date, end_date,
                                           config.DEFAULT_COMPETITION_STATUS, g.user['user_id'])
                 create_competition(competition)
-                return redirect(url_for('competitions_mgmt'))
+                return redirect(url_for('competitions.competitions_mgmt'))
         flash('Input is not valid', 'danger')
-        return redirect(url_for('competition_create'))
+        return redirect(url_for('competitions.competition_create'))
     return render_template('competitions/competition_create.html')
 
 
-@app.route('/competition/manage')
-@login_required
-@roles_required('admin')
-def competition_manage():
-    '''Render the competition management page'''
-    return render_template('competitions/competition_mgmt.html')
-
-
-@app.route('/competition/edit/<int:competition_id>', methods=['GET', 'POST'])
+@bp.route('/competition/edit/<int:competition_id>', methods=['GET', 'POST'])
 @login_required
 @roles_required('admin')
 def competition_edit(competition_id):
@@ -87,29 +79,29 @@ def competition_edit(competition_id):
             status = request.form['status']
 
             if not verify_competition(name, description, start_date, end_date):
-                return redirect(url_for('competition_edit', competition_id=competition_id))
+                return redirect(url_for('competitions.competition_edit', competition_id=competition_id))
             competition = Competition(name, description, request.form['image'], start_date, end_date,
                                       status, g.user['user_id'])
             update_competition(competition_id, competition)
-        return redirect(url_for('competitions_mgmt'))
+        return redirect(url_for('competitions.competitions_mgmt'))
     else:
         competition = get_competition_by_id(competition_id)
         return render_template('competitions/competition_edit.html', competition=competition)
 
 
-@app.route('/competition/delete/<int:competition_id>', methods=['POST'])
+@bp.route('/competition/delete/<int:competition_id>', methods=['POST'])
 @login_required
 @roles_required('admin')
 def competition_delete(competition_id):
     '''Delete the competition'''
     if delete_competition(competition_id):
         flash("Competition deleted successfully", "success")
-        return redirect(url_for('competitions_mgmt'))
+        return redirect(url_for('competitions.competitions_mgmt'))
     else:
         abort(403, description=f"Filed to delete the Competition with id {competition_id}!")
 
 
-@app.route('/competition/finished/<int:competition_id>', methods=['POST'])
+@bp.route('/competition/finished/<int:competition_id>', methods=['POST'])
 @login_required
 @roles_required('admin', 'scrutineer')
 def competition_finished(competition_id):
@@ -117,27 +109,27 @@ def competition_finished(competition_id):
     competition = get_competition_by_id(competition_id)
     if competition['end_date'] > datetime.now():
         flash("Current competition is not completed yet!", "danger")
-        return redirect(url_for('competitions_mgmt'))
+        return redirect(url_for('competitions.competitions_mgmt'))
     if update_competition_status(competition_id, 'finished'):
         flash("Competition updated successfully", "success")
-        return redirect(url_for('competitions_mgmt'))
+        return redirect(url_for('competitions.competitions_mgmt'))
     else:
         abort(403, description=f"Filed to update the Competition with id {competition_id}!")
 
 
-@app.route('/competition/approve/<int:competition_id>', methods=['POST'])
+@bp.route('/competition/approve/<int:competition_id>', methods=['POST'])
 @login_required
 @roles_required('admin', 'scrutineer')
 def competition_approve(competition_id):
     '''Approve the competition'''
     if update_competition_status(competition_id, 'approved'):
         flash("Competition approved successfully", "success")
-        return redirect(url_for('competitions_mgmt'))
+        return redirect(url_for('competitions.competitions_mgmt'))
     else:
         abort(403, description=f"Filed to approve the Competition with id {competition_id}!")
 
 
-@app.route('/competition/competition_image', methods=['DELETE'])
+@bp.route('/competition/competition_image', methods=['DELETE'])
 @login_required
 @roles_required('admin')
 def delete_competition_image():

@@ -5,9 +5,9 @@ from yob import app
 from yob.repositories.competition_repository import get_competition_by_id
 from yob.repositories.competitors_repository import get_competitors_with_votes_percentage
 from yob.utility import get_current_datetime
+from . import bp
 
-
-@app.route('/competition/view/<int:competition_id>')
+@bp.route('/competition/view/<int:competition_id>')
 def competition_view(competition_id):
     """Return the competition view page"""
     competition = get_competition_by_id(competition_id)
@@ -17,7 +17,7 @@ def competition_view(competition_id):
     return render_template('competitions/competition_view.html', competition=competition, status=status, status_message=status_message)
 
 
-@app.route('/competition/result/<int:competition_id>')
+@bp.route('/competition/result/<int:competition_id>')
 def competition_result(competition_id):
     """Return the result page of approved competition"""
     competition = get_competition_by_id(competition_id)
