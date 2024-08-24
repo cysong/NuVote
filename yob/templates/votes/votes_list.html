@@ -8,7 +8,7 @@
     <div class="mb-2">
         <a
             class="btn btn-outline-secondary"
-            href="{{url_for('votes_scrutineering', competition_id=competition.competition_id)}}">
+            href="{{url_for('competitions.votes_scrutineering', competition_id=competition.competition_id)}}">
             <i class="bi bi-arrow-left"></i>Back</a>
     </div>
 
@@ -141,8 +141,8 @@
 <script>
     let timer;
     let competition = {{competition | tojson }}
-    let url_abandon_by_id="{{ url_for('abandon_vote', competition_id=competition.competition_id, vote_id=1)}}"
-    let url_abandon_by_ip="{{ url_for('abandon_vote_batch_by_ip', competition_id=competition.competition_id, ip='')}}"
+    let url_abandon_by_id="{{ url_for('competitions.abandon_vote', competition_id=competition.competition_id, vote_id=1)}}"
+    let url_abandon_by_ip="{{ url_for('competitions.abandon_vote_batch_by_ip', competition_id=competition.competition_id, ip='')}}"
     let selectedVoteId = null;
     let selectedVoteIp = null;
 
@@ -187,7 +187,7 @@
         const competitorId = document.getElementById('competitor-filter').value;
         const status = document.getElementById('status-filter').checked ? 'valid' : 'invalid';
 
-        fetch(`{{ url_for('votes_query', competition_id=competition.competition_id) }}?ip=${ip}&competitor_id=${competitorId}&status=${status}`)
+        fetch(`{{ url_for('competitions.votes_query', competition_id=competition.competition_id) }}?ip=${ip}&competitor_id=${competitorId}&status=${status}`)
             .then(response => response.json())
             .then(data => {
                 if (data.success) {

@@ -42,7 +42,7 @@
       {% for vote in votes %}
       <tr data-ip="{{vote.voted_ip}}">
         <td>
-          <a href="{{ url_for('votes_list', competition_id=competition.competition_id) }}?ip={{ vote.voted_ip }}"
+          <a href="{{ url_for('competitions.votes_list's.votes_scrutineering', competition_id=competition.competition_id) }}?ip={{ vote.voted_ip }}"
             onclick="enter_from_menu()">{{ vote.voted_ip }}</a`
           >
         </td>
