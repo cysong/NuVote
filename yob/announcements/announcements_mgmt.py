@@ -5,10 +5,10 @@ from yob import app
 from yob.decorators import login_required
 from yob.login_manage import roles_required
 from yob.repositories.announcements_repository import get_all_announcements
-
+from . import bp
 
 # Render the admin home page with user information
-@app.route('/announcements')
+@bp.route('/announcements')
 @login_required
 @roles_required('admin', 'scrutineer')
 def announcements_mgmt():
