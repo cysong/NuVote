@@ -1,7 +1,7 @@
 # MANAGING USERS
 import re
 
-from flask import render_template, request, flash, redirect, url_for
+from flask import Blueprint, render_template, request, flash, redirect, url_for
 
 from yob import app, config
 from yob.decorators import login_required
@@ -9,10 +9,12 @@ from yob.login_manage import roles_required
 from yob.repositories.users_repository import get_users, get_user_by_username, get_user_by_email, User, create_user
 from yob.utility import are_fields_present
 
+bp = Blueprint('users_mgmt', __name__)
+
 CREATE_USER_REQUIRED_FIELDS = ['username', 'email', 'password', 'password2', 'first_name', 'last_name', 'location']
 
 
-@app.route('/users')
+@bp.route('/users')
 @login_required
 @roles_required('admin', 'scrutineer')
 def users_mgmt():
@@ -20,7 +22,7 @@ def users_mgmt():
     return render_template('user/users_mgmt.html', users=get_users())
 
 
-@app.route('/users/create', methods=['GET', 'POST'])
+@bp.route('/users/create', methods=['GET', 'POST'])
 @login_required
 @roles_required('admin')
 def user_create():
