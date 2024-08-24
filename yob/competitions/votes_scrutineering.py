@@ -9,9 +9,9 @@ from yob.repositories.votes_repository import abandon_vote_by_id, abandon_votes_
 from yob.utility import get_current_datetime
 from flask import request
 from datetime import timedelta
+from . import bp
 
-
-@app.route('/competition/<int:competition_id>/scrutineering')
+@bp.route('/competition/<int:competition_id>/scrutineering')
 @roles_required('admin', 'scrutineer')
 def votes_scrutineering(competition_id):
     '''Render the votes scrutineering page for a competition'''
@@ -21,7 +21,7 @@ def votes_scrutineering(competition_id):
     votes = get_votes_group_by_ip_for_competition(competition_id)
     return render_template('votes/votes_scrutineering.html', competition=competition, votes=votes)
 
-@app.route('/competition/<int:competition_id>/dailyvotes', methods=['GET'])
+@bp.route('/competition/<int:competition_id>/dailyvotes', methods=['GET'])
 @roles_required('admin', 'scrutineer')
 def daily_votes(competition_id):
     '''Get daily votes for a competition'''
@@ -61,7 +61,7 @@ def daily_votes(competition_id):
     }
     return jsonify(response)
 
-@app.route('/competition/<int:competition_id>/votesbycompetitors', methods=['GET'])
+@bp.route('/competition/<int:competition_id>/votesbycompetitors', methods=['GET'])
 @roles_required('admin', 'scrutineer')
 def daily_votes_of_competitors(competition_id):
     '''Get daily votes for each competitor in a competition'''
@@ -117,7 +117,7 @@ def daily_votes_of_competitors(competition_id):
     # Return the response as JSON
     return jsonify(response_data)
 
-@app.route('/competition/<int:competition_id>/votes')
+@bp.route('/competition/<int:competition_id>/votes')
 @roles_required('admin', 'scrutineer')
 def votes_list(competition_id):
     '''Render the votes list page for a competition'''
@@ -129,7 +129,7 @@ def votes_list(competition_id):
     ip = request.args.get('ip')
     return render_template('votes/votes_list.html', competition=competition, competitors=competitors, ip=ip)
 
-@app.route('/competition/<int:competition_id>/votes/query')
+@bp.route('/competition/<int:competition_id>/votes/query')
 @roles_required('admin', 'scrutineer')
 def votes_query(competition_id):
     '''Query votes for a competition'''
@@ -144,7 +144,7 @@ def votes_query(competition_id):
     votes = get_votes_by_filters(competition_id, ip, status, competitor_id)
     return jsonify(success=True, votes=votes)
 
-@app.route('/competition/<int:competition_id>/votes/abandon/<int:vote_id>')
+@bp.route('/competition/<int:competition_id>/votes/abandon/<int:vote_id>')
 @roles_required('admin', 'scrutineer')
 def abandon_vote(competition_id, vote_id):
     '''Abandon a vote by id'''
@@ -157,7 +157,7 @@ def abandon_vote(competition_id, vote_id):
         return jsonify(success=True, message="Vote disabled successfully.")
     return jsonify(success=False, message="Vote not found or already abandoned."), 404
 
-@app.route('/competition/<int:competition_id>/votes/abandonbyids', methods=['POST'])
+@bp.route('/competition/<int:competition_id>/votes/abandonbyids', methods=['POST'])
 @roles_required('admin', 'scrutineer')
 def abandon_vote_batch(competition_id):
     '''Abandon votes by ids'''
@@ -179,7 +179,7 @@ def abandon_vote_batch(competition_id):
         return jsonify(success=True, message=f'You have successfully disabled {updated_count} votes')
     return jsonify(success=False, message="Votes not found or already disabled."), 404
 
-@app.route('/competition/<int:competition_id>/votes/abandonbyip/<string:ip>')
+@bp.route('/competition/<int:competition_id>/votes/abandonbyip/<string:ip>')
 @roles_required('admin', 'scrutineer')
 def abandon_vote_batch_by_ip(competition_id, ip):
     '''Abandon votes by ip'''
