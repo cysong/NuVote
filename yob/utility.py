@@ -56,7 +56,8 @@ def import_all_modules_from_directory(directory, package):
     # Get all Python files in the specified directory
     module_names = [
         os.path.basename(f)[:-3]
-        for f in glob.glob(os.path.join(directory, '[!__init__]*.py'))
+        for f in glob.glob(os.path.join(directory, '*.py'))
+        if os.path.basename(f) != '__init__.py'
     ]
 
     # Import all the files
