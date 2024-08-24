@@ -9,7 +9,7 @@ from yob.login_manage import roles_required
 from yob.repositories.users_repository import get_users, get_user_by_username, get_user_by_email, User, create_user
 from yob.utility import are_fields_present
 
-bp = Blueprint('users_mgmt', __name__)
+bp = Blueprint('users', "users")
 
 CREATE_USER_REQUIRED_FIELDS = ['username', 'email', 'password', 'password2', 'first_name', 'last_name', 'location']
 
@@ -76,7 +76,7 @@ def user_create():
                         request.form['role'])
             create_user(user)
             flash(f'{username} have successfully created!', 'success')
-            return redirect(url_for('users_mgmt'))
+            return redirect(url_for('users.users_mgmt'))
         else:
             # Form is empty (no POST data)
             flash('Please fill out the form!', 'danger')

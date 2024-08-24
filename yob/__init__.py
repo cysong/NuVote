@@ -22,6 +22,8 @@ app.secret_key = config.DEFAULT_SECRET_KEY
 
 from . import decorators, views
 
+from .users.routes import bp as users_bp
+app.register_blueprint(users_bp)
 
 # Create image upload directories and save to app
 
