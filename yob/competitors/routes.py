@@ -1,7 +1,7 @@
 import os
 from datetime import datetime
 
-from flask import render_template, g, request, jsonify, abort, redirect, url_for, flash
+from flask import Blueprint, render_template, g, request, jsonify, abort, redirect, url_for, flash
 
 from yob import app, config
 from yob.login_manage import roles_required
@@ -10,8 +10,9 @@ from yob.repositories.competitors_repository import get_competitor_by_id, get_co
     update_competitor, create_competitor, delete_competitor
 from yob.users.profile import allowed_file, get_hashed_filename, read_file_extension
 
+bp = Blueprint('competitors', __name__)
 
-@app.route('/competition/<int:competition_id>/competitors')
+@bp.route('/competition/<int:competition_id>/competitors')
 @roles_required('admin', 'scrutineer')
 def competitors_manage(competition_id):
     '''Display all competitors of a competition'''
@@ -23,7 +24,7 @@ def competitors_manage(competition_id):
                            can_edit=can_edit(competition))
 
 
-@app.route('/competitor/edit/<int:competitor_id>', methods=['GET', 'POST'])
+@bp.route('/competitor/edit/<int:competitor_id>', methods=['GET', 'POST'])
 @roles_required('admin')
 def competitor_edit(competitor_id):
     '''Edit a competitor'''
@@ -81,12 +82,12 @@ def competitor_edit(competitor_id):
         # Save competitor to the database
         update_competitor(competitor)
         flash('Competitor saved successfully.', 'success')
-        return redirect(url_for('competitors_manage', competition_id=competitor['competition_id']))
+        return redirect(url_for('competitors.competitors_manage', competition_id=competitor['competition_id']))
 
     return render_template('competitors/competitor_edit.html', competitor=competitor)
 
 
-@app.route('/competition/<int:competition_id>/competitor/new', methods=['GET', 'POST'])
+@bp.route('/competition/<int:competition_id>/competitor/new', methods=['GET', 'POST'])
 @roles_required('admin')
 def competitor_new(competition_id):
     '''Create a new competitor'''
@@ -142,11 +143,11 @@ def competitor_new(competition_id):
         # Save competitor to the database
         create_competitor(competitor)
         flash('Competitor saved successfully.', 'success')
-        return redirect(url_for('competitors_manage', competition_id=competition_id))
+        return redirect(url_for('competitors.competitors_manage', competition_id=competition_id))
     return render_template('competitors/competitor_edit.html', competitor=competitor)
 
 
-@app.route('/competitor/delete/<int:competitor_id>', methods=['DELETE'])
+@bp.route('/competitor/delete/<int:competitor_id>', methods=['DELETE'])
 @roles_required('admin')
 def competitor_delete(competitor_id):
     '''Delete a competitor'''
@@ -174,7 +175,7 @@ def competitor_delete(competitor_id):
     return jsonify({'success': True})
 
 
-@app.route('/competitor/view/<int:competitor_id>')
+@bp.route('/competitor/view/<int:competitor_id>')
 def competitor_view(competitor_id):
     '''View a competitor'''
     competitor = get_competitor_by_id(competitor_id)

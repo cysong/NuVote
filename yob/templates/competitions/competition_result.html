@@ -13,7 +13,7 @@
     {% if winner.vote_count > 0%}
     <!-- Winner display at the top -->
     <div class="winner-display text-center mb-5">
-        <div class="position-relative d-inline-block winner-image-container" onclick="window.location.href='{{ url_for('competitor_view', competitor_id=winner.competitor_id) }}'">
+        <div class="position-relative d-inline-block winner-image-container" onclick="window.location.href='{{ url_for('competitors.competitor_view', competitor_id=winner.competitor_id) }}'">
             <!-- Winner's image with moving background -->
             <div class="winner-image"></div>
         </div>
@@ -29,7 +29,7 @@
     <div class="row">
         {% for competitor in competitors %}
         <div class="col-lg-12 mb-4" data-competitor-id="{{competitor.competitor_id}}">
-            <div class="card competitor-card p-4 border-0 shadow-sm" style="cursor: pointer;" onclick="window.location.href='{{ url_for('competitor_view', competitor_id=competitor.competitor_id) }}'">
+            <div class="card competitor-card p-4 border-0 shadow-sm" style="cursor: pointer;" onclick="window.location.href='{{ url_for('competitors.competitor_view', competitor_id=competitor.competitor_id) }}'">
                 <div class="row align-items-center">
                     <!-- Competitor's image -->
                     <div class="col-md-2">

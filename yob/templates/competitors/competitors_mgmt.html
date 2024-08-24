@@ -22,7 +22,7 @@
     <div class="d-flex justify-content-end mb-3">
         <button type="button" class="btn btn-outline-success"
             {% if not can_edit %} disabled {% endif %}
-            onclick="window.location.href='{{ url_for('competitor_new', competition_id=competition.competition_id) }}'">
+            onclick="window.location.href='{{ url_for('competitors.competitor_new', competition_id=competition.competition_id) }}'">
             Add a Competitor
         </button>
     </div>
@@ -32,7 +32,7 @@
         {% for competitor in competitors %}
         <div class="list-group-item d-flex" data-competitor-id="{{competitor.competitor_id}}">
             <!-- Competitor Image with Link -->
-            <a href="{{ url_for('competitor_view', competitor_id=competitor.competitor_id) }}" class="d-block" style="width: 200px;">
+            <a href="{{ url_for('competitors.competitor_view', competitor_id=competitor.competitor_id) }}" class="d-block" style="width: 200px;">
                 <div class="position-relative" style="padding-top: 100%; overflow: hidden;">
                     <img src="{{ competitor.image }}" class="rounded position-absolute top-0 start-0 w-100 h-100" alt="{{ competitor.name }}" style="object-fit: cover;">
                 </div>
@@ -48,7 +48,7 @@
                 <!-- Action Buttons -->
                 {% if can_edit %}
                 <div class="text-end">
-                    <a href="{{ url_for('competitor_edit', competitor_id=competitor.competitor_id) }}" class="btn btn-link text-decoration-none">Edit</a>
+                    <a href="{{ url_for('competitors.competitor_edit', competitor_id=competitor.competitor_id) }}" class="btn btn-link text-decoration-none">Edit</a>
                     <button class="btn btn-link text-danger text-decoration-none" data-bs-toggle="modal" data-bs-target="#deleteModal" data-competitor-id="{{ competitor.competitor_id }}">Delete</button>
                 </div>
                 {% endif %}

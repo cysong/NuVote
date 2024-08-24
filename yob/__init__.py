@@ -26,6 +26,8 @@ from .users import bp as users_bp
 app.register_blueprint(users_bp)
 from .competitions import bp as competitions_bp
 app.register_blueprint(competitions_bp)
+from .competitors.routes import bp as competitors_bp
+app.register_blueprint(competitors_bp)
 
 # Create image upload directories and save to app
 

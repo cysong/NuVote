@@ -30,7 +30,7 @@
                             {% if role == 'admin' %}
                             <a href="{{ url_for('competitions.competition_edit', competition_id=competition.competition_id) }}"
                                class="btn btn-light text-decoration-none me-3 competition-edit">Edit</a>
-                            <a href="{{ url_for('competitors_manage', competition_id=competition.competition_id) }}"
+                            <a href="{{ url_for('competitors.competitors_manage', competition_id=competition.competition_id) }}"
                                class="btn btn-light text-decoration-none me-3 mange-competitors">Manage Competitors</a>
                             <form action="{{ url_for('competitions.competition_delete', competition_id=competition.competition_id) }}"
                                   method="POST" class="">
