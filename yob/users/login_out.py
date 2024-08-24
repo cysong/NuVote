@@ -15,7 +15,7 @@ def login():
 
     # Redirect to index if user is already logged in
     if 'loggedin' in session and session['loggedin']:
-        return redirect(url_for('index'))
+        return redirect(url_for('main.index'))
     
     # Handle POST request
     if request.method == 'POST':
@@ -34,7 +34,7 @@ def login():
                 if is_user_password_valid_by_username(username, user_password):
                     app.login_manager.login_user(user)
                     login_user(user)
-                    return redirect(url_for('index'))
+                    return redirect(url_for('main.index'))
 
             flash('Invalid username or password!', 'danger')
             return render_template('user/login.html', username=username)
@@ -67,4 +67,4 @@ def logout():
     session.pop('role', None)
     session.pop('status', None)
     session.pop('profile_image', None)
-    return redirect(url_for('index'))
+    return redirect(url_for('main.index'))

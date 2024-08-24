@@ -3,7 +3,7 @@ from datetime import datetime
 
 from flask import Blueprint, render_template, g, request, jsonify, abort, redirect, url_for, flash
 
-from yob import app, config
+from yob import config
 from yob.login_manage import roles_required
 from yob.repositories.competition_repository import get_competition_by_id
 from yob.repositories.competitors_repository import get_competitor_by_id, get_competitors_by_competition_id, \

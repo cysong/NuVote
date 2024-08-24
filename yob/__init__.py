@@ -28,6 +28,10 @@ from .competitions import bp as competitions_bp
 app.register_blueprint(competitions_bp)
 from .competitors.routes import bp as competitors_bp
 app.register_blueprint(competitors_bp)
+from .announcements import bp as announcements_bp
+app.register_blueprint(announcements_bp)
+from .main import bp as main_bp
+app.register_blueprint(main_bp)
 
 # Create image upload directories and save to app
 

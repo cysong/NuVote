@@ -45,7 +45,7 @@
                             </form>
                             {% endif %}
                             {% elif competition.status == 'on_going' %}
-                            <a href="{{ url_for('votes_scrutineering', competition_id=competition.competition_id) }}"
+                            <a href="{{ url_for('competitions.votes_scrutineering', competition_id=competition.competition_id) }}"
                                class="btn btn-light text-decoration-none me-3 view-votes">View Votes</a>
                             <form action="{{ url_for('competitions.competition_finished', competition_id=competition.competition_id) }}"
                                   method="POST">
@@ -59,7 +59,7 @@
                                 </button>
                             </form>
                             {% elif competition.status == 'finished' %}
-                            <a href="{{ url_for('votes_scrutineering', competition_id=competition.competition_id) }}"
+                            <a href="{{ url_for('competitions.votes_scrutineering', competition_id=competition.competition_id) }}"
                                class="btn btn-light text-decoration-none me-3 view-votes">View Votes</a>
                             <form action="{{ url_for('competitions.competition_approve', competition_id=competition.competition_id) }}"
                                   method="POST" class="">
@@ -73,7 +73,7 @@
                                 </button>
                             </form>
                             {% elif competition.status == 'approved' %}
-                            <a href="{{ url_for('votes_scrutineering', competition_id=competition.competition_id) }}"
+                            <a href="{{ url_for('competitions.votes_scrutineering', competition_id=competition.competition_id) }}"
                                class="btn btn-light text-decoration-none me-3 view-votes">View Votes</a>
                             {% endif %}
                         </div>

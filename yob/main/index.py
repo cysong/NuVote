@@ -5,10 +5,10 @@ from yob.repositories.announcements_repository import get_latest_active_announce
 from yob.repositories.competition_repository import get_latest_competitions
 from yob.repositories.users_repository import get_latest_voted_users
 from yob.utility import get_current_datetime
-
+from . import bp
 
 # Route for home page (supports both GET request)
-@app.route('/')
+@bp.route('/')
 def index():
     '''Show the index/home page'''
     latest_announcement = get_latest_active_announcement()

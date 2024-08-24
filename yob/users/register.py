@@ -19,7 +19,7 @@ def register():
 
     # Redirect to index if user is already logged in
     if 'loggedin' in session and session['loggedin']:
-        return redirect(url_for('index'))
+        return redirect(url_for('main.index'))
 
     if request.method == 'POST':
         form_data = request.form.to_dict()
@@ -70,7 +70,7 @@ def register():
             db_user = create_user(user)
             flash('You have successfully registered!', 'success')
             login_user(db_user)
-            return redirect(url_for('index'))
+            return redirect(url_for('main.index'))
         else:
             # Form is empty (no POST data)
             flash('Please fill out the form!', 'danger')

@@ -42,7 +42,7 @@
                                     {% if CURRENT_USER.role == 'admin' or CURRENT_USER.role == 'scrutineer' %}
                                         <li><a class="dropdown-item" href="{{url_for('users.users_mgmt')}}" onclick="enter_from_menu()">Manage Users</a></li>
                                         <li><a class="dropdown-item" href="{{url_for('competitions.competitions_mgmt')}}" onclick="enter_from_menu()">Manage Competitions</a></li>
-                                        <li><a class="dropdown-item" href="{{url_for('announcements_mgmt')}}" onclick="enter_from_menu()">Manage Announcements</a></li>
+                                        <li><a class="dropdown-item" href="{{url_for('announcements.announcements_mgmt')}}" onclick="enter_from_menu()">Manage Announcements</a></li>
                                     {% endif %}
                                     <li><hr class="dropdown-divider"></li>
                                     <li><a class="dropdown-item" href="{{ url_for('users.logout') }}" onclick="enter_from_menu()">Logout</a></li>
